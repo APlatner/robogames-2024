@@ -1,8 +1,8 @@
 class_name SuspensionPhysics
 extends Node3D
 
-var stiffness: float = 30
-var damping: float = 5
+var stiffness: float = 5
+var damping: float = 1
 
 var compressed_position: float = 1
 var extended_position: float = 0
@@ -15,12 +15,15 @@ var force: float = 0
 var previous_compression_amount: float
 
 func _physics_process(delta: float) -> void:
+
+
 	compression_amount = (extended_position - wheel.position.y) / (extended_position - compressed_position)
 
-	var velocity = -(compression_amount - previous_compression_amount) / delta
+	var velocity: = -(compression_amount - previous_compression_amount) / delta
 
 
 	force = compression_amount * stiffness - velocity * damping
+	print(force)
 
 	previous_compression_amount = compression_amount
 
