@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dprl3o8h4ljsf"]
+
+[ext_resource type="Script" path="res://tank/raycast_wheel.gd" id="1_fwe2a"]
+
+[node name="RaycastWheel" type="RayCast3D"]
+script = ExtResource("1_fwe2a")

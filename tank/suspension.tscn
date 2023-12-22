@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bc0j5rrlb1xqf"]
+
+[ext_resource type="Script" path="res://tank/suspension_physics.gd" id="1_6jlli"]
+[ext_resource type="PackedScene" uid="uid://dkrt5ipdgtgif" path="res://tank/wheel.tscn" id="2_iocnx"]
+
+[node name="Suspension" type="Node3D" node_paths=PackedStringArray("wheel")]
+script = ExtResource("1_6jlli")
+wheel = NodePath("Wheel")
+
+[node name="Wheel" parent="." instance=ExtResource("2_iocnx")]
+
+[connection signal="surface_hit" from="Wheel" to="." method="_on_wheel_surface_hit"]

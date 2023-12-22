@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://d3qux41xrps2"]
+
+[ext_resource type="Script" path="res://tank/physics.gd" id="1_ol57n"]
+[ext_resource type="PackedScene" uid="uid://bc0j5rrlb1xqf" path="res://tank/suspension.tscn" id="2_8xw0x"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4frkn"]
+size = Vector3(1, 0.5, 1.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ee3ug"]
+size = Vector3(4, 0.2, 4)
+
+[node name="Base" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 2, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("shocks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_ol57n")
+shocks = [NodePath("Suspension1"), NodePath("Suspension")]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CharacterBody3D"]
+size = Vector3(1, 0.5, 1.6)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("BoxShape3D_4frkn")
+
+[node name="Suspension1" parent="CharacterBody3D" instance=ExtResource("2_8xw0x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, -1, 0)
+
+[node name="Suspension" parent="CharacterBody3D" instance=ExtResource("2_8xw0x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, -1, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.838757, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StaticBody3D"]
+size = Vector3(4, 0.2, 4)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_ee3ug")

@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dkrt5ipdgtgif"]
+
+[ext_resource type="Script" path="res://tank/wheel_physics.gd" id="1_bbwdc"]
+
+[node name="Wheel" type="RayCast3D"]
+script = ExtResource("1_bbwdc")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+radius = 0.25
+height = 0.25
