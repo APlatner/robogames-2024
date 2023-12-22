@@ -16,16 +16,18 @@ var previous_compression_amount: float
 
 func _physics_process(delta: float) -> void:
 
+	if not wheel.is_colliding():
+		force = 0
+	else:
+		compression_amount = (extended_position - wheel.position.y) / (extended_position - compressed_position)
 
-	compression_amount = (extended_position - wheel.position.y) / (extended_position - compressed_position)
-
-	var velocity: = -(compression_amount - previous_compression_amount) / delta
+		var velocity: = -(compression_amount - previous_compression_amount) / delta
 
 
-	force = compression_amount * stiffness - velocity * damping
-	print(force)
+		force = compression_amount * stiffness - velocity * damping
 
-	previous_compression_amount = compression_amount
+		previous_compression_amount = compression_amount
+
 
 func _on_wheel_surface_hit(contact_point: Vector3) -> void:
 
