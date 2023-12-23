@@ -1,6 +1,5 @@
 extends CharacterBody3D
 
-
 @export var _linear_accel: float = 5
 @export var _angular_accel: float = 5
 
@@ -16,14 +15,13 @@ var _current_accel: Vector2
 var _pitch_angle: float
 var _pitch_speed: float
 var _pitch_accel: float
-var _pitch_stiffness: float = 1
+var _pitch_stiffness: float = 2
 var _pitch_damping: float = 7
-
 
 var _roll_angle: float
 var _roll_speed: float
 var _roll_accel: float
-var _roll_stiffness: float = 1
+var _roll_stiffness: float = 2
 var _roll_damping: float = 4
 
 func _physics_process(delta: float) -> void:
@@ -38,6 +36,19 @@ func _physics_process(delta: float) -> void:
 	_tilt()
 	_previous_linear_speed = _linear_speed
 	move_and_slide()
+
+	_wheels_up()
+
+func _wheels_up():
+	$Roll/Pitch/Suspension/LinkBL.handle_link_rotation(self, _pitch_angle)
+	$Roll/Pitch/Suspension/LinkBL._handle_spin(self)
+	$Roll/Pitch/Suspension/LinkBR.handle_link_rotation(self, _pitch_angle)
+	$Roll/Pitch/Suspension/LinkBR._handle_spin(self)
+	$Roll/Pitch/Suspension/LinkFR.handle_link_rotation(self, _pitch_angle)
+	$Roll/Pitch/Suspension/LinkFR._handle_spin(self)
+	$Roll/Pitch/Suspension/LinkFL.handle_link_rotation(self, _pitch_angle)
+	$Roll/Pitch/Suspension/LinkFL._handle_spin(self)
+
 
 func _handle_pitch(delta: float):
 	_pitch_accel = (
@@ -54,9 +65,11 @@ func _handle_pitch(delta: float):
 	_roll_speed += _roll_accel
 	_roll_angle += _roll_speed
 
+
 func _tilt():
 	$Roll.rotation_degrees = Vector3(0, 0, _roll_angle)
-	$Roll/CSGBox3D.rotation_degrees = Vector3(_pitch_angle, 0, 0)
+	$Roll/Pitch.rotation_degrees = Vector3(_pitch_angle, 0, 0)
+
 
 func _calc_accel():
 	_current_accel.x = _linear_speed * _angular_speed
