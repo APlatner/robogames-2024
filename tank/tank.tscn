@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjb4ac86unvck"]
+
+[ext_resource type="Script" path="res://tank/tank.gd" id="1_wmb4n"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1ot84"]
+
+[node name="Tank" type="CharacterBody3D"]
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+script = ExtResource("1_wmb4n")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_1ot84")
+
+[node name="Roll" type="Node3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Roll"]
