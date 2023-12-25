@@ -1,85 +1,24 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwainceojfqa6"]
+[gd_scene load_steps=7 format=3 uid="uid://bwainceojfqa6"]
 
-[ext_resource type="Script" path="res://path.gd" id="1_731da"]
 [ext_resource type="Script" path="res://pathgen.gd" id="1_e13bc"]
 [ext_resource type="Script" path="res://tracks/wheel.gd" id="2_ut2pe"]
+[ext_resource type="Script" path="res://treads.gd" id="4_2bhu8"]
 
 [sub_resource type="Curve3D" id="Curve3D_bt206"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_slfes"]
+
+[sub_resource type="MultiMesh" id="MultiMesh_mvixt"]
+transform_format = 1
+instance_count = 1
+mesh = SubResource("BoxMesh_slfes")
+buffer = PackedFloat32Array(5.32493e-44, 5.1848e-44, 5.88545e-44, 5.74532e-44, 5.32493e-44, 5.60519e-44, 5.46506e-44, 5.32493e-44, 5.74532e-44, 5.60519e-44, -1.34218e+08, -1.34218e+08)
 
 [node name="Node3D" type="Node3D"]
 
 [node name="Path3D" type="Path3D" parent="."]
 curve = SubResource("Curve3D_bt206")
 script = ExtResource("1_e13bc")
-
-[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-script = ExtResource("1_731da")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Path3D/PathFollow3D"]
-size = Vector3(1, 0.3, 1)
-
-[node name="PathFollow3D2" type="PathFollow3D" parent="Path3D"]
-script = ExtResource("1_731da")
-_offset = 0.1
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Path3D/PathFollow3D2"]
-size = Vector3(1, 0.3, 1)
-
-[node name="PathFollow3D3" type="PathFollow3D" parent="Path3D"]
-script = ExtResource("1_731da")
-_offset = 0.2
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Path3D/PathFollow3D3"]
-size = Vector3(1, 0.3, 1)
-
-[node name="PathFollow3D4" type="PathFollow3D" parent="Path3D"]
-script = ExtResource("1_731da")
-_offset = 0.3
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Path3D/PathFollow3D4"]
-size = Vector3(1, 0.3, 1)
-
-[node name="PathFollow3D5" type="PathFollow3D" parent="Path3D"]
-script = ExtResource("1_731da")
-_offset = 0.4
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Path3D/PathFollow3D5"]
-size = Vector3(1, 0.3, 1)
-
-[node name="PathFollow3D6" type="PathFollow3D" parent="Path3D"]
-script = ExtResource("1_731da")
-_offset = 0.5
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Path3D/PathFollow3D6"]
-size = Vector3(1, 0.3, 1)
-
-[node name="PathFollow3D7" type="PathFollow3D" parent="Path3D"]
-script = ExtResource("1_731da")
-_offset = 0.6
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Path3D/PathFollow3D7"]
-size = Vector3(1, 0.3, 1)
-
-[node name="PathFollow3D8" type="PathFollow3D" parent="Path3D"]
-script = ExtResource("1_731da")
-_offset = 0.7
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Path3D/PathFollow3D8"]
-size = Vector3(1, 0.3, 1)
-
-[node name="PathFollow3D9" type="PathFollow3D" parent="Path3D"]
-script = ExtResource("1_731da")
-_offset = 0.8
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Path3D/PathFollow3D9"]
-size = Vector3(1, 0.3, 1)
-
-[node name="PathFollow3D10" type="PathFollow3D" parent="Path3D"]
-script = ExtResource("1_731da")
-_offset = 0.9
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Path3D/PathFollow3D10"]
-size = Vector3(1, 0.3, 1)
 
 [node name="Objects" type="Node3D" parent="Path3D"]
 
@@ -123,3 +62,8 @@ height = 0.1
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
+
+[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+multimesh = SubResource("MultiMesh_mvixt")
+script = ExtResource("4_2bhu8")

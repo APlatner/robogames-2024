@@ -8,10 +8,18 @@ extends Path3D
 
 
 func _ready() -> void:
+	curve = Curve3D.new()
 	_generate_curve_points()
 
+func _process(delta: float) -> void:
+	_generate_curve_points()
+	wheel2.position.x += Input.get_axis('left', 'right') * delta * 2
+	wheel2.position.y += Input.get_axis('backward', 'forward') * delta * 2
+	rotate_y(delta)
+
+
 func _generate_curve_points():
-	curve = Curve3D.new()
+	curve.clear_points()
 	var l1 := wheel2.position - wheel1.position
 	var l2 := wheel3.position - wheel2.position
 	var l3 := wheel4.position - wheel3.position
@@ -68,7 +76,7 @@ func _generate_curve_points():
 	var g3 := -Vector3((g4 - wheel4.position).y, -(g4 - wheel4.position).x, 0) * s
 
 	var r4b := wheel4._radius * Vector3(cos(b + a), sin(b + a), 0)
-	var r1a := wheel1._radius * Vector3(cos(b + a), sin(b + a), 0)
+	var r1a := wheel1._radius * Vector3(cos(b - a), sin(b - a), 0)
 
 	var n4: float = 2 * PI / abs((b3 - a3) - (b + a))
 	var k4: float = 4.0 / 3.0 * tan(PI / 2 / n4)
@@ -82,25 +90,12 @@ func _generate_curve_points():
 	var t1a := Vector3(-r1a.y, r1a.x, 0) * k1
 	var t1b := -Vector3(-r1b.y, r1b.x, 0) * k1
 
-	curve.add_point(p1b)
-	curve.add_point(p2a, Vector3.ZERO, t2a)
-	curve.add_point(p2b, t2b)
-	curve.add_point(p3a, Vector3.ZERO, t3a)
-	curve.add_point(p3b, t3b)
-	curve.add_point(p4a, Vector3.ZERO, t4a)
-	curve.add_point(g4, t4b, g3)
-	curve.add_point(g1, g2, t1a)
-	curve.add_point(p1b, t1b)
-
-	#var center = $Objects/Idle1.position
-	#var radius = ($Objects/Idle1 as Wheel)._radius
-	#var a := -0.5
-	#var b := 2.0
-	#var n: float = 2 * PI / abs(a - b)
-	#var k: float = (4.0 / 3.0) * tan(PI / (2 * n)) * radius
-	#var p0: Vector3  = center + radius * Vector3(cos(a), sin(a), 0)
-	#var p1: Vector3 =  k * Vector3(-sin(a), cos(a), 0)
-	#var p3: Vector3  = center + radius * Vector3(cos(b), sin(b), 0)
-	#var p2: Vector3 =  - k * Vector3(-sin(b), cos(b), 0)
-	#curve.add_point(p0,Vector3.ZERO, p1)
-	#curve.add_point(p3, p2)
+	curve.add_point(to_global(p1b))
+	curve.add_point(to_global(p2a), to_global(Vector3.ZERO), to_global(t2a))
+	curve.add_point(to_global(p2b), to_global(t2b))
+	curve.add_point(to_global(p3a), to_global(Vector3.ZERO), to_global(t3a))
+	curve.add_point(to_global(p3b), to_global(t3b))
+	curve.add_point(to_global(p4a), to_global(Vector3.ZERO), to_global(t4a))
+	curve.add_point(to_global(g4), to_global(t4b), to_global(g3))
+	curve.add_point(to_global(g1), to_global(g2), to_global(t1a))
+	curve.add_point(to_global(p1b), to_global(t1b))

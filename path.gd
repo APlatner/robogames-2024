@@ -8,4 +8,4 @@ func _process(delta: float) -> void:
 	if not is_set:
 		progress_ratio = _offset
 		is_set = true
-	progress_ratio -= delta/2
+	progress_ratio -= delta/8
