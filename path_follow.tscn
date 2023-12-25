@@ -6,19 +6,23 @@
 
 [sub_resource type="Curve3D" id="Curve3D_bt206"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_slfes"]
+[sub_resource type="BoxMesh" id="BoxMesh_nixt2"]
 
 [sub_resource type="MultiMesh" id="MultiMesh_mvixt"]
 transform_format = 1
 instance_count = 1
-mesh = SubResource("BoxMesh_slfes")
-buffer = PackedFloat32Array(5.32493e-44, 5.1848e-44, 5.88545e-44, 5.74532e-44, 5.32493e-44, 5.60519e-44, 5.46506e-44, 5.32493e-44, 5.74532e-44, 5.60519e-44, -1.34218e+08, -1.34218e+08)
+mesh = SubResource("BoxMesh_nixt2")
+buffer = PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.34218e+08, -1.34218e+08)
 
 [node name="Node3D" type="Node3D"]
 
-[node name="Path3D" type="Path3D" parent="."]
+[node name="Path3D" type="Path3D" parent="." node_paths=PackedStringArray("rear_driver", "rear_idler", "front_idler", "front_driver")]
 curve = SubResource("Curve3D_bt206")
 script = ExtResource("1_e13bc")
+rear_driver = NodePath("Objects/Driver1")
+rear_idler = NodePath("Objects/Idle2")
+front_idler = NodePath("Objects/Idle1")
+front_driver = NodePath("Objects/Driver2")
 
 [node name="Objects" type="Node3D" parent="Path3D"]
 
@@ -63,7 +67,8 @@ height = 0.1
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
 
-[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="."]
+[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="." node_paths=PackedStringArray("path3d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 multimesh = SubResource("MultiMesh_mvixt")
 script = ExtResource("4_2bhu8")
+path3d = NodePath("../Path3D")

@@ -3,6 +3,8 @@ extends CharacterBody3D
 @export var _linear_accel: float = 5
 @export var _angular_accel: float = 5
 
+@export var _suspension_links: Array[SuspensionArm]
+
 const MAX_LINEAR_SPEED: float = 5
 const MAX_ANGULAR_SPEED: float = 5
 
@@ -15,14 +17,14 @@ var _current_accel: Vector2
 var _pitch_angle: float
 var _pitch_speed: float
 var _pitch_accel: float
-var _pitch_stiffness: float = 2
-var _pitch_damping: float = 7
+var _pitch_stiffness: float = 3
+var _pitch_damping: float = 9
 
 var _roll_angle: float
 var _roll_speed: float
 var _roll_accel: float
-var _roll_stiffness: float = 2
-var _roll_damping: float = 4
+var _roll_stiffness: float = 3
+var _roll_damping: float = 6
 
 func _physics_process(delta: float) -> void:
 	var target_linear_speed = Input.get_axis('backward', 'forward') * MAX_LINEAR_SPEED
@@ -40,14 +42,12 @@ func _physics_process(delta: float) -> void:
 	_wheels_up()
 
 func _wheels_up():
-	$Roll/Pitch/Suspension/LinkBL.handle_link_rotation(self, _pitch_angle)
-	$Roll/Pitch/Suspension/LinkBL._handle_spin(self)
-	$Roll/Pitch/Suspension/LinkBR.handle_link_rotation(self, _pitch_angle)
-	$Roll/Pitch/Suspension/LinkBR._handle_spin(self)
-	$Roll/Pitch/Suspension/LinkFR.handle_link_rotation(self, _pitch_angle)
-	$Roll/Pitch/Suspension/LinkFR._handle_spin(self)
-	$Roll/Pitch/Suspension/LinkFL.handle_link_rotation(self, _pitch_angle)
-	$Roll/Pitch/Suspension/LinkFL._handle_spin(self)
+	for link in _suspension_links:
+		link.handle_link_rotation(self, _pitch_angle)
+		link._handle_spin(self)
+
+	$LeftTreadInstancer.speed = _linear_speed - _angular_speed * 0.91
+	$RightTreadInstancer.speed = _linear_speed + _angular_speed * 0.91
 
 
 func _handle_pitch(delta: float):
