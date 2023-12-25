@@ -46,7 +46,7 @@ func _wheels_up():
 		link.handle_link_rotation(self, _pitch_angle)
 		link._handle_spin(self)
 
-	$LeftTreadInstancer.speed = _linear_speed - _angular_speed * 0.91
+	$LeftTreadInstancer.speed = _linear_speed - _angular_speed * 0.91 - _pitch_speed * 2.1
 	$RightTreadInstancer.speed = _linear_speed + _angular_speed * 0.91
 
 
