@@ -1,9 +1,9 @@
 class_name SuspensionArm
 extends Node3D
 
-@onready var _wheel := get_child(0) as Node3D
+@onready var _wheel: Wheel = get_child(0)
 @export var _sign: int = 1
-@export var _radius: float
+#@export var _radius: float
 @export var _offset_degrees: float
 
 var _length: float
@@ -24,7 +24,7 @@ func _handle_spin(root_node: Node3D):
 	var movement_vector: Vector3 = _wheel.global_position - _previous_wheel_position
 	var movement_amount = root_node.basis.z.dot(movement_vector)
 	var angular_velocity: float = _angle - _previous_angle
-	_wheel.rotate_x(movement_amount/_radius - angular_velocity)
+	_wheel.rotate_x(movement_amount/_wheel._radius - angular_velocity)
 	#print(movement_amount)
 	_previous_wheel_position =_wheel.global_position
 	_previous_angle = _angle
@@ -35,9 +35,9 @@ func handle_link_rotation(root_node: Node3D, pitch_angle: float):
 	var p = root_node.to_local(global_position).y
 	var d = -0.76 - 0.24
 	if _sign == 1:
-		_angle =  PI - asin((d-p+_radius)/_length) - deg_to_rad(pitch_angle)
+		_angle =  PI - asin((d-p+_wheel._radius)/_length) - deg_to_rad(pitch_angle)
 	else:
-		_angle =  asin((d-p+_radius)/_length) - deg_to_rad(pitch_angle)
+		_angle =  asin((d-p+_wheel._radius)/_length) - deg_to_rad(pitch_angle)
 
 	_angle += deg_to_rad(_offset_degrees)
 	#print('p.y: ', p, ', d: ', d, ', a: ', angle)

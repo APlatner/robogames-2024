@@ -69,7 +69,7 @@ func _generate_curve_points():
 	var p3b := to_local(front_idler.global_position) + r3b
 	var p4a := to_local(front_driver.global_position) + r4a
 
-	var a: float = 0.2
+	var a: float = 0.3
 	var b: float = -atan2(l4.z, l4.y)
 
 	var s := 4 * sqrt(a)
