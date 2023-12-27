@@ -68,7 +68,6 @@ height = 0.1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
 
 [node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="." node_paths=PackedStringArray("path3d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 multimesh = SubResource("MultiMesh_mvixt")
 script = ExtResource("4_2bhu8")
 path3d = NodePath("../Path3D")

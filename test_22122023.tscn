@@ -1,12 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://cvmyg5b0tv7nj"]
+[gd_scene load_steps=2 format=3 uid="uid://cvmyg5b0tv7nj"]
 
-[ext_resource type="PackedScene" uid="uid://76ui33em0dv2" path="res://tank/tank_v2.tscn" id="2_a0y3t"]
-[ext_resource type="PackedScene" uid="uid://wcagc624mlvo" path="res://blender/tank.blend" id="3_tuqfi"]
+[ext_resource type="PackedScene" uid="uid://ci6d5ncjviwta" path="res://tank/tank_v3.tscn" id="2_j23fu"]
 
 [node name="Node3D" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.970851, 0.239686, 0, -0.239686, 0.970851, 0, 0.624919, 8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.624919, 8)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.501425, -0.847195, -0.175596, 0.617819, 0.208522, 0.758168, -0.605701, -0.488651, 0.627971, 0, 2, 0)
@@ -16,8 +15,4 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 size = Vector3(30, 1, 30)
 
-[node name="tank" parent="." instance=ExtResource("2_a0y3t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.07, 0)
-
-[node name="tank2" parent="." instance=ExtResource("3_tuqfi")]
-visible = false
+[node name="Tank" parent="." instance=ExtResource("2_j23fu")]

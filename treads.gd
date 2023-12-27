@@ -6,13 +6,15 @@ var offset :float= 0
 
 var speed = 0
 
+var count: int
+var curve_space: float = 0.21
+
 func _ready() -> void:
 	pass
 
 func _process(delta: float) -> void:
-	var curve_space: float = 0.21
+	count = floori(path3d.curve.get_baked_length() / curve_space)
 	offset -= delta * speed
-	var count = floori(path3d.curve.get_baked_length() / curve_space)
 	multimesh.instance_count = count
 
 	for i in count:

@@ -33,7 +33,7 @@ func _handle_spin(root_node: Node3D):
 
 func handle_link_rotation(root_node: Node3D, pitch_angle: float):
 	var p = root_node.to_local(global_position).y
-	var d = -0.76 - 0.24
+	var d = 0.06
 	if _sign == 1:
 		_angle =  PI - asin((d-p+_wheel._radius)/_length) - deg_to_rad(pitch_angle)
 	else:

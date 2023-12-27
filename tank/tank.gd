@@ -38,16 +38,23 @@ func _physics_process(delta: float) -> void:
 	_tilt()
 	_previous_linear_speed = _linear_speed
 	move_and_slide()
-
 	_wheels_up()
+	if Input.is_action_just_pressed('ui_accept'):
+		_pitch_speed = -sin(rotation.y) * 3
+		_roll_speed = cos(rotation.y) * 3
+
 
 func _wheels_up():
 	for link in _suspension_links:
 		link.handle_link_rotation(self, _pitch_angle)
 		link._handle_spin(self)
 
-	$LeftTreadInstancer.speed = _linear_speed - _angular_speed * 0.91 - _pitch_speed * 2.1
-	$RightTreadInstancer.speed = _linear_speed + _angular_speed * 0.91
+	$LeftTreadInstance.speed = _linear_speed - _angular_speed * 0.91
+	$LeftTreadPath.a = abs(_pitch_angle) * 0.02 - _roll_angle * 0.01 + 0.3
+	$RightTreadInstance.speed = (
+		_linear_speed +
+		_angular_speed * 0.91)
+	$RightTreadPath.a = abs(_pitch_angle) * 0.02 + _roll_angle * 0.01 + 0.3
 
 
 func _handle_pitch(delta: float):
