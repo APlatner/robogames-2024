@@ -8,8 +8,6 @@ extends Path3D
 
 var a: float = 0
 
-
-
 func _ready() -> void:
 	curve = Curve3D.new()
 	_generate_curve_points()

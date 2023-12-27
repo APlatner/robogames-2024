@@ -1688,7 +1688,7 @@ script = ExtResource("3_mp1qy")
 _radius = 0.25
 
 [node name="LeftRearShock" type="MeshInstance3D" parent="Roll/Pitch/Chassis" node_paths=PackedStringArray("target")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.82, 0.925183, 0.115183)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.82, 0.925183, -0.584817)
 mesh = SubResource("ArrayMesh_corvy")
 skeleton = NodePath("")
 script = ExtResource("7_7u3r5")
@@ -1782,7 +1782,7 @@ script = ExtResource("3_mp1qy")
 _radius = 0.25
 
 [node name="RightRearShock" type="MeshInstance3D" parent="Roll/Pitch/Chassis" node_paths=PackedStringArray("target")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.82, 0.925183, 0.115183)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.82, 0.925183, -0.584817)
 mesh = SubResource("ArrayMesh_x25lj")
 skeleton = NodePath("")
 script = ExtResource("7_7u3r5")
