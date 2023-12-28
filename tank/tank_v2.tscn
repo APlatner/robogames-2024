@@ -1,11 +1,15 @@
-[gd_scene load_steps=119 format=3 uid="uid://76ui33em0dv2"]
+[gd_scene load_steps=123 format=3 uid="uid://76ui33em0dv2"]
 
 [ext_resource type="Script" path="res://tank/suspension_arm.gd" id="2_61827"]
 [ext_resource type="Script" path="res://tank/tank.gd" id="2_cn8we"]
 [ext_resource type="Script" path="res://pathgen.gd" id="2_lcsk6"]
 [ext_resource type="ArrayMesh" uid="uid://iqaf8kw1fgve" path="res://blender/tread.obj" id="3_460ku"]
+[ext_resource type="AudioStream" uid="uid://blq1trsu2jbdq" path="res://sounds/tank_engine_full_speed.wav" id="3_a7uic"]
 [ext_resource type="Script" path="res://tracks/wheel.gd" id="3_wis7u"]
+[ext_resource type="AudioStream" uid="uid://ce22h45w0b0wv" path="res://sounds/tank_engine_rev_up.wav" id="4_whmap"]
 [ext_resource type="Script" path="res://treads.gd" id="5_4r3cf"]
+[ext_resource type="AudioStream" uid="uid://dk20xnlffwigh" path="res://sounds/tank_engine_rev_down.wav" id="5_8ljyo"]
+[ext_resource type="AudioStream" uid="uid://cphoiwbu14ku2" path="res://sounds/tank_engine_idle.wav" id="7_ntkr6"]
 
 [sub_resource type="Curve3D" id="Curve3D_n5dsw"]
 
@@ -1250,6 +1254,10 @@ shadow_mesh = SubResource("ArrayMesh_nvmmp")
 [node name="Tank" type="CharacterBody3D" node_paths=PackedStringArray("_suspension_links")]
 script = ExtResource("2_cn8we")
 _suspension_links = [NodePath("Roll/Pitch/Chassis/LeftRearSuspensionArm"), NodePath("Roll/Pitch/Chassis/LeftFrontSuspensionArm"), NodePath("Roll/Pitch/Chassis/RightFrontSuspensionArm"), NodePath("Roll/Pitch/Chassis/RightRearSuspensionArm")]
+_engine_idle = ExtResource("7_ntkr6")
+_engine_full_speed = ExtResource("3_a7uic")
+_engine_rev_up = ExtResource("4_whmap")
+_engine_rev_down = ExtResource("5_8ljyo")
 
 [node name="LeftTreadCurve" type="Path3D" parent="." node_paths=PackedStringArray("rear_driver", "rear_idler", "front_idler", "front_driver")]
 curve = SubResource("Curve3D_n5dsw")
@@ -1499,3 +1507,19 @@ skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_sbaww")
+
+[node name="LeftAudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("7_ntkr6")
+volume_db = -6.0
+
+[node name="RightAudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("7_ntkr6")
+volume_db = -6.0
+
+[node name="LeftRevAudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("7_ntkr6")
+volume_db = -6.0
+
+[node name="RightRevAudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("7_ntkr6")
+volume_db = -6.0
