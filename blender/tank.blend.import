@@ -29,7 +29,34 @@ animation/fps=30
 animation/trimming=false
 animation/remove_immutable_tracks=true
 import_script/path=""
-_subresources={}
+_subresources={
+"materials": {
+"BlackPlastic": {
+"use_external/enabled": true,
+"use_external/path": "res://blender/BlackPlastic.tres"
+},
+"Gray": {
+"use_external/enabled": true,
+"use_external/path": "res://blender/Gray.tres"
+},
+"Rubber": {
+"use_external/enabled": true,
+"use_external/path": "res://blender/Rubber.tres"
+},
+"Shiny": {
+"use_external/enabled": true,
+"use_external/path": "res://blender/Shiny.tres"
+},
+"WhitePlastic": {
+"use_external/enabled": true,
+"use_external/path": "res://blender/WhitePlastic.tres"
+},
+"Yellow": {
+"use_external/enabled": true,
+"use_external/path": "res://blender/Yellow.tres"
+}
+}
+}
 gltf/naming_version=1
 gltf/embedded_image_handling=1
 blender/nodes/visible=0

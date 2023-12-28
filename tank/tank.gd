@@ -26,6 +26,12 @@ var _roll_accel: float
 var _roll_stiffness: float = 3
 var _roll_damping: float = 6
 
+var _bounce_height: float
+var _bounce_speed: float
+var _bounce_accel: float
+var _bounce_stiffness: float = 6
+var _bounce_damping: float = 12
+
 func _physics_process(delta: float) -> void:
 	var target_linear_speed = Input.get_axis('backward', 'forward') * MAX_LINEAR_SPEED
 	var target_angular_speed = -Input.get_axis('left', 'right') * MAX_ANGULAR_SPEED
@@ -33,32 +39,32 @@ func _physics_process(delta: float) -> void:
 	_angular_speed = _handle_any_accel(_angular_speed, target_angular_speed, _angular_accel * delta, MAX_ANGULAR_SPEED)
 	velocity = _linear_speed * global_basis.z
 	rotate(transform.basis.y, _angular_speed * delta)
+	position.y = _bounce_height
 	_calc_accel()
 	_handle_pitch(delta)
 	_tilt()
 	_previous_linear_speed = _linear_speed
 	_wheels_up()
 	move_and_slide()
-	#if Input.is_action_just_pressed('ui_accept'):
-		#_pitch_speed = -sin(rotation.y) * 3
-		#_roll_speed = cos(rotation.y) * 3
+	if Input.is_action_just_pressed('shoot'):
+		_bounce_speed = -0.05
 
 
 func _wheels_up():
 	for link in _suspension_links:
 		link.handle_link_rotation(self, _pitch_angle)
-		link._handle_spin(self)
+		#link._handle_spin(self)
 
 	$LeftTreadInstance.speed = (
 		_linear_speed -
 		_angular_speed * 0.91 +
 		_pitch_speed * -1 * 0.17 * (PI-sin(_pitch_angle)))
-	$LeftTreadPath.a = abs(_pitch_angle) * 0.02 - _roll_angle * 0.012 + 0.3
+	$LeftTreadPath.a = abs(_pitch_angle) * 0.02 - _roll_angle * 0.012 + 0.3 - position.y * 1.5
 	$RightTreadInstance.speed = (
 		_linear_speed +
 		_angular_speed * 0.91 +
 		_pitch_speed * -1 * 0.17 * (PI-sin(_pitch_angle)))
-	$RightTreadPath.a = abs(_pitch_angle) * 0.02 + _roll_angle * 0.012 + 0.3
+	$RightTreadPath.a = abs(_pitch_angle) * 0.02 + _roll_angle * 0.012 + 0.3 - position.y * 1.5
 
 
 func _handle_pitch(delta: float):
@@ -75,6 +81,12 @@ func _handle_pitch(delta: float):
 		_current_accel.x / 55)
 	_roll_speed += _roll_accel
 	_roll_angle += _roll_speed
+
+	_bounce_accel = (
+		-_bounce_height * _bounce_stiffness * delta -
+		_bounce_speed * _bounce_damping * delta)
+	_bounce_speed += _bounce_accel
+	_bounce_height += _bounce_speed
 
 
 func _tilt():
