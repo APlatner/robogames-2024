@@ -31,17 +31,17 @@ var _roll_accel: float
 var _roll_stiffness: float = 3
 var _roll_damping: float = 6
 
-enum EngineState {
-	IDLE,
-	REV_UP,
-	REV_DOWN,
-	FULL_SPEED,
-}
+#enum EngineState {
+#	IDLE,
+#	REV_UP,
+#	REV_DOWN,
+#	FULL_SPEED,
+#}
 
-var _left_engine_state = IDLE
-var _left_prev_engine_state = IDLE
-var _right_engine_state = IDLE
-var _right_prev_engine_state = IDLE
+#var _left_engine_state = IDLE
+#var _left_prev_engine_state = IDLE
+#var _right_engine_state = IDLE
+#var _right_prev_engine_state = IDLE
 
 func _ready() -> void:
 	$LeftAudioStreamPlayer3D.stream = _engine_idle
@@ -58,7 +58,6 @@ func _process(_delta: float) -> void:
 	var horizontal_input = Input.get_axis("left", "right")
 
 	if forward_input == 0.0 and horizontal_input == 0.0:
-		_left_engine_state = IDLE
 		if left_audio.stream == _engine_full_speed and left_audio.playing:
 			left_rev_audio.play()
 			left_audio.stop()

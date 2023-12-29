@@ -1251,9 +1251,10 @@ shadow_mesh = SubResource("ArrayMesh_nvmmp")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sbaww"]
 
-[node name="Tank" type="CharacterBody3D" node_paths=PackedStringArray("_suspension_links")]
+[node name="Tank" type="CharacterBody3D"]
 script = ExtResource("2_cn8we")
-_suspension_links = [NodePath("Roll/Pitch/Chassis/LeftRearSuspensionArm"), NodePath("Roll/Pitch/Chassis/LeftFrontSuspensionArm"), NodePath("Roll/Pitch/Chassis/RightFrontSuspensionArm"), NodePath("Roll/Pitch/Chassis/RightRearSuspensionArm")]
+_linear_accel = null
+_angular_accel = null
 _engine_idle = ExtResource("7_ntkr6")
 _engine_full_speed = ExtResource("3_a7uic")
 _engine_rev_up = ExtResource("4_whmap")
