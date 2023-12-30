@@ -2,13 +2,15 @@
 
 
 ## The math behind the caterpillar tracks
+Use this desmos graph as a visual guide.
+https://www.desmos.com/calculator/gmqopyulte
 ### Setup
 The caterpillar tracks move along a Path3D node's curve. There are four rollers with positions $\vec{p_1}, \vec{p_2}, \vec{p_3}, \vec{p_4}$ and radii $r_1, r_2, r_3, r_4$ used to define the curve control points.\
 Additionally, there is a parameter $q$ which controls how much the curve droops betweem the top two rollers.\
 
 ### Computing the control points
 First, compute the vectors $\vec{l_i}$ by subtracting the rollers' positions.
-$$\vec{l_i} = \vec{p_{i+1}} - \vec{p_i} $$
+$$\vec{l_i} = \vec{p}_{i+1} - \vec{p_i} $$
 $$so$$
 $$\vec{l_1} = \vec{p_2} - \vec{p_1} $$
 $$\vec{l_2} = \vec{p_3} - \vec{p_2} $$
@@ -78,3 +80,25 @@ $$\vec{f_3} = k_3 \langle 0, -\vec{u_3}.z, \vec{u_3}.y \rangle$$
 $$\vec{g_3} = k_3 \langle 0, \vec{v_3}.z, -\vec{v_3}.y \rangle$$
 $$\vec{f_4} = k_4 \langle 0, -\vec{u_4}.z, \vec{u_4}.y \rangle$$
 $$\vec{g_4} = k_4 \langle 0, \vec{v_4}.z, -\vec{v_4}.y \rangle$$
+
+
+Compute the bezier control point world positions $\vec{a_i}, \vec{b_i}, \vec{c_i}, \vec{d_i}$.\
+Note: in Godot, the tangent vectors $\vec{b_i}$ and $\vec{c_i}$ are local to their respective control points and do not need $\vec{a_i}$ and $\vec{d_i}$ added to them.
+$$\vec{a_i} = \vec{u_i} + \vec{p_i}$$
+$$\vec{b_i} = \vec{a_i} + \vec{f_i}$$
+$$\vec{d_i} = \vec{v_i} + \vec{p_i}$$
+$$\vec{c_i} = \vec{d_i} + \vec{g_i}$$
+
+#### Droop handles
+Let the tangent handle scale $s=6\sqrt{q}$. This equation is completely made up and just helps keep the droop curve somewhat believable in shape.
+
+Let the local droop tangent positions be
+$$\vec{h_1} = -s\vec{f_1}$$
+$$and$$
+$$\vec{h_4} = -s\vec{g_4}$$
+
+Let the global droop tangent positions be
+$$\vec{w_1} = \vec{a_1} + \vec{h_1}$$
+$$and$$
+$$\vec{w_4} = \vec{d_4} + \vec{h_4}$$
+Note: again, in Godot, the tangent vectors $\vec{h_1}$ and $\vec{h_4}$ are local to their respective control points and do not need further modification.
