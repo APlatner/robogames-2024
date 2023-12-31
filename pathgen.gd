@@ -8,15 +8,14 @@ extends Path3D
 
 var a: float = 0
 
+
 func _ready() -> void:
 	curve = Curve3D.new()
 	_generate_curve_points()
 
+
 func _process(delta: float) -> void:
 	_generate_curve_points()
-	#rear_idler.position.x += Input.get_axis('left', 'right') * delta * 2
-	#rear_idler.position.y += Input.get_axis('backward', 'forward') * delta * 2
-	#rotate_y(delta)
 
 
 func _generate_curve_points():
@@ -48,8 +47,8 @@ func _generate_curve_points():
 	var n2 := 2 * PI / ((b1 - a1) - (b2 - a2))
 	var k2 := 4.0 / 3.0 * tan(PI / 2 / n2)
 
-	var t2a := -Vector3(-r2a.y, r2a.z, 0) * k2
-	var t2b := Vector3(-r2b.y, r2b.z, 0) * k2
+	var t2a := -Vector3(0, r2a.z, -r2a.y) * k2
+	var t2b := Vector3(0, r2b.z, -r2b.y) * k2
 
 	var p2b := to_local(rear_idler.global_position) + r2b
 	var p3a := to_local(front_idler.global_position) + r3a
