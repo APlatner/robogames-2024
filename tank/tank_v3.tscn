@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cvgh8lio8dm6c"]
+[gd_scene load_steps=15 format=3 uid="uid://cvgh8lio8dm6c"]
 
 [ext_resource type="Script" path="res://tank/tank.gd" id="1_rjh6g"]
 [ext_resource type="ArrayMesh" uid="uid://iqaf8kw1fgve" path="res://blender/tread.obj" id="2_luqpq"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://treads.gd" id="3_teo6m"]
 [ext_resource type="Script" path="res://tank/caterpillar_track_curve.gd" id="4_4cygh"]
 [ext_resource type="Script" path="res://tank/physics_response.gd" id="6_725ia"]
+[ext_resource type="Script" path="res://tank/damped_spring_parameters.gd" id="7_v02t2"]
 [ext_resource type="PackedScene" uid="uid://wcagc624mlvo" path="res://blender/tank.blend" id="8_pv3sg"]
 
 [sub_resource type="MultiMesh" id="MultiMesh_gutwf"]
@@ -15,6 +16,30 @@ mesh = ExtResource("2_luqpq")
 [sub_resource type="MultiMesh" id="MultiMesh_4mp2r"]
 transform_format = 1
 mesh = ExtResource("2_luqpq")
+
+[sub_resource type="Resource" id="Resource_r88oj"]
+script = ExtResource("7_v02t2")
+position = 0.0
+velocity = 0.0
+acceleration = 0.0
+stiffness = 3.0
+damping = 9.0
+
+[sub_resource type="Resource" id="Resource_3bklq"]
+script = ExtResource("7_v02t2")
+position = 0.0
+velocity = 0.0
+acceleration = 0.0
+stiffness = 3.0
+damping = 6.0
+
+[sub_resource type="Resource" id="Resource_aclv4"]
+script = ExtResource("7_v02t2")
+position = 0.0
+velocity = 0.0
+acceleration = 0.0
+stiffness = 6.0
+damping = 12.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1g14f"]
 size = Vector3(2.1, 1.4, 2.5)
@@ -44,6 +69,9 @@ _side = "Right"
 
 [node name="Roll" type="Node3D" parent="."]
 script = ExtResource("6_725ia")
+_pitch_damped_spring = SubResource("Resource_r88oj")
+_roll_damped_spring = SubResource("Resource_3bklq")
+_z_damped_spring = SubResource("Resource_aclv4")
 
 [node name="Pitch" type="Node3D" parent="Roll"]
 
@@ -52,3 +80,6 @@ script = ExtResource("6_725ia")
 [node name="Collider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 shape = SubResource("BoxShape3D_1g14f")
+
+[connection signal="linear_accel_changed" from="." to="Roll" method="_on_root_linear_accel_changed"]
+[connection signal="linear_speed_changed" from="." to="Roll" method="_on_root_linear_speed_changed"]
