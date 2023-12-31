@@ -1253,6 +1253,8 @@ shadow_mesh = SubResource("ArrayMesh_nvmmp")
 
 [node name="Tank" type="CharacterBody3D" node_paths=PackedStringArray("_suspension_links")]
 script = ExtResource("2_cn8we")
+_linear_accel = null
+_angular_accel = null
 _suspension_links = [NodePath("Roll/Pitch/Chassis/LeftRearSuspensionArm"), NodePath("Roll/Pitch/Chassis/LeftFrontSuspensionArm"), NodePath("Roll/Pitch/Chassis/RightFrontSuspensionArm"), NodePath("Roll/Pitch/Chassis/RightRearSuspensionArm")]
 
 [node name="LeftTreadCurve" type="Path3D" parent="." node_paths=PackedStringArray("rear_driver", "rear_idler", "front_idler", "front_driver")]
@@ -1504,14 +1506,16 @@ skeleton = NodePath("")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_sbaww")
 
-[node name="EngineIdleAudio" type="AudioStreamPlayer3D" parent="."]
+[node name="EngineAudio" type="Node3D" parent="."]
+
+[node name="Idle" type="AudioStreamPlayer3D" parent="EngineAudio"]
 stream = ExtResource("7_55ryi")
 
-[node name="EngineFullSpeedAudio" type="AudioStreamPlayer3D" parent="."]
+[node name="FullSpeed" type="AudioStreamPlayer3D" parent="EngineAudio"]
 stream = ExtResource("8_llyos")
 
-[node name="EngineRevUpAudio" type="AudioStreamPlayer3D" parent="."]
+[node name="RevUp" type="AudioStreamPlayer3D" parent="EngineAudio"]
 stream = ExtResource("4_whmap")
 
-[node name="EngineRevDownAudio" type="AudioStreamPlayer3D" parent="."]
+[node name="RevDown" type="AudioStreamPlayer3D" parent="EngineAudio"]
 stream = ExtResource("5_8ljyo")
