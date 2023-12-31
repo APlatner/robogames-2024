@@ -1,10 +1,15 @@
+class_name Shock
 extends Node3D
 
 var base_length: float = 0.48
-@export var target: Node3D
+var target: SuspensionArm
 
-func _process(delta: float) -> void:
-	var to := to_local(target.global_position)
+func _ready() -> void:
+	var target_path := name.split("Shock")[0] + "SuspensionArm"
+	target = get_parent().get_node(target_path)
+
+func _process(_delta: float) -> void:
+	var to := to_local(target.global_offset)
 	to.x = 0
 	var rot = atan2(to.z, to.y) + rotation.x + PI/2
 	rotation.x = rot

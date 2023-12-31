@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bwainceojfqa6"]
 
 [ext_resource type="Script" path="res://tank/caterpillar_track_curve.gd" id="1_e13bc"]
-[ext_resource type="Script" path="res://tracks/wheel.gd" id="2_ut2pe"]
+[ext_resource type="Script" path="res://tank/roller.gd" id="2_ut2pe"]
 [ext_resource type="Script" path="res://treads.gd" id="4_2bhu8"]
 
 [sub_resource type="Curve3D" id="Curve3D_bt206"]

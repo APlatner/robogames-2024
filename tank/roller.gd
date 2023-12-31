@@ -1,7 +1,7 @@
-class_name Wheel
+class_name Roller
 extends Node3D
 
-@export var _radius: float = 1
+@export var radius: float = 1
 
 var previous_position: Vector3
 
@@ -20,7 +20,7 @@ func _spin():
 	var forward: Vector3 = global_basis.x.cross(Vector3.UP)
 	var move_delta = global_position - previous_position
 	var forward_velocity = forward.dot(move_delta)
-	rotate_x(forward_velocity/_radius - angular_velocity)
+	rotate_x(forward_velocity/radius - angular_velocity)
 
 	previous_position = global_position
 	previous_parent_angle = parent_angle

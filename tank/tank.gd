@@ -3,7 +3,7 @@ extends CharacterBody3D
 @export var _linear_accel: float = 5
 @export var _angular_accel: float = 5
 
-@export var _suspension_links: Array[SuspensionArm]
+var _suspension_links: Array[SuspensionArm]
 
 const MAX_LINEAR_SPEED: float = 5
 const MAX_ANGULAR_SPEED: float = 5
@@ -32,6 +32,19 @@ var _bounce_speed: float
 var _bounce_accel: float
 var _bounce_stiffness: float = 6
 var _bounce_damping: float = 12
+
+
+func _enter_tree() -> void:
+	#set_scripts_on_mesh_children()
+	pass
+
+
+func _ready() -> void:
+	_suspension_links.append($Roll/Pitch/Mesh/Chassis/LeftFrontSuspensionArm)
+	_suspension_links.append($Roll/Pitch/Mesh/Chassis/RightFrontSuspensionArm)
+	_suspension_links.append($Roll/Pitch/Mesh/Chassis/LeftRearSuspensionArm)
+	_suspension_links.append($Roll/Pitch/Mesh/Chassis/RightRearSuspensionArm)
+
 
 func _physics_process(delta: float) -> void:
 	var target_linear_speed = Input.get_axis('backward', 'forward') * MAX_LINEAR_SPEED
@@ -111,3 +124,4 @@ func _handle_any_accel(current_speed: float, target_speed: float, accel: float, 
 		if current_speed < target_speed:
 			current_speed = target_speed
 	return current_speed
+

@@ -3,22 +3,20 @@ extends Path3D
 
 @export_enum("Left", "Right") var _side: String = "Left"
 
-var _rollers: Array[Wheel]
+var _rollers: Array[Roller]
 var q: float = 0.5 # Droop amount across upper rollers
 var _radii: Array[float] # Array of wheel radii
 
 func _ready() -> void:
 	curve = Curve3D.new()
 	_initialize_rollers()
-	for roller in _rollers:
-		_radii.append(roller._radius)
 	_generate_curve_points()
 
 
 func _process(_delta: float) -> void:
 	_generate_curve_points()
 
-
+## Reference the readme file to understand how this works.x
 func _generate_curve_points():
 	curve.clear_points()
 	var p: Array[Vector3] = []
@@ -90,26 +88,28 @@ func _generate_curve_points():
 
 func _initialize_rollers():
 	_rollers.append(get_parent().get_node(
-		"Roll/Pitch/Chassis/"
+		"Roll/Pitch/Mesh/Chassis/"
 		+ _side
 		+ "RearDriver"
 	))
 	_rollers.append(get_parent().get_node(
-		"Roll/Pitch/Chassis/"
+		"Roll/Pitch/Mesh/Chassis/"
 		+ _side
 		+ "RearSuspensionArm/"
 		+ _side
 		+ "RearIdler"
 	))
 	_rollers.append(get_parent().get_node(
-		"Roll/Pitch/Chassis/"
+		"Roll/Pitch/Mesh/Chassis/"
 		+ _side
 		+ "FrontSuspensionArm/"
 		+ _side
 		+ "FrontIdler"
 	))
 	_rollers.append(get_parent().get_node(
-		"Roll/Pitch/Chassis/"
+		"Roll/Pitch/Mesh/Chassis/"
 		+ _side
 		+ "FrontDriver"
 	))
+	for roller in _rollers:
+		_radii.append(roller.radius)
