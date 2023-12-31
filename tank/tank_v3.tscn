@@ -1,13 +1,13 @@
-[gd_scene load_steps=101 format=3 uid="uid://ci6d5ncjviwta"]
+[gd_scene load_steps=100 format=3 uid="uid://cvgh8lio8dm6c"]
 
 [ext_resource type="Script" path="res://tank/tank.gd" id="1_rjh6g"]
 [ext_resource type="Script" path="res://tank/suspension_arm.gd" id="2_kp7fq"]
 [ext_resource type="ArrayMesh" uid="uid://iqaf8kw1fgve" path="res://blender/tread.obj" id="2_luqpq"]
 [ext_resource type="Script" path="res://tracks/wheel.gd" id="3_mp1qy"]
 [ext_resource type="Script" path="res://treads.gd" id="3_teo6m"]
-[ext_resource type="Script" path="res://pathgen.gd" id="4_4cygh"]
-[ext_resource type="Material" uid="uid://bxkm4diy5c6rj" path="res://blender/Gray.tres" id="5_pdth5"]
-[ext_resource type="Material" uid="uid://d1yumnv3pnrcm" path="res://blender/Shiny.tres" id="6_fiudp"]
+[ext_resource type="Script" path="res://tank/caterpillar_track_curve.gd" id="4_4cygh"]
+[ext_resource type="Material" path="res://blender/Gray.tres" id="5_pdth5"]
+[ext_resource type="Material" path="res://blender/Shiny.tres" id="6_fiudp"]
 [ext_resource type="Script" path="res://tank/shock.gd" id="7_7u3r5"]
 
 [sub_resource type="MultiMesh" id="MultiMesh_gutwf"]
@@ -17,8 +17,6 @@ mesh = ExtResource("2_luqpq")
 [sub_resource type="MultiMesh" id="MultiMesh_4mp2r"]
 transform_format = 1
 mesh = ExtResource("2_luqpq")
-
-[sub_resource type="Curve3D" id="Curve3D_v787k"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_fu21s"]
 _surfaces = [{
@@ -1597,20 +1595,12 @@ multimesh = SubResource("MultiMesh_4mp2r")
 script = ExtResource("3_teo6m")
 path3d = NodePath("../RightTreadPath")
 
-[node name="LeftTreadPath" type="Path3D" parent="." node_paths=PackedStringArray("rear_driver", "rear_idler", "front_idler", "front_driver")]
-curve = SubResource("Curve3D_v787k")
+[node name="LeftTreadPath" type="Path3D" parent="."]
 script = ExtResource("4_4cygh")
-rear_driver = NodePath("../Roll/Pitch/Chassis/LeftRearDriver")
-rear_idler = NodePath("../Roll/Pitch/Chassis/LeftRearSuspensionArm/LeftRearIdler")
-front_idler = NodePath("../Roll/Pitch/Chassis/LeftFrontSuspensionArm/LeftFrontIdler")
-front_driver = NodePath("../Roll/Pitch/Chassis/LeftFrontDriver")
 
-[node name="RightTreadPath" type="Path3D" parent="." node_paths=PackedStringArray("rear_driver", "rear_idler", "front_idler", "front_driver")]
+[node name="RightTreadPath" type="Path3D" parent="."]
 script = ExtResource("4_4cygh")
-rear_driver = NodePath("../Roll/Pitch/Chassis/RightRearDriver")
-rear_idler = NodePath("../Roll/Pitch/Chassis/RightRearSuspensionArm/RightRearIdler")
-front_idler = NodePath("../Roll/Pitch/Chassis/RightFrontSuspensionArm/RightFrontIdler")
-front_driver = NodePath("../Roll/Pitch/Chassis/RightFrontDriver")
+_side = "Right"
 
 [node name="Roll" type="Node3D" parent="."]
 

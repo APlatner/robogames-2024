@@ -14,6 +14,7 @@ var _angular_speed: float
 
 var _current_accel: Vector2
 
+# TODO: make this a resource container
 var _pitch_angle: float
 var _pitch_speed: float
 var _pitch_accel: float
@@ -53,18 +54,18 @@ func _physics_process(delta: float) -> void:
 func _wheels_up():
 	for link in _suspension_links:
 		link.handle_link_rotation(self, _pitch_angle)
-		#link._handle_spin(self)
+
 
 	$LeftTreadInstance.speed = (
 		_linear_speed -
 		_angular_speed * 0.91 +
 		_pitch_speed * -1 * 0.17 * (PI-sin(_pitch_angle)))
-	$LeftTreadPath.a = abs(_pitch_angle) * 0.02 - _roll_angle * 0.012 + 0.3 - position.y * 1.5
+	$LeftTreadPath.q = abs(_pitch_angle) * 0.02 - _roll_angle * 0.012 + 0.3 - position.y * 1.5
 	$RightTreadInstance.speed = (
 		_linear_speed +
 		_angular_speed * 0.91 +
 		_pitch_speed * -1 * 0.17 * (PI-sin(_pitch_angle)))
-	$RightTreadPath.a = abs(_pitch_angle) * 0.02 + _roll_angle * 0.012 + 0.3 - position.y * 1.5
+	$RightTreadPath.q = abs(_pitch_angle) * 0.02 + _roll_angle * 0.012 + 0.3 - position.y * 1.5
 
 
 func _handle_pitch(delta: float):
