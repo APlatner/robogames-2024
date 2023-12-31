@@ -1,5 +1,8 @@
 extends CharacterBody3D
 
+signal linear_speed_changed(speed: float)
+signal angular_speed_changed(speed: float)
+
 @export var _linear_accel: float = 5
 @export var _angular_accel: float = 5
 
@@ -26,51 +29,14 @@ var _roll_accel: float
 var _roll_stiffness: float = 3
 var _roll_damping: float = 6
 
-var _rev_up_anim: float = 0.0
-var _rev_down_anim: float = 1.0
-
-@onready var _engine_idle: AudioStreamPlayer3D = $EngineAudio/Idle
-@onready var _engine_full_speed: AudioStreamPlayer3D = $EngineAudio/FullSpeed
-@onready var _engine_rev_up: AudioStreamPlayer3D = $EngineAudio/RevUp
-@onready var _engine_rev_down: AudioStreamPlayer3D = $EngineAudio/RevDown
-@onready var rev_up_length := _engine_rev_up.stream.get_length()
-@onready var rev_down_length := _engine_rev_down.stream.get_length()
-
-func _ready() -> void:
-	_engine_idle.play()
-	_engine_full_speed.play()
-	_engine_full_speed.volume_db = linear_to_db(0.0)
-
-func _process(delta: float) -> void:
-	var linear_input = Input.get_axis("backward", "forward")
-	var angular_input = -Input.get_axis("left", "right")
-	if linear_input == 0.0 and angular_input == 0.0 and _rev_down_anim == 0.0:
-		_rev_up_anim = 0.0
-		_engine_rev_down.play()
-		_engine_rev_up.stop()
-		_rev_down_anim += delta / rev_down_length
-	elif (linear_input / _linear_speed > 0 or angular_input / _angular_speed > 0) and _rev_up_anim == 0.0:
-		_rev_down_anim = 0.0
-		_engine_rev_up.play()
-		_engine_rev_down.stop()
-		_rev_up_anim += delta / rev_up_length
-
-	_engine_idle.volume_db = linear_to_db(_rev_down_anim)
-	_rev_down_anim += delta / rev_down_length * ceil(_rev_down_anim)
-	_rev_down_anim = clampf(_rev_down_anim, 0.0, 1.0)
-
-	_engine_full_speed.volume_db = linear_to_db(_rev_up_anim)
-	_rev_up_anim += delta / rev_up_length * ceil(_rev_up_anim)
-	_rev_up_anim = clampf(_rev_up_anim, 0.0, 1.0)
-	_rev_up_anim = _rev_up_anim * float(!(linear_input / _linear_speed < 0 and angular_input / _angular_speed < 0))
-
-
 func _physics_process(delta: float) -> void:
 	var target_linear_speed = Input.get_axis('backward', 'forward') * MAX_LINEAR_SPEED
 	var target_angular_speed = -Input.get_axis('left', 'right') * MAX_ANGULAR_SPEED
 
 	_linear_speed = _handle_any_accel(_linear_speed, target_linear_speed, _linear_accel * delta, MAX_LINEAR_SPEED)
+	linear_speed_changed.emit(_linear_speed)
 	_angular_speed = _handle_any_accel(_angular_speed, target_angular_speed, _angular_accel * delta, MAX_ANGULAR_SPEED)
+	angular_speed_changed.emit(_angular_speed)
 	velocity = _linear_speed * global_basis.z
 	rotate(transform.basis.y, _angular_speed * delta)
 	_calc_accel()

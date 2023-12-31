@@ -1,4 +1,4 @@
-[gd_scene load_steps=123 format=3 uid="uid://76ui33em0dv2"]
+[gd_scene load_steps=124 format=3 uid="uid://76ui33em0dv2"]
 
 [ext_resource type="Script" path="res://tank/suspension_arm.gd" id="2_61827"]
 [ext_resource type="Script" path="res://tank/tank.gd" id="2_cn8we"]
@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://ce22h45w0b0wv" path="res://sounds/tank_engine_rev_up.wav" id="4_whmap"]
 [ext_resource type="Script" path="res://treads.gd" id="5_4r3cf"]
 [ext_resource type="AudioStream" uid="uid://dk20xnlffwigh" path="res://sounds/tank_engine_rev_down.wav" id="5_8ljyo"]
+[ext_resource type="Script" path="res://sounds/engine_audio.gd" id="7_8fkm6"]
 [ext_resource type="AudioStream" uid="uid://bwjt4dcvpi1lt" path="res://sounds/tank_engine_idle.mp3" id="7_55ryi"]
 [ext_resource type="AudioStream" uid="uid://cbglrkhvbr8u0" path="res://sounds/tank_engine_full_speed.mp3" id="8_llyos"]
 
@@ -1253,8 +1254,6 @@ shadow_mesh = SubResource("ArrayMesh_nvmmp")
 
 [node name="Tank" type="CharacterBody3D" node_paths=PackedStringArray("_suspension_links")]
 script = ExtResource("2_cn8we")
-_linear_accel = null
-_angular_accel = null
 _suspension_links = [NodePath("Roll/Pitch/Chassis/LeftRearSuspensionArm"), NodePath("Roll/Pitch/Chassis/LeftFrontSuspensionArm"), NodePath("Roll/Pitch/Chassis/RightFrontSuspensionArm"), NodePath("Roll/Pitch/Chassis/RightRearSuspensionArm")]
 
 [node name="LeftTreadCurve" type="Path3D" parent="." node_paths=PackedStringArray("rear_driver", "rear_idler", "front_idler", "front_driver")]
@@ -1507,6 +1506,7 @@ skeleton = NodePath("")
 shape = SubResource("BoxShape3D_sbaww")
 
 [node name="EngineAudio" type="Node3D" parent="."]
+script = ExtResource("7_8fkm6")
 
 [node name="Idle" type="AudioStreamPlayer3D" parent="EngineAudio"]
 stream = ExtResource("7_55ryi")
