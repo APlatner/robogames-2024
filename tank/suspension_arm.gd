@@ -6,16 +6,14 @@ enum Direction{
 	BACK,
 }
 
-@onready var _roller: Roller = get_child(0) as Roller
 var side: int = Direction.BACK
-
-var _length: float
-
-var _offset: Vector3
 var global_offset: Vector3:
 	get:
 		return to_global(_offset)
+var _length: float
+var _offset: Vector3
 
+@onready var _roller: Roller = get_child(0) as Roller
 
 func _ready() -> void:
 	var length_vector = Vector2(_roller.position.y, _roller.position.z)

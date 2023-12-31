@@ -1,10 +1,12 @@
 class_name CaterpillarTrackCurve
 extends Path3D
 
+signal track_updated(length: float)
+
 @export_enum("Left", "Right") var _side: String = "Left"
 
 var _rollers: Array[Roller]
-var q: float = 0.5 # Droop amount across upper rollers
+var _q: float = 0.5 # Droop amount across upper rollers
 var _radii: Array[float] # Array of wheel radii
 
 func _ready() -> void:
@@ -13,10 +15,7 @@ func _ready() -> void:
 	_generate_curve_points()
 
 
-func _process(_delta: float) -> void:
-	_generate_curve_points()
-
-## Reference the readme file to understand how this works.x
+## Reference the readme file to understand how this works
 func _generate_curve_points():
 	curve.clear_points()
 	var p: Array[Vector3] = []
@@ -52,15 +51,15 @@ func _generate_curve_points():
 		u.append(
 			_radii[i] * Vector3(
 				0,
-				sin(beta[i_prev] + alpha[i_prev] - (q if i == 0 else 0.0)),
-				cos(beta[i_prev] + alpha[i_prev] - (q if i == 0 else 0.0))
+				sin(beta[i_prev] + alpha[i_prev] - (_q if i == 0 else 0.0)),
+				cos(beta[i_prev] + alpha[i_prev] - (_q if i == 0 else 0.0))
 			)
 		)
 		v.append(
 			_radii[i] * Vector3(
 				0,
-				sin(beta[i] + alpha[i] + (q if i == 3 else 0.0)),
-				cos(beta[i] + alpha[i] + (q if i == 3 else 0.0))
+				sin(beta[i] + alpha[i] + (_q if i == 3 else 0.0)),
+				cos(beta[i] + alpha[i] + (_q if i == 3 else 0.0))
 			)
 		)
 		n.append(
@@ -68,7 +67,7 @@ func _generate_curve_points():
 				fmod(beta[i_prev] + alpha[i_prev], 2 * PI)
 				- fmod(beta[i] + alpha[i], 2 * PI)
 				- (2 * PI if i == 1 else 0.0)
-				- (q if i == 0 or i == 3 else 0.0)
+				- (_q if i == 0 or i == 3 else 0.0)
 				)
 		)
 		k.append(4.0 / 3.0 * tan(PI / 2 / n[i]))
@@ -79,7 +78,7 @@ func _generate_curve_points():
 		curve.add_point(v[i] + p[i], g[i])
 
 	# Add droop segment and connect to start
-	var s: float = 4 * sqrt(q)
+	var s: float = 4 * sqrt(_q)
 	var h1: Vector3 = -s * f[0]
 	var h4: Vector3 = -s * g[3]
 	curve.set_point_out(curve.point_count - 1, h4)
@@ -87,29 +86,40 @@ func _generate_curve_points():
 
 
 func _initialize_rollers():
-	_rollers.append(get_parent().get_node(
+	_rollers.append(get_parent().get_parent().get_node(
 		"Roll/Pitch/Mesh/Chassis/"
 		+ _side
 		+ "RearDriver"
 	))
-	_rollers.append(get_parent().get_node(
+	_rollers.append(get_parent().get_parent().get_node(
 		"Roll/Pitch/Mesh/Chassis/"
 		+ _side
 		+ "RearSuspensionArm/"
 		+ _side
 		+ "RearIdler"
 	))
-	_rollers.append(get_parent().get_node(
+	_rollers.append(get_parent().get_parent().get_node(
 		"Roll/Pitch/Mesh/Chassis/"
 		+ _side
 		+ "FrontSuspensionArm/"
 		+ _side
 		+ "FrontIdler"
 	))
-	_rollers.append(get_parent().get_node(
+	_rollers.append(get_parent().get_parent().get_node(
 		"Roll/Pitch/Mesh/Chassis/"
 		+ _side
 		+ "FrontDriver"
 	))
 	for roller in _rollers:
 		_radii.append(roller.radius)
+
+
+func _on_roll_physics_elements_updated(pitch: float, roll: float, y: float) -> void:
+	_q = (
+		absf(pitch) * 0.02
+		- (roll * 0.012 if _side == "Left" else -roll * 0.012)
+		- y * 1
+		+ 0.3
+	)
+	_generate_curve_points()
+	track_updated.emit(curve.get_baked_length())

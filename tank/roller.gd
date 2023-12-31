@@ -9,7 +9,7 @@ var parent_angle: float
 var previous_parent_angle: float
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	_spin()
 
 

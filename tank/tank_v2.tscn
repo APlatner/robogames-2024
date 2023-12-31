@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://tank/caterpillar_track_curve.gd" id="2_lcsk6"]
 [ext_resource type="ArrayMesh" uid="uid://iqaf8kw1fgve" path="res://blender/tread.obj" id="3_460ku"]
 [ext_resource type="Script" path="res://tank/roller.gd" id="3_wis7u"]
-[ext_resource type="Script" path="res://treads.gd" id="5_4r3cf"]
+[ext_resource type="Script" path="res://tank/caterpillar_track_mesh.gd" id="5_4r3cf"]
 
 [sub_resource type="Curve3D" id="Curve3D_n5dsw"]
 
