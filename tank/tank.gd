@@ -34,9 +34,11 @@ func _physics_process(delta: float) -> void:
 	var target_angular_speed = -Input.get_axis('left', 'right') * MAX_ANGULAR_SPEED
 
 	_linear_speed = _handle_any_accel(_linear_speed, target_linear_speed, _linear_accel * delta, MAX_LINEAR_SPEED)
-	linear_speed_changed.emit(_linear_speed)
+	if _linear_speed != target_linear_speed:
+		linear_speed_changed.emit(_linear_speed)
 	_angular_speed = _handle_any_accel(_angular_speed, target_angular_speed, _angular_accel * delta, MAX_ANGULAR_SPEED)
-	angular_speed_changed.emit(_angular_speed)
+	if _angular_speed != target_angular_speed:
+		angular_speed_changed.emit(_angular_speed)
 	velocity = _linear_speed * global_basis.z
 	rotate(transform.basis.y, _angular_speed * delta)
 	_calc_accel()
