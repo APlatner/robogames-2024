@@ -27,6 +27,8 @@ func _physics_process(delta: float) -> void:
 func _update_segment_positions():
 	var next_position: Vector3
 	var previous_position: Vector3
+	_offset = wrapf(_offset, 0, _baked_curve_length)
+	print(_offset)
 	for i in multimesh.instance_count:
 		var i_next: int = wrapi(i + 1, 0, multimesh.instance_count)
 
@@ -44,15 +46,14 @@ func _update_segment_positions():
 				+ float(i) * _baked_curve_length / multimesh.instance_count, 0, _baked_curve_length)
 				)
 			if i == 0 else next_position)
-
 		var next_instance_offset := float(i_next) * _baked_curve_length / multimesh.instance_count
+
 		next_position = _path.curve.sample_baked(
 			wrapf(
 				_offset
 				+ next_instance_offset, 0, _baked_curve_length
 				)
 			)
-
 		var instance_basis := Basis()
 
 		var derivative: Vector3 = (

@@ -4,7 +4,6 @@ signal linear_speed_changed(speed: float)
 signal linear_accel_changed(accel: Vector2)
 signal angular_speed_changed(speed: float)
 
-
 const MAX_LINEAR_SPEED: float = 5
 const MAX_ANGULAR_SPEED: float = 5
 
@@ -28,6 +27,7 @@ var _current_accel: Vector2:
 
 var _previous_linear_speed: float
 
+## TODO: implement drive/turn/aim/scan functions
 func _physics_process(delta: float) -> void:
 	var target_linear_speed := Input.get_axis('backward', 'forward') * MAX_LINEAR_SPEED
 	var target_angular_speed := -Input.get_axis('left', 'right') * MAX_ANGULAR_SPEED
