@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cvmyg5b0tv7nj"]
 
-[ext_resource type="Texture2D" uid="uid://cwstmdfl66516" path="res://tracks/AllSkyFree_Sky_EpicBlueSunset_Equirect.png" id="2_bexgh"]
+[ext_resource type="Texture2D" uid="uid://cwstmdfl66516" path="res://AllSkyFree_Sky_EpicBlueSunset_Equirect.png" id="2_bexgh"]
 [ext_resource type="PackedScene" uid="uid://cvgh8lio8dm6c" path="res://tank/tank_v3.tscn" id="2_j23fu"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_dviw5"]

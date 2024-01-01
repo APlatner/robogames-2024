@@ -85,6 +85,7 @@ func _generate_curve_points():
 	curve.add_point(u[0] + p[0], h1)
 
 
+## TODO: store reference to root node to avoid repeated calls to get_parent()
 func _initialize_rollers():
 	_rollers.append(get_parent().get_parent().get_node(
 		"Roll/Pitch/Mesh/Chassis/"
