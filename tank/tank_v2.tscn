@@ -1,16 +1,12 @@
-[gd_scene load_steps=124 format=3 uid="uid://76ui33em0dv2"]
+[gd_scene load_steps=120 format=3 uid="uid://76ui33em0dv2"]
 
 [ext_resource type="Script" path="res://tank/suspension_arm.gd" id="2_61827"]
 [ext_resource type="Script" path="res://tank/tank.gd" id="2_cn8we"]
 [ext_resource type="Script" path="res://pathgen.gd" id="2_lcsk6"]
 [ext_resource type="ArrayMesh" uid="uid://iqaf8kw1fgve" path="res://blender/tread.obj" id="3_460ku"]
 [ext_resource type="Script" path="res://tracks/wheel.gd" id="3_wis7u"]
-[ext_resource type="AudioStream" uid="uid://ce22h45w0b0wv" path="res://sounds/tank_engine_rev_up.wav" id="4_whmap"]
 [ext_resource type="Script" path="res://treads.gd" id="5_4r3cf"]
-[ext_resource type="AudioStream" uid="uid://dk20xnlffwigh" path="res://sounds/tank_engine_rev_down.wav" id="5_8ljyo"]
-[ext_resource type="Script" path="res://sounds/engine_audio.gd" id="7_8fkm6"]
-[ext_resource type="AudioStream" uid="uid://bwjt4dcvpi1lt" path="res://sounds/tank_engine_idle.mp3" id="7_55ryi"]
-[ext_resource type="AudioStream" uid="uid://cbglrkhvbr8u0" path="res://sounds/tank_engine_full_speed.mp3" id="8_llyos"]
+[ext_resource type="PackedScene" uid="uid://dfdhbo48kwlay" path="res://sounds/engine_audio.tscn" id="7_72vng"]
 
 [sub_resource type="Curve3D" id="Curve3D_n5dsw"]
 
@@ -1505,17 +1501,4 @@ skeleton = NodePath("")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_sbaww")
 
-[node name="EngineAudio" type="Node3D" parent="."]
-script = ExtResource("7_8fkm6")
-
-[node name="Idle" type="AudioStreamPlayer3D" parent="EngineAudio"]
-stream = ExtResource("7_55ryi")
-
-[node name="FullSpeed" type="AudioStreamPlayer3D" parent="EngineAudio"]
-stream = ExtResource("8_llyos")
-
-[node name="RevUp" type="AudioStreamPlayer3D" parent="EngineAudio"]
-stream = ExtResource("4_whmap")
-
-[node name="RevDown" type="AudioStreamPlayer3D" parent="EngineAudio"]
-stream = ExtResource("5_8ljyo")
+[node name="EngineAudio" parent="." instance=ExtResource("7_72vng")]
