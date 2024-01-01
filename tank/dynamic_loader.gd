@@ -12,6 +12,7 @@ func dynamic_script_load():
 	var roller_script := load("res://tank/roller.gd")
 	var suspension_script := load("res://tank/suspension_arm.gd")
 	var shock_script := load("res://tank/shock.gd")
+	var cannon_script := load("res://tank/cannon.gd")
 	var node: Node3D
 
 	# Load roller scripts
@@ -70,3 +71,11 @@ func dynamic_script_load():
 
 	node = get_parent().get_node(root_path + "RightRearShock") as Node3D
 	node.set_script(shock_script)
+
+	# Load Cannon script
+	node = get_parent().get_node(root_path + "TurretDriveKey/Turret/Barrel") as Node3D
+	node.set_script(cannon_script)
+	(node as Cannon).root_node = get_parent_node_3d()
+	(node as Cannon).bullet_shot.connect(
+		(get_parent().get_node("Roll") as PhysicsResponse)._on_shoot
+	)

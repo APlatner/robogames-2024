@@ -1,3 +1,4 @@
+class_name Controller
 extends Node3D
 
 signal drive_called(linear_input: float, angular_input: float)
@@ -18,3 +19,5 @@ func _process(delta: float) -> void:
 	scan_called.emit(
 		Input.get_axis('scan_right', 'scan_left'),
 	)
+	if Input.is_action_just_pressed('shoot'):
+		shoot_called.emit(1)

@@ -47,6 +47,7 @@ damping = 12.0
 size = Vector3(2.1, 1.4, 2.5)
 
 [node name="Tank" type="CharacterBody3D"]
+axis_lock_linear_y = true
 script = ExtResource("1_rjh6g")
 
 [node name="DynamicLoader" type="Node3D" parent="."]
@@ -85,7 +86,7 @@ shape = SubResource("BoxShape3D_1g14f")
 
 [node name="EngineAudio" parent="." instance=ExtResource("9_r4ext")]
 
-[node name="SampleRemoteControlNode" type="Node3D" parent="."]
+[node name="Controller" type="Node3D" parent="."]
 script = ExtResource("10_08t6h")
 
 [connection signal="angular_speed_changed" from="." to="LeftTreadInstance" method="_on_tank_angular_speed_changed"]
@@ -98,6 +99,6 @@ script = ExtResource("10_08t6h")
 [connection signal="track_updated" from="RightTreadInstance/RightTreadPath" to="RightTreadInstance" method="_on_track_updated"]
 [connection signal="physics_elements_updated" from="Roll" to="LeftTreadInstance/LeftTreadPath" method="_on_roll_physics_elements_updated"]
 [connection signal="physics_elements_updated" from="Roll" to="RightTreadInstance/RightTreadPath" method="_on_roll_physics_elements_updated"]
-[connection signal="aim_called" from="SampleRemoteControlNode" to="." method="_on_aim_called"]
-[connection signal="drive_called" from="SampleRemoteControlNode" to="." method="_on_drive_called"]
-[connection signal="scan_called" from="SampleRemoteControlNode" to="." method="_on_scan_called"]
+[connection signal="aim_called" from="Controller" to="." method="_on_aim_called"]
+[connection signal="drive_called" from="Controller" to="." method="_on_drive_called"]
+[connection signal="scan_called" from="Controller" to="." method="_on_scan_called"]

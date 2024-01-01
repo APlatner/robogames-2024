@@ -1,3 +1,4 @@
+class_name Tank
 extends CharacterBody3D
 
 signal linear_speed_changed(speed: float)
