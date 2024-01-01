@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cvgh8lio8dm6c"]
+[gd_scene load_steps=16 format=3 uid="uid://ddjlon8vko2dp"]
 
 [ext_resource type="Script" path="res://tank/tank.gd" id="1_rjh6g"]
 [ext_resource type="ArrayMesh" uid="uid://iqaf8kw1fgve" path="res://blender/tread.obj" id="2_luqpq"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://tank/physics_response.gd" id="6_725ia"]
 [ext_resource type="Script" path="res://tank/damped_spring_parameters.gd" id="7_v02t2"]
 [ext_resource type="PackedScene" uid="uid://wcagc624mlvo" path="res://blender/tank.blend" id="8_pv3sg"]
+[ext_resource type="PackedScene" uid="uid://dfdhbo48kwlay" path="res://sounds/engine_audio.tscn" id="9_r4ext"]
 
 [sub_resource type="MultiMesh" id="MultiMesh_gutwf"]
 transform_format = 1
@@ -80,6 +81,8 @@ _y_damped_spring = SubResource("Resource_q5hm1")
 [node name="Collider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 shape = SubResource("BoxShape3D_1g14f")
+
+[node name="EngineAudio" parent="." instance=ExtResource("9_r4ext")]
 
 [connection signal="angular_speed_changed" from="." to="LeftTreadInstance" method="_on_tank_angular_speed_changed"]
 [connection signal="angular_speed_changed" from="." to="RightTreadInstance" method="_on_tank_angular_speed_changed"]

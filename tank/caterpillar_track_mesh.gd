@@ -28,7 +28,6 @@ func _update_segment_positions():
 	var next_position: Vector3
 	var previous_position: Vector3
 	_offset = wrapf(_offset, 0, _baked_curve_length)
-	print(_offset)
 	for i in multimesh.instance_count:
 		var i_next: int = wrapi(i + 1, 0, multimesh.instance_count)
 
