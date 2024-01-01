@@ -28,8 +28,6 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed('shoot'):
-		_y_damped_spring.velocity = -0.05
 	_calculate_spring_position(
 		delta,
 		_pitch_damped_spring,
@@ -59,8 +57,8 @@ func _update_suspension_and_tracks():
 	_previous_pitch = _pitch_damped_spring.position
 	_previous_roll = _roll_damped_spring.position
 
-	pitch_node.rotate_x(deg_to_rad(_pitch_damped_spring.velocity))
-	rotate_z(deg_to_rad(_roll_damped_spring.velocity))
+	pitch_node.rotation_degrees.x = _pitch_damped_spring.position
+	rotation_degrees.z = _roll_damped_spring.position
 	position.y = _y_damped_spring.position
 
 	for arm in _suspension_arms:
@@ -89,3 +87,8 @@ func _calculate_spring_position(
 
 func _on_root_linear_accel_changed(accel: Vector2) -> void:
 	_linear_accel = accel
+
+
+func _on_tank_barrel_hit_rotation_limit(speed: float, turret_angle: float) -> void:
+	_pitch_damped_spring.velocity = -speed * sin(turret_angle) * 0.2
+	_roll_damped_spring.velocity = -speed * cos(turret_angle) * 0.2
