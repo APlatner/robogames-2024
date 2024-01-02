@@ -53,7 +53,7 @@ func _physics_process(delta: float) -> void:
 		_update_suspension_and_tracks()
 
 
-func _update_suspension_and_tracks():
+func _update_suspension_and_tracks() -> void:
 	_previous_y = _y_damped_spring.position
 	_previous_pitch = _pitch_damped_spring.position
 	_previous_roll = _roll_damped_spring.position
@@ -76,7 +76,7 @@ func _calculate_spring_position(
 		delta: float,
 		damped_spring: DampedSpringParameters,
 		external_accel: float = 0,
-		):
+		) -> void:
 	damped_spring.acceleration = (
 		- damped_spring.position * damped_spring.stiffness * delta
 		- damped_spring.velocity * damped_spring.damping * delta
@@ -95,6 +95,7 @@ func _on_tank_barrel_hit_rotation_limit(speed: float, turret_angle: float) -> vo
 	_roll_damped_spring.velocity += -speed * cos(turret_angle) * 0.2
 
 
+## Recoil effect from shoot signal
 func _on_shoot(power: float, turret_angle: float, barrel_angle: float) -> void:
 	_pitch_damped_spring.velocity += 1.5 * power * sin(turret_angle) * cos(barrel_angle)
 	_roll_damped_spring.velocity += 1.5 * power * cos(turret_angle) * cos(barrel_angle)

@@ -12,11 +12,11 @@ func _enter_tree() -> void:
 	(root_node.get_node("Controller") as Controller).shoot_called.connect(_on_shoot_called)
 
 
-## Callback to shoot
-func _on_shoot_called(power: float):
+## Callback to shoot from control script
+func _on_shoot_called(power: float) -> void:
 	var bullet := _bullet_instance.instantiate() as Bullet
 	bullet.position = to_global(fire_offset)
-	bullet.basis = Basis().looking_at(global_basis.z, Vector3.UP, true)
+	bullet.basis = Basis.looking_at(global_basis.z, Vector3.UP, true)
 	bullet.initial_speed = 10
 	get_tree().root.add_child(bullet)
 	bullet_shot.emit(power, get_parent_node_3d().get_parent_node_3d().rotation.y, rotation.x)

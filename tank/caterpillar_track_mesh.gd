@@ -24,7 +24,7 @@ func _physics_process(delta: float) -> void:
 		_update_segment_positions()
 
 
-func _update_segment_positions():
+func _update_segment_positions() -> void:
 	var next_position: Vector3
 	var previous_position: Vector3
 	_offset = wrapf(_offset, 0, _baked_curve_length)

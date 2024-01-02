@@ -81,7 +81,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
-func _update_velocities(delta: float):
+func _update_velocities(delta: float) -> void:
 	_linear_speed = _handle_any_velocity(
 		_linear_speed,
 		_target_linear_speed,
@@ -119,12 +119,17 @@ func _update_velocities(delta: float):
 	)
 
 
-func _calc_accel():
+func _calc_accel() -> void:
 	_current_accel.x = _linear_speed * _angular_speed
 	_current_accel.y = (_previous_linear_speed - _linear_speed)
 
 
-func _handle_any_velocity(current_speed: float, target_speed: float, accel: float, max_speed: float) -> float:
+func _handle_any_velocity(
+		current_speed: float,
+		target_speed: float,
+		accel: float,
+		max_speed: float
+	) -> float:
 	target_speed = clampf(target_speed, -max_speed, max_speed)
 	if current_speed < target_speed:
 		current_speed += accel
@@ -137,7 +142,11 @@ func _handle_any_velocity(current_speed: float, target_speed: float, accel: floa
 	return current_speed
 
 
-func _sample_accel_curve(current_speed: float, target_speed: float, max_speed: float) -> float:
+func _sample_accel_curve(
+		current_speed: float,
+		target_speed: float,
+		max_speed: float
+	) -> float:
 	if (absf(current_speed) < absf(target_speed)
 			and signf(current_speed) == signf(target_speed)):
 		return -0.1 * (absf(current_speed/max_speed) - 2) ** 2 + 1
@@ -146,7 +155,7 @@ func _sample_accel_curve(current_speed: float, target_speed: float, max_speed: f
 
 
 ## Callback to set the drive parameters based on the child control node's signal
-func _on_drive_called(linear_input: float, angular_input: float = 0):
+func _on_drive_called(linear_input: float, angular_input: float = 0) -> void:
 	linear_input = clampf(linear_input, -1, 1)
 	angular_input = clampf(angular_input, -1, 1)
 	_target_linear_speed = MAX_LINEAR_SPEED * linear_input
@@ -154,7 +163,7 @@ func _on_drive_called(linear_input: float, angular_input: float = 0):
 
 
 ## Callback to set the aim parameters based on the child control node's signal
-func _on_aim_called(pan_input: float, tilt_input: float = 0):
+func _on_aim_called(pan_input: float, tilt_input: float = 0) -> void:
 	pan_input = clampf(pan_input, -1, 1)
 	tilt_input = clampf(tilt_input, -1, 1)
 	_target_pan_speed = MAX_PAN_SPEED * pan_input
@@ -162,6 +171,6 @@ func _on_aim_called(pan_input: float, tilt_input: float = 0):
 
 
 ## Callback to set the scan parameters based on the child control node's signal
-func _on_scan_called(scan_input: float):
+func _on_scan_called(scan_input: float) -> void:
 	scan_input = clampf(scan_input, -1, 1)
 	_target_scan_speed = MAX_SCAN_SPEED * scan_input

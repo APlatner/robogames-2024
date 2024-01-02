@@ -12,7 +12,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	velocity.y += _gravity * delta
-	basis = Basis().looking_at(velocity, Vector3.UP, true)
+	basis = Basis.looking_at(velocity, Vector3.UP, true)
 	move_and_slide()
 
 

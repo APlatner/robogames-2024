@@ -37,16 +37,16 @@ func _process(delta: float) -> void:
 		_rev_up_anim += delta / rev_up_length
 
 	_engine_idle.volume_db = linear_to_db(_rev_down_anim)
-	_rev_down_anim += delta / rev_down_length * ceil(_rev_down_anim)
+	_rev_down_anim += delta / rev_down_length * ceilf(_rev_down_anim)
 	_rev_down_anim = clampf(_rev_down_anim, 0.0, 1.0)
 
 	_engine_full_speed.volume_db = linear_to_db(_rev_up_anim)
-	_rev_up_anim += delta / rev_up_length * ceil(_rev_up_anim)
+	_rev_up_anim += delta / rev_up_length * ceilf(_rev_up_anim)
 	_rev_up_anim = clampf(_rev_up_anim, 0.0, 1.0)
 	_rev_up_anim = _rev_up_anim * float(!(linear_input / _linear_speed < 0 and angular_input / _angular_speed < 0))
 
-func _on_linear_speed_changed(speed: float):
+func _on_linear_speed_changed(speed: float) -> void:
 	_linear_speed = speed
 
-func _on_angular_speed_changed(speed: float):
+func _on_angular_speed_changed(speed: float) -> void:
 	_angular_speed = speed

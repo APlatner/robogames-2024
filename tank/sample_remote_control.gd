@@ -7,7 +7,7 @@ signal scan_called(scan_input: float)
 signal shoot_called(power: float)
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	drive_called.emit(
 		Input.get_axis('backward', 'forward'),
 		Input.get_axis('right', 'left')

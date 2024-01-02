@@ -16,7 +16,7 @@ func _ready() -> void:
 
 
 ## Reference the readme file to understand how this works
-func _generate_curve_points():
+func _generate_curve_points() -> void:
 	curve.clear_points()
 	var p: Array[Vector3] = []
 	var l: Array[Vector3] = [] # Array of roller offset vectors
@@ -86,7 +86,7 @@ func _generate_curve_points():
 
 
 ## TODO: store reference to root node to avoid repeated calls to get_parent()
-func _initialize_rollers():
+func _initialize_rollers() -> void:
 	_rollers.append(get_parent().get_parent().get_node(
 		"Roll/Pitch/Mesh/Chassis/"
 		+ _side

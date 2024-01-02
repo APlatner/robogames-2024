@@ -7,7 +7,7 @@ func _enter_tree() -> void:
 	queue_free()
 
 
-func dynamic_script_load():
+func dynamic_script_load() -> void:
 	var root_path := "Roll/Pitch/Mesh/Chassis/"
 	var roller_script := load("res://tank/roller.gd")
 	var suspension_script := load("res://tank/suspension_arm.gd")
