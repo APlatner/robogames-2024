@@ -1,5 +1,12 @@
-extends Node3D
 class_name EngineAudio
+extends Node3D
+
+@export var _local_signal_bus: LocalSignalBus
+
+var _linear_speed: float = 0.0
+var _angular_speed: float = 0.0
+var _rev_up_anim: float = 0.0
+var _rev_down_anim: float = 1.0
 
 @onready var _engine_idle: AudioStreamPlayer3D = $Idle
 @onready var _engine_full_speed: AudioStreamPlayer3D = $FullSpeed
@@ -8,15 +15,9 @@ class_name EngineAudio
 @onready var rev_up_length: float = _engine_rev_up.stream.get_length()
 @onready var rev_down_length: float= _engine_rev_down.stream.get_length()
 
-var _linear_speed: float = 0.0
-var _angular_speed: float = 0.0
-var _rev_up_anim: float = 0.0
-var _rev_down_anim: float = 1.0
-
-
 func _ready() -> void:
-	get_parent().connect("linear_speed_changed", _on_linear_speed_changed)
-	get_parent().connect("angular_speed_changed", _on_angular_speed_changed)
+	_local_signal_bus.linear_speed_changed.connect(_on_linear_speed_changed)
+	_local_signal_bus.angular_speed_changed.connect(_on_angular_speed_changed)
 
 	_engine_idle.play()
 	_engine_full_speed.play()
@@ -37,16 +38,16 @@ func _process(delta: float) -> void:
 		_rev_up_anim += delta / rev_up_length
 
 	_engine_idle.volume_db = linear_to_db(_rev_down_anim)
-	_rev_down_anim += delta / rev_down_length * ceil(_rev_down_anim)
+	_rev_down_anim += delta / rev_down_length * ceilf(_rev_down_anim)
 	_rev_down_anim = clampf(_rev_down_anim, 0.0, 1.0)
 
 	_engine_full_speed.volume_db = linear_to_db(_rev_up_anim)
-	_rev_up_anim += delta / rev_up_length * ceil(_rev_up_anim)
+	_rev_up_anim += delta / rev_up_length * ceilf(_rev_up_anim)
 	_rev_up_anim = clampf(_rev_up_anim, 0.0, 1.0)
 	_rev_up_anim = _rev_up_anim * float(!(linear_input / _linear_speed < 0 and angular_input / _angular_speed < 0))
 
-func _on_linear_speed_changed(speed: float):
+func _on_linear_speed_changed(speed: float) -> void:
 	_linear_speed = speed
 
-func _on_angular_speed_changed(speed: float):
+func _on_angular_speed_changed(speed: float) -> void:
 	_angular_speed = speed

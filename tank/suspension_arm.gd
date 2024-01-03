@@ -24,7 +24,7 @@ func _ready() -> void:
 		_offset = Vector3(0, 0.39, -0.4)
 
 
-func handle_link_rotation(root_node: Node3D, pitch_angle: float):
+func handle_link_rotation(root_node: Node3D, pitch_angle: float) -> void:
 	var p := root_node.to_local(global_position).y
 	var d := 0.06 - root_node.position.y
 	var angle: float

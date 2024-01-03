@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cvmyg5b0tv7nj"]
 
 [ext_resource type="Texture2D" uid="uid://cwstmdfl66516" path="res://AllSkyFree_Sky_EpicBlueSunset_Equirect.png" id="2_bexgh"]
-[ext_resource type="PackedScene" uid="uid://cvgh8lio8dm6c" path="res://tank/tank_v3.tscn" id="2_j23fu"]
+[ext_resource type="PackedScene" uid="uid://ddjlon8vko2dp" path="res://tank/tank_v3.tscn" id="2_j23fu"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_dviw5"]
 panorama = ExtResource("2_bexgh")
@@ -18,7 +18,7 @@ ssao_enabled = true
 [node name="Node3D" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 2.38419e-07, 0, -2.38419e-07, 1, 0, 1.62492, 8)
+transform = Transform3D(1, 0, 0, 0, 1, 2.68221e-07, 0, -2.68221e-07, 1, 0, 2.62492, 8)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.501425, -0.847195, -0.175596, 0.617819, 0.208522, 0.758168, -0.605701, -0.488651, 0.627971, 0, 2, 0)
