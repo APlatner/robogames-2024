@@ -4,6 +4,7 @@ extends Node3D
 signal caterpillar_tracks_updated
 signal physics_elements_updated(pitch: float, roll: float, y: float)
 signal linear_speed_changed(speed: float)
+signal velocity_changed(velocity: Vector3)
 signal angular_speed_changed(speed: float)
 signal linear_accel_changed(accel: float)
 signal angular_accel_changed(accel: float)

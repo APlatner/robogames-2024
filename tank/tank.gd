@@ -41,6 +41,7 @@ var _current_accel: Vector2:
 		_local_signal_bus.linear_accel_changed.emit(_current_accel)
 
 var _previous_linear_speed: float
+var _previous_velocity: Vector3
 
 @onready var _turret_node := get_node(
 	"Roll/Pitch/Mesh/Chassis/TurretDriveKey"
@@ -62,6 +63,9 @@ func _physics_process(delta: float) -> void:
 
 	# Apply velocities
 	velocity = _linear_speed * global_basis.z
+	if velocity != _previous_velocity:
+		_local_signal_bus.velocity_changed.emit(velocity)
+	_previous_velocity = velocity
 	rotate_y(_angular_speed * delta)
 	_turret_node.rotate_y(_pan_speed * delta)
 	_barrel_node.rotate_x(_tilt_speed * delta)
