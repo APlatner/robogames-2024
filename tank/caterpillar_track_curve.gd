@@ -1,7 +1,7 @@
 class_name CaterpillarTrackCurve
 extends Path3D
 
-signal track_updated(length: float)
+#signal track_updated(length: float)
 
 @export_enum("Left", "Right") var _side: String = "Left"
 
@@ -9,7 +9,10 @@ var _rollers: Array[Roller]
 var _q: float = 0.5 # Droop amount across upper rollers
 var _radii: Array[float] # Array of wheel radii
 
+@export var _local_signal_bus: LocalSignalBus
+
 func _ready() -> void:
+	_local_signal_bus.physics_elements_updated.connect(_on_physics_elements_updated)
 	curve = Curve3D.new()
 	_initialize_rollers()
 	_generate_curve_points()
@@ -115,7 +118,7 @@ func _initialize_rollers() -> void:
 		_radii.append(roller.radius)
 
 
-func _on_roll_physics_elements_updated(pitch: float, roll: float, y: float) -> void:
+func _on_physics_elements_updated(pitch: float, roll: float, y: float) -> void:
 	_q = (
 		absf(pitch) * 0.02
 		- (roll * 0.012 if _side == "Left" else -roll * 0.012)
@@ -123,4 +126,4 @@ func _on_roll_physics_elements_updated(pitch: float, roll: float, y: float) -> v
 		+ 0.3
 	)
 	_generate_curve_points()
-	track_updated.emit(curve.get_baked_length())
+	_local_signal_bus.caterpillar_tracks_updated.emit()

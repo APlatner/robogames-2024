@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://ddjlon8vko2dp"]
+[gd_scene load_steps=18 format=3 uid="uid://ddjlon8vko2dp"]
 
 [ext_resource type="Script" path="res://tank/tank.gd" id="1_rjh6g"]
+[ext_resource type="Script" path="res://tank/local_signal_bus.gd" id="2_4g0gy"]
 [ext_resource type="ArrayMesh" uid="uid://iqaf8kw1fgve" path="res://blender/tread.obj" id="2_luqpq"]
 [ext_resource type="Script" path="res://tank/dynamic_loader.gd" id="2_xtp88"]
 [ext_resource type="Script" path="res://tank/caterpillar_track_curve.gd" id="4_4cygh"]
@@ -46,35 +47,44 @@ damping = 12.0
 [sub_resource type="BoxShape3D" id="BoxShape3D_1g14f"]
 size = Vector3(2.1, 1.4, 2.5)
 
-[node name="Tank" type="CharacterBody3D"]
+[node name="Tank" type="CharacterBody3D" node_paths=PackedStringArray("_local_signal_bus")]
 axis_lock_linear_y = true
 script = ExtResource("1_rjh6g")
+_local_signal_bus = NodePath("LocalSignalBus")
 
 [node name="DynamicLoader" type="Node3D" parent="."]
 script = ExtResource("2_xtp88")
 
-[node name="LeftTreadInstance" type="MultiMeshInstance3D" parent="."]
+[node name="LocalSignalBus" type="Node3D" parent="."]
+script = ExtResource("2_4g0gy")
+
+[node name="LeftTreadInstance" type="MultiMeshInstance3D" parent="." node_paths=PackedStringArray("_local_signal_bus")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.91, 0, 0)
 multimesh = SubResource("MultiMesh_gutwf")
 script = ExtResource("4_x2a3q")
+_local_signal_bus = NodePath("../LocalSignalBus")
 
-[node name="LeftTreadPath" type="Path3D" parent="LeftTreadInstance"]
+[node name="LeftTreadPath" type="Path3D" parent="LeftTreadInstance" node_paths=PackedStringArray("_local_signal_bus")]
 script = ExtResource("4_4cygh")
+_local_signal_bus = NodePath("../../LocalSignalBus")
 
-[node name="RightTreadInstance" type="MultiMeshInstance3D" parent="."]
+[node name="RightTreadInstance" type="MultiMeshInstance3D" parent="." node_paths=PackedStringArray("_local_signal_bus")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.91, 0, 0)
 multimesh = SubResource("MultiMesh_4mp2r")
 script = ExtResource("4_x2a3q")
+_local_signal_bus = NodePath("../LocalSignalBus")
 
-[node name="RightTreadPath" type="Path3D" parent="RightTreadInstance"]
+[node name="RightTreadPath" type="Path3D" parent="RightTreadInstance" node_paths=PackedStringArray("_local_signal_bus")]
 script = ExtResource("4_4cygh")
 _side = "Right"
+_local_signal_bus = NodePath("../../LocalSignalBus")
 
-[node name="Roll" type="Node3D" parent="."]
+[node name="Roll" type="Node3D" parent="." node_paths=PackedStringArray("_local_signal_bus")]
 script = ExtResource("6_725ia")
 _pitch_damped_spring = SubResource("Resource_r88oj")
 _roll_damped_spring = SubResource("Resource_3bklq")
 _y_damped_spring = SubResource("Resource_q5hm1")
+_local_signal_bus = NodePath("../LocalSignalBus")
 
 [node name="Pitch" type="Node3D" parent="Roll"]
 
@@ -84,21 +94,9 @@ _y_damped_spring = SubResource("Resource_q5hm1")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 shape = SubResource("BoxShape3D_1g14f")
 
-[node name="EngineAudio" parent="." instance=ExtResource("9_r4ext")]
+[node name="EngineAudio" parent="." node_paths=PackedStringArray("_local_signal_bus") instance=ExtResource("9_r4ext")]
+_local_signal_bus = NodePath("../LocalSignalBus")
 
-[node name="Controller" type="Node3D" parent="."]
+[node name="Controller" type="Node3D" parent="." node_paths=PackedStringArray("_local_signal_bus")]
 script = ExtResource("10_08t6h")
-
-[connection signal="angular_speed_changed" from="." to="LeftTreadInstance" method="_on_tank_angular_speed_changed"]
-[connection signal="angular_speed_changed" from="." to="RightTreadInstance" method="_on_tank_angular_speed_changed"]
-[connection signal="barrel_hit_rotation_limit" from="." to="Roll" method="_on_tank_barrel_hit_rotation_limit"]
-[connection signal="linear_accel_changed" from="." to="Roll" method="_on_root_linear_accel_changed"]
-[connection signal="linear_speed_changed" from="." to="LeftTreadInstance" method="_on_tank_linear_speed_changed"]
-[connection signal="linear_speed_changed" from="." to="RightTreadInstance" method="_on_tank_linear_speed_changed"]
-[connection signal="track_updated" from="LeftTreadInstance/LeftTreadPath" to="LeftTreadInstance" method="_on_track_updated"]
-[connection signal="track_updated" from="RightTreadInstance/RightTreadPath" to="RightTreadInstance" method="_on_track_updated"]
-[connection signal="physics_elements_updated" from="Roll" to="LeftTreadInstance/LeftTreadPath" method="_on_roll_physics_elements_updated"]
-[connection signal="physics_elements_updated" from="Roll" to="RightTreadInstance/RightTreadPath" method="_on_roll_physics_elements_updated"]
-[connection signal="aim_called" from="Controller" to="." method="_on_aim_called"]
-[connection signal="drive_called" from="Controller" to="." method="_on_drive_called"]
-[connection signal="scan_called" from="Controller" to="." method="_on_scan_called"]
+_local_signal_bus = NodePath("../LocalSignalBus")

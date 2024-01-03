@@ -1,11 +1,6 @@
 class_name Tank
 extends CharacterBody3D
 
-signal linear_speed_changed(speed: float)
-signal linear_accel_changed(accel: Vector2)
-signal angular_speed_changed(speed: float)
-signal barrel_hit_rotation_limit(barrel_speed: float, turrent_angle: float)
-
 const MAX_LINEAR_SPEED: float = 5
 const MAX_ANGULAR_SPEED: float = 5
 const MAX_PAN_SPEED: float = 8
@@ -14,9 +9,11 @@ const MAX_SCAN_SPEED: float = 20
 
 const PAN_ACCEL: float = 15
 const TILT_ACCEL: float = 15
-const SCAN_ACCEL: float = 25
+const SCAN_ACCEL: float = 50
 const LINEAR_ACCEL: float = 6
 const ANGULAR_ACCEL: float = 6
+
+@export var _local_signal_bus: LocalSignalBus
 
 var _target_linear_speed: float
 var _target_angular_speed: float
@@ -27,12 +24,12 @@ var _target_scan_speed: float
 var _linear_speed: float:
 	set(value):
 		_linear_speed = value
-		linear_speed_changed.emit(_linear_speed)
+		_local_signal_bus.linear_speed_changed.emit(_linear_speed)
 
 var _angular_speed: float:
 	set(value):
 		_angular_speed = value
-		angular_speed_changed.emit(_angular_speed)
+		_local_signal_bus.angular_speed_changed.emit(_angular_speed)
 
 var _pan_speed: float
 var _tilt_speed: float
@@ -41,7 +38,7 @@ var _scan_speed: float
 var _current_accel: Vector2:
 	set(value):
 		_current_accel = value
-		linear_accel_changed.emit(_current_accel)
+		_local_signal_bus.linear_accel_changed.emit(_current_accel)
 
 var _previous_linear_speed: float
 
@@ -55,6 +52,11 @@ var _previous_linear_speed: float
 	"Roll/Pitch/Mesh/Chassis/TurretDriveKey/Turret/ScannerBody"
 ) as Node3D
 
+func _ready() -> void:
+	_local_signal_bus.drive_called.connect(_on_drive_called)
+	_local_signal_bus.aim_called.connect(_on_aim_called)
+	_local_signal_bus.scan_called.connect(_on_scan_called)
+
 func _physics_process(delta: float) -> void:
 	_update_velocities(delta)
 
@@ -66,11 +68,11 @@ func _physics_process(delta: float) -> void:
 
 	# Limit barrel rotation
 	if _barrel_node.rotation_degrees.x > 15 + 0.1:
-		barrel_hit_rotation_limit.emit(_tilt_speed, _turret_node.rotation.y)
+		_local_signal_bus.barrel_end_of_travel.emit(_tilt_speed, _turret_node.rotation.y)
 		_tilt_speed = 0
 		_barrel_node.rotation_degrees.x = 15
 	elif _barrel_node.rotation_degrees.x < -100 - 0.1:
-		barrel_hit_rotation_limit.emit(_tilt_speed, _turret_node.rotation.y)
+		_local_signal_bus.barrel_end_of_travel.emit(_tilt_speed, _turret_node.rotation.y)
 		_tilt_speed = 0
 		_barrel_node.rotation_degrees.x = -100
 
@@ -151,7 +153,7 @@ func _sample_accel_curve(
 			and signf(current_speed) == signf(target_speed)):
 		return -0.1 * (absf(current_speed/max_speed) - 2) ** 2 + 1
 	else:
-		return 2
+		return 1.5
 
 
 ## Callback to set the drive parameters based on the child control node's signal

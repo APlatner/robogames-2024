@@ -1,5 +1,12 @@
-extends Node3D
 class_name EngineAudio
+extends Node3D
+
+@export var _local_signal_bus: LocalSignalBus
+
+var _linear_speed: float = 0.0
+var _angular_speed: float = 0.0
+var _rev_up_anim: float = 0.0
+var _rev_down_anim: float = 1.0
 
 @onready var _engine_idle: AudioStreamPlayer3D = $Idle
 @onready var _engine_full_speed: AudioStreamPlayer3D = $FullSpeed
@@ -8,15 +15,9 @@ class_name EngineAudio
 @onready var rev_up_length: float = _engine_rev_up.stream.get_length()
 @onready var rev_down_length: float= _engine_rev_down.stream.get_length()
 
-var _linear_speed: float = 0.0
-var _angular_speed: float = 0.0
-var _rev_up_anim: float = 0.0
-var _rev_down_anim: float = 1.0
-
-
 func _ready() -> void:
-	get_parent().connect("linear_speed_changed", _on_linear_speed_changed)
-	get_parent().connect("angular_speed_changed", _on_angular_speed_changed)
+	_local_signal_bus.linear_speed_changed.connect(_on_linear_speed_changed)
+	_local_signal_bus.angular_speed_changed.connect(_on_angular_speed_changed)
 
 	_engine_idle.play()
 	_engine_full_speed.play()

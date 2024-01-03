@@ -75,7 +75,4 @@ func dynamic_script_load() -> void:
 	# Load Cannon script
 	node = get_parent().get_node(root_path + "TurretDriveKey/Turret/Barrel") as Node3D
 	node.set_script(cannon_script)
-	(node as Cannon).root_node = get_parent_node_3d()
-	(node as Cannon).bullet_shot.connect(
-		(get_parent().get_node("Roll") as PhysicsResponse)._on_shoot
-	)
+	(node as Cannon)._local_signal_bus = get_parent().get_node("LocalSignalBus") as LocalSignalBus

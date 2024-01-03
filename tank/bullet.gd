@@ -3,7 +3,7 @@ extends CharacterBody3D
 
 
 var initial_speed: float
-var _gravity = -5
+var _gravity: float = -5
 @onready var _mesh_node := get_node("Mesh") as Node3D
 
 func _ready() -> void:
