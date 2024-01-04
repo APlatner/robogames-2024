@@ -1,22 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://dfdhbo48kwlay"]
+[gd_scene load_steps=4 format=3 uid="uid://dfdhbo48kwlay"]
 
 [ext_resource type="Script" path="res://sounds/engine_audio.gd" id="1_pt751"]
-[ext_resource type="AudioStream" uid="uid://bwjt4dcvpi1lt" path="res://sounds/tank_engine_idle.mp3" id="2_yo3j3"]
-[ext_resource type="AudioStream" uid="uid://cbglrkhvbr8u0" path="res://sounds/tank_engine_full_speed.mp3" id="3_v54bl"]
-[ext_resource type="AudioStream" uid="uid://ce22h45w0b0wv" path="res://sounds/tank_engine_rev_up.wav" id="4_mxli6"]
-[ext_resource type="AudioStream" uid="uid://dk20xnlffwigh" path="res://sounds/tank_engine_rev_down.wav" id="5_gpxen"]
+[ext_resource type="AudioStream" uid="uid://macwjs8ldhcr" path="res://sounds/tank_engine_0.mp3" id="2_847va"]
+[ext_resource type="AudioStream" uid="uid://0wwxkyb0asks" path="res://sounds/tank_engine_1.mp3" id="4_dbwoj"]
 
 [node name="EngineAudio" type="Node3D"]
 script = ExtResource("1_pt751")
 
 [node name="Idle" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("2_yo3j3")
+stream = ExtResource("2_847va")
 
 [node name="FullSpeed" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("3_v54bl")
-
-[node name="RevUp" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("4_mxli6")
-
-[node name="RevDown" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("5_gpxen")
+stream = ExtResource("4_dbwoj")

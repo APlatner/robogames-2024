@@ -16,4 +16,4 @@ func _process(_delta: float) -> void:
 		Input.get_axis('scan_right', 'scan_left'),
 	)
 	if Input.is_action_just_pressed('shoot'):
-		_local_signal_bus.shoot_called.emit(0.1)
+		_local_signal_bus.shoot_called.emit(1)
