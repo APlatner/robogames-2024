@@ -1,9 +1,10 @@
 extends Node
 
+signal scripts_processed(scripts: Array[Contestant])
 
 var _file_names: Array[String]
 var _dir_name: String
-
+var _contestants: Array[Contestant]
 
 func _import():
 	for file_name in _file_names:
@@ -13,8 +14,16 @@ func _import():
 			while not file.eof_reached():
 				contents.append(file.get_line())
 			_validate(contents)
+			var contestant = Contestant.new()
+			var script := load(_dir_name + "/" + file_name) as Script
+			contestant.compile_error = script.reload()
+			if contestant.compile_error == 0:
+				contestant.compiled_script = script
+				contestant.compile()
+			_contestants.append(contestant)
 		else:
 			print(FileAccess.get_open_error())
+	scripts_processed.emit(_contestants)
 
 
 func _validate(contents: Array[String]):

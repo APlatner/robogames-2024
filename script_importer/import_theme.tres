@@ -1,0 +1,96 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://b16urei1xqmh3"]
+
+[ext_resource type="FontFile" uid="uid://d1bol0akjg8ti" path="res://ui/fonts/Concert_One/ConcertOne-Regular.ttf" id="1_j2fx7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rdnjo"]
+bg_color = Color(0, 0, 0, 0.12549)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6fw3y"]
+draw_center = false
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.901961, 0.6, 0, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+expand_margin_left = 15.0
+expand_margin_top = 15.0
+expand_margin_right = 15.0
+expand_margin_bottom = 25.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ho60"]
+bg_color = Color(1, 0.666667, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_juvyo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t0m11"]
+bg_color = Color(0.901961, 0.6, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 20.0
+
+[resource]
+Button/fonts/font = ExtResource("1_j2fx7")
+FileDialog/colors/folder_icon_color = Color(0.690196, 0.901961, 1, 1)
+Label/fonts/font = ExtResource("1_j2fx7")
+LabelDanger/base_type = &"Label"
+LabelDanger/colors/font_color = Color(0.8, 0, 0, 1)
+LabelDanger/colors/font_outline_color = Color(0.345098, 0, 0, 1)
+LabelDanger/constants/outline_size = 3
+LabelDanger/font_sizes/font_size = 24
+LabelSuccess/base_type = &"Label"
+LabelSuccess/colors/font_color = Color(0.32549, 1, 0.219608, 1)
+LabelSuccess/colors/font_outline_color = Color(0.0196078, 0.25098, 0, 1)
+LabelSuccess/constants/outline_size = 3
+LabelSuccess/font_sizes/font_size = 24
+LabelTheme/base_type = &"Label"
+LabelTheme/font_sizes/font_size = 84
+LabelTheme/fonts/font = ExtResource("1_j2fx7")
+LabelTitle/base_type = &"Label"
+LabelTitle/font_sizes/font_size = 128
+LabelTitle/fonts/font = ExtResource("1_j2fx7")
+LineEdit/fonts/font = ExtResource("1_j2fx7")
+LineItem/base_type = &"Panel"
+LineItem/styles/panel = SubResource("StyleBoxFlat_rdnjo")
+MainMenuButton/base_type = &"Button"
+MainMenuButton/font_sizes/font_size = 48
+MainMenuButton/fonts/font = ExtResource("1_j2fx7")
+MainMenuButton/styles/focus = SubResource("StyleBoxFlat_6fw3y")
+MainMenuButton/styles/hover = SubResource("StyleBoxFlat_0ho60")
+MainMenuButton/styles/normal = SubResource("StyleBoxEmpty_juvyo")
+MainMenuButton/styles/pressed = SubResource("StyleBoxFlat_t0m11")
+MainMenuButtonMargin/base_type = &"MarginContainer"
+MainMenuButtonMargin/constants/margin_bottom = 15
+MainMenuButtonMargin/constants/margin_top = 15
+MarginContainer/constants/margin_bottom = 8
+MarginContainer/constants/margin_left = 20
+MarginContainer/constants/margin_right = 20
+MarginContainer/constants/margin_top = 8
+ProgressBar/fonts/font = ExtResource("1_j2fx7")
+TabBar/fonts/font = ExtResource("1_j2fx7")
+TabContainer/fonts/font = ExtResource("1_j2fx7")
+TextEdit/fonts/font = ExtResource("1_j2fx7")
+TitleLabel/base_type = &"Label"
+TitleLabel/fonts/font = ExtResource("1_j2fx7")
+Tree/fonts/font = ExtResource("1_j2fx7")
+Tree/fonts/title_button_font = ExtResource("1_j2fx7")

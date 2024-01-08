@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 project/assembly_name="Robogames"
 
+[gui]
+
+theme/custom="res://script_importer/import_theme.tres"
+
 [input]
 
 forward={
