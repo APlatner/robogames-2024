@@ -6,6 +6,8 @@ var _file_names: Array[String]
 var _dir_name: String
 var _contestants: Array[Contestant]
 
+## TODO: Get folder name and find all scripts within
+## TODO: Load each script, if it has syntax errors, flag it. Else, load it as a contestant
 func _import():
 	for file_name in _file_names:
 		var file = FileAccess.open(_dir_name + "/" + file_name, FileAccess.READ)

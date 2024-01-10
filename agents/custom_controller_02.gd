@@ -1,7 +1,7 @@
 extends Controller
 
 var script_name := "sample_name"
-var author := "Jonathan"
+#var author := "Jonathan"
 
 func _ready() -> void:
 	var v = get_parent_node_3d()

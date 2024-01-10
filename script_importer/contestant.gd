@@ -10,5 +10,6 @@ var _author: String
 
 func compile():
 	var instance = compiled_script.new()
+	(instance as Controller).test()
 	if instance.has("author"):
 		_author = instance.author

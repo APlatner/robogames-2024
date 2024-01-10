@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dmemblmug6hox"]
 
-[ext_resource type="Theme" uid="uid://b16urei1xqmh3" path="res://script_importer/import_theme.tres" id="1_1cb25"]
+[ext_resource type="Theme" uid="uid://cypy5nr4v5qn8" path="res://script_importer/import_theme.tres" id="1_1cb25"]
 [ext_resource type="Script" path="res://ui/menus/new_match_menu.gd" id="1_753yv"]
 
 [node name="NewMatchMenu" type="Control"]
