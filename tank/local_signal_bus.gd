@@ -22,3 +22,9 @@ signal cannon_heat_changed(heat: float)
 signal can_shoot_changed(can_shoot: bool)
 signal reloaded_changed(reloaded: bool)
 signal overheated_changed(overheated: bool)
+
+## Scanner signals
+signal scanner_rotated(scanner_rotation: float)
+signal turret_rotated(turret_rotation: float)
+signal enemy_scanned(scan_position: Vector3, id: int)
+signal obstacle_scanned(scan_position: Vector3)

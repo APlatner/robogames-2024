@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://3pooqyke2wd7"]
+
+[ext_resource type="Script" path="res://tank/scanner_raycast.gd" id="1_0b3d5"]
+
+[node name="ScannerRaycast" type="RayCast3D"]
+target_position = Vector3(0, 0, 2)
+script = ExtResource("1_0b3d5")
