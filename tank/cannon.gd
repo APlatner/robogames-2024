@@ -6,7 +6,6 @@ const HEAT_PER_SHOT: float = 0.25
 const SHOTS_PER_SECOND: float = 5
 
 
-
 var _heat: float = 0:
 	set(value):
 		_heat = value
@@ -33,8 +32,10 @@ var _bullet_instance: PackedScene = preload('res://tank/bullet.tscn')
 var _parent_velocity: Vector3
 var _local_signal_bus: LocalSignalBus
 
-var fire_offset := Vector3(0, 0, 1)
+var fire_offset := Vector3(0, 0, 1.3)
 var root_node: Node3D
+
+@onready var _cannon_report := get_node("CannonReport") as CannonReport
 
 func _enter_tree() -> void:
 	_local_signal_bus.shoot_called.connect(_on_shoot_called)

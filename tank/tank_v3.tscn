@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://ddjlon8vko2dp"]
+[gd_scene load_steps=19 format=3 uid="uid://ddjlon8vko2dp"]
 
 [ext_resource type="Script" path="res://tank/tank.gd" id="1_rjh6g"]
 [ext_resource type="Script" path="res://tank/local_signal_bus.gd" id="2_4g0gy"]
@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://dfdhbo48kwlay" path="res://sounds/engine_audio.tscn" id="9_r4ext"]
 [ext_resource type="Script" path="res://tank/sample_remote_control.gd" id="10_08t6h"]
 [ext_resource type="PackedScene" uid="uid://3pooqyke2wd7" path="res://tank/scanner_raycast.tscn" id="12_oqcbc"]
-[ext_resource type="PackedScene" uid="uid://btdyjdt4fwx33" path="res://tank/cannon_report.tscn" id="13_o464y"]
 
 [sub_resource type="MultiMesh" id="MultiMesh_gutwf"]
 transform_format = 1
@@ -105,7 +104,4 @@ _local_signal_bus = NodePath("../LocalSignalBus")
 
 [node name="ScannerRaycast" parent="." node_paths=PackedStringArray("_local_signal_bus") instance=ExtResource("12_oqcbc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
-_local_signal_bus = NodePath("../LocalSignalBus")
-
-[node name="CannonReport" parent="." node_paths=PackedStringArray("_local_signal_bus") instance=ExtResource("13_o464y")]
 _local_signal_bus = NodePath("../LocalSignalBus")
