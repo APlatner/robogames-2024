@@ -5,6 +5,8 @@ const HEAT_DISSIPATION_RATE: float = 0.3
 const HEAT_PER_SHOT: float = 0.25
 const SHOTS_PER_SECOND: float = 5
 
+
+
 var _heat: float = 0:
 	set(value):
 		_heat = value
