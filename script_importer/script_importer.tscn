@@ -1,0 +1,87 @@
+[gd_scene load_steps=6 format=3 uid="uid://dt1c187u8tb3e"]
+
+[ext_resource type="Script" path="res://script_importer/script_importer.gd" id="1_17t4y"]
+[ext_resource type="Theme" uid="uid://cypy5nr4v5qn8" path="res://script_importer/import_theme.tres" id="1_bpry1"]
+[ext_resource type="PackedScene" path="res://script_importer/script_line_item.tscn" id="2_tfokr"]
+[ext_resource type="Script" path="res://script_importer/script_displayer.gd" id="2_vsrqv"]
+[ext_resource type="Script" path="res://script_importer/folder_selector.gd" id="5_aya7s"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a Directory"
+initial_position = 2
+size = Vector2i(800, 500)
+content_scale_mode = 1
+content_scale_aspect = 1
+theme = ExtResource("1_bpry1")
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+show_hidden_files = true
+script = ExtResource("1_17t4y")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -100.0
+offset_right = 400.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_vsrqv")
+_script_line_item = ExtResource("2_tfokr")
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CodeEdit" type="CodeEdit" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 56.0
+grow_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+script = ExtResource("5_aya7s")
+
+[node name="TextEdit" type="TextEdit" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_bpry1")
+text = "res://agents/"
+placeholder_text = "Enter Folder Name"
+
+[node name="Button" type="Button" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Load"
+
+[connection signal="dir_selected" from="FileDialog" to="FileDialog" method="_on_dir_selected"]
+[connection signal="scripts_processed" from="FileDialog" to="ScrollContainer" method="_on_scripts_processed"]
+[connection signal="folder_selected" from="MarginContainer/HBoxContainer" to="FileDialog" method="_on_dir_selected"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Button" to="MarginContainer/HBoxContainer" method="_on_button_pressed"]

@@ -68,6 +68,8 @@ func _physics_process(delta: float) -> void:
 	_previous_velocity = velocity
 	rotate_y(_angular_speed * delta)
 	_turret_node.rotate_y(_pan_speed * delta)
+	if _pan_speed != 0:
+		_local_signal_bus.turret_rotated.emit(_turret_node.rotation.y)
 	_barrel_node.rotate_x(_tilt_speed * delta)
 
 	# Limit barrel rotation
@@ -81,6 +83,8 @@ func _physics_process(delta: float) -> void:
 		_barrel_node.rotation_degrees.x = -100
 
 	_scanner_node.rotate_y(_scan_speed * delta)
+	if _scan_speed != 0:
+		_local_signal_bus.scanner_rotated.emit(_scanner_node.rotation.y)
 
 	_calc_accel()
 	_previous_linear_speed = _linear_speed

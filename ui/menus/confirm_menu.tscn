@@ -1,0 +1,69 @@
+[gd_scene load_steps=3 format=3 uid="uid://c88ggbtbvh0wo"]
+
+[ext_resource type="Script" path="res://confirm_menu.gd" id="1_kfbon"]
+[ext_resource type="Theme" uid="uid://b16urei1xqmh3" path="res://script_importer/import_theme.tres" id="2_lvhk8"]
+
+[node name="ConfirmMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kfbon")
+_prompt = "Quit to desktop?"
+_confirm_text = "Yes"
+_cancel_text = "No"
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_lvhk8")
+theme_type_variation = &"MainMenuButtonMargin"
+
+[node name="Prompt" type="Label" parent="CenterContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme = ExtResource("2_lvhk8")
+theme_type_variation = &"LabelTheme"
+text = "Prompt?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ConfirmMargin" type="MarginContainer" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_lvhk8")
+theme_type_variation = &"MainMenuButtonMargin"
+
+[node name="Confirm" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer/ConfirmMargin"]
+layout_mode = 2
+theme = ExtResource("2_lvhk8")
+theme_type_variation = &"MainMenuButton"
+text = "Confirm"
+
+[node name="CancelMargin" type="MarginContainer" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_lvhk8")
+theme_type_variation = &"MainMenuButtonMargin"
+
+[node name="Cancel" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer/CancelMargin"]
+layout_mode = 2
+theme = ExtResource("2_lvhk8")
+theme_type_variation = &"MainMenuButton"
+text = "Cancel"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/HBoxContainer/ConfirmMargin/Confirm" to="." method="_on_confirm_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/HBoxContainer/CancelMargin/Cancel" to="." method="_on_cancel_pressed"]

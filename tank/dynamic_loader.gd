@@ -13,6 +13,8 @@ func dynamic_script_load() -> void:
 	var suspension_script := load("res://tank/suspension_arm.gd")
 	var shock_script := load("res://tank/shock.gd")
 	var cannon_script := load("res://tank/cannon.gd")
+	var cannon_report_scene := load("res://tank/cannon_report.tscn") as PackedScene
+	var engine_smoke_scene := load("res://tank/engine_smoke.tscn") as PackedScene
 	var node: Node3D
 
 	# Load roller scripts
@@ -76,3 +78,16 @@ func dynamic_script_load() -> void:
 	node = get_parent().get_node(root_path + "TurretDriveKey/Turret/Barrel") as Node3D
 	node.set_script(cannon_script)
 	(node as Cannon)._local_signal_bus = get_parent().get_node("LocalSignalBus") as LocalSignalBus
+	var cannon_report := cannon_report_scene.instantiate() as CannonReport
+	cannon_report._local_signal_bus = get_parent().get_node("LocalSignalBus") as LocalSignalBus
+	node.add_child(cannon_report)
+	cannon_report.position = (node as Cannon).fire_offset
+
+	# Load Smoke Scene
+	node = get_parent().get_node(root_path) as Node3D
+	var engine_smoke_instance := engine_smoke_scene.instantiate() as EngineSmoke
+	node.add_child(engine_smoke_instance)
+	engine_smoke_instance.position = Vector3(0.173, 1.418, -1.58)
+	engine_smoke_instance = engine_smoke_scene.instantiate() as EngineSmoke
+	node.add_child(engine_smoke_instance)
+	engine_smoke_instance.position = Vector3(-0.173, 1.418, -1.58)

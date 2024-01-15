@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://dutxmdjf8dpal"]
+
+[ext_resource type="Texture2D" uid="uid://vn0jqprkigf" path="res://ui/background.png" id="1_bgntu"]
+[ext_resource type="PackedScene" uid="uid://tn7layxkneb3" path="res://ui/menus/main_menu.tscn" id="1_p2l05"]
+[ext_resource type="Script" path="res://ui/menus/menu_manager.gd" id="3_gi3yf"]
+[ext_resource type="PackedScene" uid="uid://c88ggbtbvh0wo" path="res://ui/menus/confirm_menu.tscn" id="4_4p4e1"]
+[ext_resource type="PackedScene" uid="uid://dmemblmug6hox" path="res://ui/menus/new_match_menu.tscn" id="5_co2ax"]
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.388235, 0.388235, 0.388235, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -252.0
+offset_bottom = 252.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_bgntu")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="MenuManager" type="Control" parent="." node_paths=PackedStringArray("_main_menu", "_confirm_exit_menu", "_new_match_menu")]
+layout_mode = 1
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_gi3yf")
+_main_menu = NodePath("../MainMenu")
+_confirm_exit_menu = NodePath("../ConfirmExitMenu")
+_new_match_menu = NodePath("../NewMatchMenu")
+
+[node name="MainMenu" parent="." instance=ExtResource("1_p2l05")]
+layout_mode = 1
+
+[node name="ConfirmExitMenu" parent="." instance=ExtResource("4_4p4e1")]
+visible = false
+layout_mode = 1
+
+[node name="NewMatchMenu" parent="." instance=ExtResource("5_co2ax")]
+visible = false
+layout_mode = 1
+
+[connection signal="exit_pressed" from="MainMenu" to="MenuManager" method="_on_exit_pressed"]
+[connection signal="new_match_pressed" from="MainMenu" to="MenuManager" method="_on_new_match_pressed"]
+[connection signal="canceled" from="ConfirmExitMenu" to="MenuManager" method="_on_cancel_exit"]
+[connection signal="confirmed" from="ConfirmExitMenu" to="MenuManager" method="_on_confirm_exit"]
+[connection signal="back_pressed" from="NewMatchMenu" to="MenuManager" method="_on_new_match_menu_back_pressed"]

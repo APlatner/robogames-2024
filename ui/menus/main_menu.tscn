@@ -1,0 +1,88 @@
+[gd_scene load_steps=3 format=3 uid="uid://tn7layxkneb3"]
+
+[ext_resource type="Theme" uid="uid://cypy5nr4v5qn8" path="res://script_importer/import_theme.tres" id="1_6prub"]
+[ext_resource type="Script" path="res://ui/menus/main_menu.gd" id="1_fpt05"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fpt05")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 142.0
+grow_horizontal = 2
+
+[node name="Title" type="Label" parent="MarginContainer"]
+layout_mode = 2
+theme = ExtResource("1_6prub")
+theme_type_variation = &"LabelTitle"
+text = "2024 Robogames"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="NewMargin" type="MarginContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_6prub")
+theme_type_variation = &"MainMenuButtonMargin"
+
+[node name="NewMatch" type="Button" parent="CenterContainer/VBoxContainer/NewMargin"]
+layout_mode = 2
+theme = ExtResource("1_6prub")
+theme_type_variation = &"MainMenuButton"
+text = "New Match"
+
+[node name="LoadMargin" type="MarginContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_6prub")
+theme_type_variation = &"MainMenuButtonMargin"
+
+[node name="LoadMatch" type="Button" parent="CenterContainer/VBoxContainer/LoadMargin"]
+layout_mode = 2
+theme = ExtResource("1_6prub")
+theme_type_variation = &"MainMenuButton"
+text = "Load Match"
+
+[node name="SettingsMargin" type="MarginContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_6prub")
+theme_type_variation = &"MainMenuButtonMargin"
+
+[node name="Settings" type="Button" parent="CenterContainer/VBoxContainer/SettingsMargin"]
+layout_mode = 2
+theme = ExtResource("1_6prub")
+theme_type_variation = &"MainMenuButton"
+text = "Settings"
+
+[node name="ExitMargin" type="MarginContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_6prub")
+theme_type_variation = &"MainMenuButtonMargin"
+
+[node name="Exit" type="Button" parent="CenterContainer/VBoxContainer/ExitMargin"]
+layout_mode = 2
+theme = ExtResource("1_6prub")
+theme_type_variation = &"MainMenuButton"
+text = "Exit"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/NewMargin/NewMatch" to="." method="_on_new_match_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/LoadMargin/LoadMatch" to="." method="_on_load_match_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/SettingsMargin/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ExitMargin/Exit" to="." method="_on_exit_pressed"]
