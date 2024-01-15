@@ -57,6 +57,7 @@ rings = 8
 [node name="EngineSmoke" type="GPUParticles3D"]
 amount = 20
 lifetime = 2.0
+fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_xdaab")
 draw_pass_1 = SubResource("SphereMesh_vsyo6")
 script = ExtResource("1_8cf0y")

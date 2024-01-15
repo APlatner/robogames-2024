@@ -5,7 +5,7 @@
 
 [sub_resource type="Gradient" id="Gradient_wxl21"]
 offsets = PackedFloat32Array(0, 0.136364, 0.381818, 0.9)
-colors = PackedColorArray(1, 0.5385, 0.29, 1, 1, 0.35, 0, 1, 0, 0, 0, 0.752941, 0, 0, 0, 0)
+colors = PackedColorArray(2, 1, 0.5, 1, 1, 0.35, 0, 1, 0, 0, 0, 0.752941, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_tl7hj"]
 gradient = SubResource("Gradient_wxl21")
@@ -50,5 +50,6 @@ script = ExtResource("2_rd440")
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 amount = 100
 lifetime = 0.5
+fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_luaak")
 draw_pass_1 = SubResource("SphereMesh_h3jp8")

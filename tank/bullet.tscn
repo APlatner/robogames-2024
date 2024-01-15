@@ -64,6 +64,7 @@ stream = ExtResource("3_haxmm")
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 amount = 400
 lifetime = 1.5
+fixed_fps = 60
 visibility_aabb = AABB(-4, -4, -8.27172, 8, 8, 16.5434)
 process_material = SubResource("ParticleProcessMaterial_bdjwf")
 draw_pass_1 = SubResource("SphereMesh_hpmhh")
