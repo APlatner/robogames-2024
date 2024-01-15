@@ -53,12 +53,17 @@ var _previous_velocity: Vector3
 	"Roll/Pitch/Mesh/Chassis/TurretDriveKey/Turret/ScannerBody"
 ) as Node3D
 
+@onready var controller: Controller = get_child(0) as Controller
+
+
 func _ready() -> void:
 	_local_signal_bus.drive_called.connect(_on_drive_called)
 	_local_signal_bus.aim_called.connect(_on_aim_called)
 	_local_signal_bus.scan_called.connect(_on_scan_called)
-
+	controller.start()
+	
 func _physics_process(delta: float) -> void:
+	controller.run(delta)
 	_update_velocities(delta)
 
 	# Apply velocities
@@ -71,6 +76,7 @@ func _physics_process(delta: float) -> void:
 	if _pan_speed != 0:
 		_local_signal_bus.turret_rotated.emit(_turret_node.rotation.y)
 	_barrel_node.rotate_x(_tilt_speed * delta)
+	_local_signal_bus.turret_rotation_changed.emit(Vector2(_turret_node.rotation.x, _turret_node.rotation.y))
 
 	# Limit barrel rotation
 	if _barrel_node.rotation_degrees.x > 15 + 0.1:
@@ -89,7 +95,7 @@ func _physics_process(delta: float) -> void:
 	_calc_accel()
 	_previous_linear_speed = _linear_speed
 	move_and_slide()
-
+	_local_signal_bus.tank_rotation_changed.emit(rotation.y)
 
 func _update_velocities(delta: float) -> void:
 	_linear_speed = _handle_any_velocity(

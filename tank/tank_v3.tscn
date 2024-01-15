@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://tank/tank.gd" id="1_rjh6g"]
 [ext_resource type="Script" path="res://tank/local_signal_bus.gd" id="2_4g0gy"]
 [ext_resource type="ArrayMesh" uid="uid://iqaf8kw1fgve" path="res://blender/tread.obj" id="2_luqpq"]
+[ext_resource type="Script" path="res://tank/custom_controller.gd" id="2_q38tu"]
 [ext_resource type="Script" path="res://tank/dynamic_loader.gd" id="2_xtp88"]
 [ext_resource type="Script" path="res://tank/caterpillar_track_curve.gd" id="4_4cygh"]
 [ext_resource type="Script" path="res://tank/caterpillar_track_mesh.gd" id="4_x2a3q"]
@@ -52,6 +53,9 @@ size = Vector3(2.1, 1.4, 2.5)
 axis_lock_linear_y = true
 script = ExtResource("1_rjh6g")
 _local_signal_bus = NodePath("LocalSignalBus")
+
+[node name="Controller" type="Node3D" parent="."]
+script = ExtResource("2_q38tu")
 
 [node name="DynamicLoader" type="Node3D" parent="."]
 script = ExtResource("2_xtp88")

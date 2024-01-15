@@ -12,6 +12,7 @@ var _angular_speed: float
 func _ready() -> void:
 	_local_signal_bus.linear_speed_changed.connect(_on_linear_speed_changed)
 	_local_signal_bus.angular_speed_changed.connect(_on_angular_speed_changed)
+	_local_signal_bus.drive_called.connect(_on_drive_called)
 
 	_engine_idle.play()
 	_engine_full_speed.play()
@@ -33,3 +34,7 @@ func _on_linear_speed_changed(speed: float) -> void:
 
 func _on_angular_speed_changed(speed: float) -> void:
 	_angular_speed = speed
+	
+func _on_drive_called(linear_input: float, angular_input: float) -> void:
+	_linear_input = linear_input
+	_angular_input = angular_input
