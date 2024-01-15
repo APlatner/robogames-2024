@@ -18,16 +18,18 @@ var chassis_height: float = 0.0
 ## tank turret speed
 var barrel_speed: float = 0.0
 
-## tank turret angle
-var turret_rotation: float = 0.0
-var turret_pitch: float = 0.0
+## tank turret
+var turret_rotation: Vector2 = Vector2.ZERO
 
-## tank shot power
+## tank shot
 var shot_power: float = 1.0
 var reloaded: bool = false
 var overheated: bool = false
 var can_shoot: bool = false
 var cannon_heat: float = 0.0
+
+var target_location: Vector3 = Vector3.ZERO
+var target_id: int = 0
 
 ## drive tank, directions are floats ranging from 1.0 to -1.0
 func drive(linear_direction: float, angular_direction: float) -> void:
@@ -58,6 +60,8 @@ func _enter_tree() -> void:
 	_local_signal_bus.connect("overheated_changed", _on_overheated_changed)
 	_local_signal_bus.connect("can_shoot_changed", _on_can_shoot_changed)
 	_local_signal_bus.connect("cannon_heat_changed", _on_cannon_heat_changed)
+	_local_signal_bus.connect("enemy_scanned", _on_enemy_scanned)
+	_local_signal_bus.connect("obsticle_scanned", _on_obsticle_scanned)
 
 func _on_linear_speed_changed(speed: float) -> void:
 	linear_speed = speed
@@ -72,17 +76,17 @@ func _on_physics_elements_updated(pitch: float, roll: float, y: float) -> void:
 
 func _on_barrel_end_of_travel(speed: float, angle: float) -> void:
 	barrel_speed = speed
-	turret_rotation = angle
+	turret_rotation.y = angle
 
 func _on_cannon_fired(power: float, angle: float, pitch: float) -> void:
 	shot_power = power
-	turret_rotation = angle
-	turret_pitch = pitch
+	turret_rotation.y = angle
+	turret_rotation.x = pitch
 
 func _on_tank_rotation_changed(angle: float) -> void:
 	chassis_rotation = angle
 
-func _on_turret_rotation_changed(angle: float) -> void:
+func _on_turret_rotation_changed(angle: Vector2) -> void:
 	turret_rotation = angle
 
 func _on_reloaded_changed(value: bool) -> void:
@@ -96,3 +100,10 @@ func _on_can_shoot_changed(value: bool) -> void:
 
 func _on_cannon_heat_changed(value: float) -> void:
 	cannon_heat = value
+
+func _on_enemy_scanned(location: Vector3, id: int) -> void:
+	target_location = location
+	target_id = id
+
+func _on_obsticle_scanned(location: Vector3) -> void:
+	target_location = location

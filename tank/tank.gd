@@ -74,7 +74,7 @@ func _physics_process(delta: float) -> void:
 	rotate_y(_angular_speed * delta)
 	_turret_node.rotate_y(_pan_speed * delta)
 	_barrel_node.rotate_x(_tilt_speed * delta)
-	_local_signal_bus.turret_rotation_changed.emit(_turret_node.rotation.y)
+	_local_signal_bus.turret_rotation_changed.emit(Vector2(_turret_node.rotation.x, _turret_node.rotation.y))
 
 	# Limit barrel rotation
 	if _barrel_node.rotation_degrees.x > 15 + 0.1:
