@@ -1,13 +1,18 @@
 class_name EngineAudio
 extends Node3D
 
-@export var _local_signal_bus: LocalSignalBus
+var _local_signal_bus: LocalSignalBus
 
 var _linear_speed: float
 var _angular_speed: float
 
 @onready var _engine_idle  := $Idle as AudioStreamPlayer3D
 @onready var _engine_full_speed := $FullSpeed as AudioStreamPlayer3D
+
+
+func _enter_tree() -> void:
+	_local_signal_bus = get_parent().get_node("LocalSignalBus") as LocalSignalBus
+
 
 func _ready() -> void:
 	_local_signal_bus.linear_speed_changed.connect(_on_linear_speed_changed)
@@ -34,7 +39,7 @@ func _on_linear_speed_changed(speed: float) -> void:
 
 func _on_angular_speed_changed(speed: float) -> void:
 	_angular_speed = speed
-	
+
 func _on_drive_called(linear_input: float, angular_input: float) -> void:
-	_linear_input = linear_input
-	_angular_input = angular_input
+	_linear_speed = linear_input
+	_angular_speed = angular_input

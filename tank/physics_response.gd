@@ -1,14 +1,10 @@
 class_name PhysicsResponse
 extends Node3D
 
-@export var _pitch_damped_spring: DampedSpringParameters
-@export var _roll_damped_spring: DampedSpringParameters
-@export var _y_damped_spring: DampedSpringParameters
-
 @export var _linear_tolerance: float = 0.002
 @export var _angular_tolerance: float = 0.1
 
-@export var _local_signal_bus: LocalSignalBus
+var _local_signal_bus: LocalSignalBus
 
 # Force update by setting previous positions to a non-zero value
 var _previous_pitch: float = -1
@@ -20,8 +16,21 @@ var _suspension_arms: Array[SuspensionArm] = []
 
 @onready var pitch_node := get_node("Pitch") as Node3D
 @onready var root_node := get_parent_node_3d()
+var _pitch_damped_spring: DampedSpringParameters = DampedSpringParameters.new()
+var _roll_damped_spring: DampedSpringParameters = DampedSpringParameters.new()
+var _y_damped_spring: DampedSpringParameters = DampedSpringParameters.new()
+
+func _enter_tree() -> void:
+	_local_signal_bus = get_parent().get_node("LocalSignalBus") as LocalSignalBus
+
 
 func _ready() -> void:
+	_pitch_damped_spring.stiffness = 3
+	_pitch_damped_spring.damping = 9
+	_roll_damped_spring.stiffness = 3
+	_roll_damped_spring.damping = 6
+	_y_damped_spring.stiffness = 6
+	_y_damped_spring.damping = 12
 	_local_signal_bus.linear_accel_changed.connect(_on_linear_accel_changed)
 	_local_signal_bus.barrel_end_of_travel.connect(_on_barrel_end_of_travel)
 	_local_signal_bus.cannon_fired.connect(_on_cannon_fired)

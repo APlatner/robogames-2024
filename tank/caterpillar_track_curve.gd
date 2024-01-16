@@ -1,15 +1,18 @@
 class_name CaterpillarTrackCurve
 extends Path3D
 
-#signal track_updated(length: float)
-
 @export_enum("Left", "Right") var _side: String = "Left"
 
 var _rollers: Array[Roller]
 var _q: float = 0.5 # Droop amount across upper rollers
 var _radii: Array[float] # Array of wheel radii
 
-@export var _local_signal_bus: LocalSignalBus
+var _local_signal_bus: LocalSignalBus
+
+
+func _enter_tree() -> void:
+	_local_signal_bus = get_parent().get_parent().get_node("LocalSignalBus") as LocalSignalBus
+
 
 func _ready() -> void:
 	_local_signal_bus.physics_elements_updated.connect(_on_physics_elements_updated)

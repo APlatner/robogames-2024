@@ -12,15 +12,8 @@ signal barrel_end_of_travel(barrel_speed: float, turret_angle: float)
 signal tank_rotation_changed(angle: float)
 signal turret_rotation_changed(turret_rotation: Vector2)
 
-signal cannon_fired(power: float, turret_angle: float, barrel_angle: float)
-signal reloaded_changed(reloaded: bool)
-signal overheated_changed(overheated: bool)
-signal can_shoot_changed(can_shoot: bool)
-signal cannon_heat_changed(cannon_heat: float)
 
 signal scan_rotation_changed(angle: float)
-signal enemy_scanned(scan_position: Vector3, id: int)
-signal obsticle_scanned(scan_position: Vector3)
 
 signal drive_called(linear: float, angular: float)
 signal aim_called(pan: float, tilt: float)
@@ -37,5 +30,5 @@ signal overheated_changed(overheated: bool)
 ## Scanner signals
 signal scanner_rotated(scanner_rotation: float)
 signal turret_rotated(turret_rotation: float)
-signal enemy_scanned(scan_position: Vector3, id: int)
+signal enemy_scanned(scan_position: Vector3)
 signal obstacle_scanned(scan_position: Vector3)

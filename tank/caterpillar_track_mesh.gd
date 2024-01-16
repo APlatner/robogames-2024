@@ -1,7 +1,7 @@
 extends MultiMeshInstance3D
 
 @export var _tolerance: float = 0.002
-@export var _local_signal_bus: LocalSignalBus
+var _local_signal_bus: LocalSignalBus
 
 var _offset: float = 0
 var _previous_offset: float = -1
@@ -11,6 +11,16 @@ var _instance_spacing: float = 0.215
 var _derivative_bias: float = 0.4
 
 @onready var _path: CaterpillarTrackCurve = get_child(0) as CaterpillarTrackCurve
+
+
+func _enter_tree() -> void:
+	_local_signal_bus = get_parent().get_node("LocalSignalBus") as LocalSignalBus
+	var mesh = preload("res://blender/tread.obj")
+	multimesh = MultiMesh.new()
+	multimesh.transform_format = MultiMesh.TRANSFORM_3D
+	multimesh.mesh = mesh
+	#multimesh.mesh.resource_path = "res://blender/tread.obj"
+
 
 func _ready() -> void:
 	_local_signal_bus.caterpillar_tracks_updated.connect(_on_track_updated)

@@ -13,7 +13,7 @@ const SCAN_ACCEL: float = 50
 const LINEAR_ACCEL: float = 6
 const ANGULAR_ACCEL: float = 6
 
-@export var _local_signal_bus: LocalSignalBus
+var _local_signal_bus: LocalSignalBus
 
 var _target_linear_speed: float
 var _target_angular_speed: float
@@ -55,13 +55,15 @@ var _previous_velocity: Vector3
 
 @onready var controller: Controller = get_child(0) as Controller
 
+func _enter_tree() -> void:
+	_local_signal_bus = get_node("LocalSignalBus") as LocalSignalBus
 
 func _ready() -> void:
 	_local_signal_bus.drive_called.connect(_on_drive_called)
 	_local_signal_bus.aim_called.connect(_on_aim_called)
 	_local_signal_bus.scan_called.connect(_on_scan_called)
 	controller.start()
-	
+
 func _physics_process(delta: float) -> void:
 	controller.run(delta)
 	_update_velocities(delta)

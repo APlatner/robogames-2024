@@ -61,7 +61,7 @@ func _enter_tree() -> void:
 	_local_signal_bus.connect("can_shoot_changed", _on_can_shoot_changed)
 	_local_signal_bus.connect("cannon_heat_changed", _on_cannon_heat_changed)
 	_local_signal_bus.connect("enemy_scanned", _on_enemy_scanned)
-	_local_signal_bus.connect("obsticle_scanned", _on_obsticle_scanned)
+	_local_signal_bus.connect("obstacle_scanned", _on_obsticle_scanned)
 
 func _on_linear_speed_changed(speed: float) -> void:
 	linear_speed = speed
@@ -101,9 +101,9 @@ func _on_can_shoot_changed(value: bool) -> void:
 func _on_cannon_heat_changed(value: float) -> void:
 	cannon_heat = value
 
-func _on_enemy_scanned(location: Vector3, id: int) -> void:
+func _on_enemy_scanned(location: Vector3) -> void:
 	target_location = location
-	target_id = id
+	#target_id = id
 
 func _on_obsticle_scanned(location: Vector3) -> void:
 	target_location = location
