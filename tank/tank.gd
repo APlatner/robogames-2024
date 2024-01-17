@@ -62,10 +62,10 @@ func _ready() -> void:
 	_local_signal_bus.drive_called.connect(_on_drive_called)
 	_local_signal_bus.aim_called.connect(_on_aim_called)
 	_local_signal_bus.scan_called.connect(_on_scan_called)
-	controller.start()
+	#controller.start()
 
 func _physics_process(delta: float) -> void:
-	controller.run(delta)
+	#controller.run(delta)
 	_update_velocities(delta)
 
 	# Apply velocities

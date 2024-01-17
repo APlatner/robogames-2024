@@ -17,7 +17,7 @@ func run(delta: float) -> void:
 		move_time = 0.0
 		drive(0.0, 0.0)
 	elif move_time > get_instance_id() % 4:
-		drive(1.0, 1.0)
+		drive(0.0, 0.0)
 	move_time += delta
 	var y: float = asin(target_normal.z)
 	var x: float = acos(target_normal.x)
@@ -31,7 +31,7 @@ func run(delta: float) -> void:
 	else:
 		target_angle = x
 	target_angle = wrapf(target_angle, 0, 2 * PI) - wrapf(turret_rotation.y + chassis_rotation, 0, 2 * PI)
-	aim(0.2, 0.0)
+	aim(0.5, 0.0)
 	#if (get_instance_id() % 4 == 1):
 	#shoot(1.0)
 		#if abs(clampf(target_angle, -1.0, 1.0)) < 0.1 and shot_fired == 0.0:

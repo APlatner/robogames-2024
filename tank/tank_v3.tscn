@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" path="res://tank/tank.gd" id="1_rjh6g"]
 [ext_resource type="Script" path="res://tank/local_signal_bus.gd" id="2_4g0gy"]
+[ext_resource type="Script" path="res://agent/special_controller.gd" id="2_6at4i"]
 [ext_resource type="Script" path="res://tank/dynamic_loader.gd" id="2_xtp88"]
 [ext_resource type="Script" path="res://tank/caterpillar_track_curve.gd" id="4_4cygh"]
 [ext_resource type="Script" path="res://tank/caterpillar_track_mesh.gd" id="4_x2a3q"]
 [ext_resource type="Script" path="res://tank/physics_response.gd" id="6_725ia"]
 [ext_resource type="PackedScene" uid="uid://wcagc624mlvo" path="res://blender/tank.blend" id="8_pv3sg"]
 [ext_resource type="PackedScene" uid="uid://dfdhbo48kwlay" path="res://sounds/engine_audio.tscn" id="9_r4ext"]
-[ext_resource type="Script" path="res://tank/custom_controller.gd" id="10_08t6h"]
 [ext_resource type="PackedScene" uid="uid://3pooqyke2wd7" path="res://tank/scanner_raycast.tscn" id="12_oqcbc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1g14f"]
@@ -18,8 +18,10 @@ size = Vector3(2.1, 1.4, 2.5)
 axis_lock_linear_y = true
 script = ExtResource("1_rjh6g")
 
-[node name="Controller" type="Node3D" parent="."]
-script = ExtResource("10_08t6h")
+[node name="Controller" type="Node3D" parent="." node_paths=PackedStringArray("_local_signal_bus")]
+script = ExtResource("2_6at4i")
+_local_signal_bus = NodePath("../LocalSignalBus")
+script_path = "res://agent/sample_agent.gd"
 
 [node name="DynamicLoader" type="Node3D" parent="."]
 script = ExtResource("2_xtp88")

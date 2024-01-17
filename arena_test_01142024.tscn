@@ -39,12 +39,6 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.6
 
 [node name="Tank" parent="." instance=ExtResource("1_11sjd")]
 
-[node name="Tank2" parent="." instance=ExtResource("1_11sjd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2129, 0, 9.15846)
-
-[node name="Tank3" parent="." instance=ExtResource("1_11sjd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.00286, -4.76837e-07, 9.20271)
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_cdoau")
 
