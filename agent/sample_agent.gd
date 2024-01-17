@@ -9,3 +9,4 @@ func run() -> void:
 	aim(Input.get_axis("pan_right", "pan_left"), Input.get_axis("tilt_up", "tilt_down"))
 	if Input.is_action_pressed("shoot"):
 		shoot(1)
+	print(_turret_pan_angle)
