@@ -24,7 +24,7 @@ var _reloaded := true:
 var _can_shoot := false:
 	set(value):
 		_can_shoot = value
-		_local_signal_bus.cannon_heat_changed.emit(value)
+		_local_signal_bus.can_shoot_changed.emit(value)
 
 var _time_since_last_shot: float = 0
 

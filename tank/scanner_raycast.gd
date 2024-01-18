@@ -18,16 +18,16 @@ func _physics_process(_delta: float) -> void:
 	if is_colliding():
 		var obj = get_collider()
 		if obj is Tank:
-			_local_signal_bus.enemy_scanned.emit(_local_signal_bus.to_local(get_collision_point()))
+			_local_signal_bus.enemy_scanned.emit(get_parent_node_3d().to_local(get_collision_point()))
 		else:
-			_local_signal_bus.obstacle_scanned.emit(_local_signal_bus.to_local(get_collision_point()))
+			_local_signal_bus.obstacle_scanned.emit(get_parent_node_3d().to_local(get_collision_point()))
 
 
 func _on_turret_rotated(turret_rotation: float) -> void:
 	_turret_angle = turret_rotation
-	rotation.y = _turret_angle + _scanner_angle + PI/2
+	rotation.y = _turret_angle + _scanner_angle
 
 
 func _on_scanner_rotated(scanner_rotation: float) -> void:
 	_scanner_angle = scanner_rotation
-	rotation.y = _turret_angle + _scanner_angle + PI/2
+	rotation.y = _turret_angle + _scanner_angle

@@ -18,3 +18,5 @@ signal on_cannon_heat_changed(cannon_heat: float)
 signal on_can_shoot_changed(can_shoot: bool)
 signal on_reloaded_changed(reloaded: bool)
 signal on_overheated_changed(overheated: bool)
+
+signal targeted(target: Vector3)

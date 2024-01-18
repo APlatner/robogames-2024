@@ -18,12 +18,29 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	_agent.run()
+	_agent.run(delta)
 
 
 func _controller_to_agent_signals() -> void:
-	_local_signal_bus.turret_rotation_changed.connect(func(turret_rotation: Vector2):
-		_agent.signal_bus.on_turret_angle_changed.emit(turret_rotation.x, turret_rotation.y)
+	_local_signal_bus.angular_speed_changed.connect(func(angular_speed: float):
+		_agent.signal_bus.on_drive_speed_changed.emit(0, angular_speed)
+	)
+	_local_signal_bus.turret_speed_changed.connect(func(pan_speed: float, tilt_speed: float):
+		_agent.signal_bus.on_turret_speed_changed.emit(pan_speed, tilt_speed)
+	)
+	_local_signal_bus.turret_rotation_changed.connect(func(pan: float, tilt: float):
+		_agent.signal_bus.on_turret_angle_changed.emit(pan, tilt)
+	)
+	_local_signal_bus.scanner_speed_changed.connect(func(pan_speed: float):
+		_agent.signal_bus.on_scanner_speed_changed.emit(pan_speed)
+	)
+
+	_local_signal_bus.can_shoot_changed.connect(func(can_shoot: bool):
+		_agent.signal_bus.on_can_shoot_changed.emit(can_shoot)
+	)
+
+	_local_signal_bus.obstacle_scanned.connect(func(scan_position: Vector3):
+		_agent.signal_bus.on_obstacle_scanned.emit(scan_position)
 	)
 
 
@@ -39,4 +56,7 @@ func _agent_to_controller_signals() -> void:
 	)
 	_agent.signal_bus.on_shoot.connect(func(power: float):
 		_local_signal_bus.shoot_called.emit(power)
+	)
+	_agent.signal_bus.targeted.connect(func(target: Vector3):
+		get_child(0).position = Vector3(target.x,0,target.z)
 	)

@@ -9,7 +9,7 @@ const MAX_SCAN_SPEED: float = 20
 
 const PAN_ACCEL: float = 15
 const TILT_ACCEL: float = 15
-const SCAN_ACCEL: float = 50
+const SCAN_ACCEL: float = 150
 const LINEAR_ACCEL: float = 6
 const ANGULAR_ACCEL: float = 6
 
@@ -31,9 +31,18 @@ var _angular_speed: float:
 		_angular_speed = value
 		_local_signal_bus.angular_speed_changed.emit(_angular_speed)
 
-var _pan_speed: float
-var _tilt_speed: float
-var _scan_speed: float
+var _pan_speed: float:
+	set(value):
+		_pan_speed = value
+		_local_signal_bus.turret_speed_changed.emit(_pan_speed, _tilt_speed)
+var _tilt_speed: float:
+	set(value):
+		_tilt_speed = value
+		_local_signal_bus.turret_speed_changed.emit(_pan_speed, _tilt_speed)
+var _scan_speed: float:
+	set(value):
+		_scan_speed = value
+		_local_signal_bus.scanner_speed_changed.emit(value)
 
 var _current_accel: Vector2:
 	set(value):
@@ -58,14 +67,13 @@ var _previous_velocity: Vector3
 func _enter_tree() -> void:
 	_local_signal_bus = get_node("LocalSignalBus") as LocalSignalBus
 
+## TODO: figure out why turret initial rotation is -PI/2
 func _ready() -> void:
 	_local_signal_bus.drive_called.connect(_on_drive_called)
 	_local_signal_bus.aim_called.connect(_on_aim_called)
 	_local_signal_bus.scan_called.connect(_on_scan_called)
-	#controller.start()
 
 func _physics_process(delta: float) -> void:
-	#controller.run(delta)
 	_update_velocities(delta)
 
 	# Apply velocities
@@ -78,7 +86,6 @@ func _physics_process(delta: float) -> void:
 	if _pan_speed != 0:
 		_local_signal_bus.turret_rotated.emit(_turret_node.rotation.y)
 	_barrel_node.rotate_x(_tilt_speed * delta)
-	_local_signal_bus.turret_rotation_changed.emit(Vector2(_turret_node.rotation.x, _turret_node.rotation.y))
 
 	# Limit barrel rotation
 	if _barrel_node.rotation_degrees.x > 15 + 0.1:
@@ -89,6 +96,8 @@ func _physics_process(delta: float) -> void:
 		_local_signal_bus.barrel_end_of_travel.emit(_tilt_speed, _turret_node.rotation.y)
 		_tilt_speed = 0
 		_barrel_node.rotation_degrees.x = -100
+
+	_local_signal_bus.turret_rotation_changed.emit(_turret_node.rotation.y, _barrel_node.rotation.x)
 
 	_scanner_node.rotate_y(_scan_speed * delta)
 	if _scan_speed != 0:

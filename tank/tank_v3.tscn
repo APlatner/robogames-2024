@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ddjlon8vko2dp"]
+[gd_scene load_steps=13 format=3 uid="uid://ddjlon8vko2dp"]
 
 [ext_resource type="Script" path="res://tank/tank.gd" id="1_rjh6g"]
 [ext_resource type="Script" path="res://tank/local_signal_bus.gd" id="2_4g0gy"]
@@ -11,6 +11,10 @@
 [ext_resource type="PackedScene" uid="uid://dfdhbo48kwlay" path="res://sounds/engine_audio.tscn" id="9_r4ext"]
 [ext_resource type="PackedScene" uid="uid://3pooqyke2wd7" path="res://tank/scanner_raycast.tscn" id="12_oqcbc"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_83dib"]
+shading_mode = 0
+albedo_color = Color(1, 0, 0, 1)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_1g14f"]
 size = Vector3(2.1, 1.4, 2.5)
 
@@ -22,6 +26,10 @@ script = ExtResource("1_rjh6g")
 script = ExtResource("2_6at4i")
 _local_signal_bus = NodePath("../LocalSignalBus")
 script_path = "res://agent/sample_agent.gd"
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Controller"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+material_override = SubResource("StandardMaterial3D_83dib")
 
 [node name="DynamicLoader" type="Node3D" parent="."]
 script = ExtResource("2_xtp88")
@@ -59,3 +67,6 @@ shape = SubResource("BoxShape3D_1g14f")
 
 [node name="ScannerRaycast" parent="." instance=ExtResource("12_oqcbc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="ScannerRaycast"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 3.35539, 0, 0, 0.908666)
