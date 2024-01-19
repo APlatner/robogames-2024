@@ -9,36 +9,34 @@ const SHOTS_PER_SECOND: float = 5
 var _heat: float = 0:
 	set(value):
 		_heat = value
-		_local_signal_bus.cannon_heat_changed.emit(value)
+		_local_signal_bus.on_cannon_heat_changed.emit(value)
 
 var _overheated := false:
 	set(value):
 		_overheated = value
-		_local_signal_bus.overheated_changed.emit(value)
+		_local_signal_bus.on_overheated_changed.emit(value)
 
 var _reloaded := true:
 	set(value):
 		_reloaded = value
-		_local_signal_bus.reloaded_changed.emit(value)
+		_local_signal_bus.on_reloaded_changed.emit(value)
 
-var _can_shoot := false:
-	set(value):
-		_can_shoot = value
-		_local_signal_bus.cannon_heat_changed.emit(value)
+var _can_shoot := false
+	#set(value):
+		#_can_shoot = value
+		#_local_signal_bus.can_shoot_changed.emit(value)
 
 var _time_since_last_shot: float = 0
 
-var _bullet_instance: PackedScene = preload('res://tank/bullet.tscn')
+var _bullet_instance: PackedScene = preload('res://tank/cannon/bullet.tscn')
 var _parent_velocity: Vector3
 var _local_signal_bus: LocalSignalBus
 
 var fire_offset := Vector3(0, 0, 1.3)
 var root_node: Node3D
 
-@onready var _cannon_report := get_node("CannonReport") as CannonReport
-
 func _enter_tree() -> void:
-	_local_signal_bus.shoot_called.connect(_on_shoot_called)
+	_local_signal_bus.on_shoot.connect(_on_shoot_called)
 	_local_signal_bus.velocity_changed.connect(_on_velocity_changed)
 
 

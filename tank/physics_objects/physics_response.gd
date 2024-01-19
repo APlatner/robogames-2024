@@ -1,25 +1,43 @@
 class_name PhysicsResponse
 extends Node3D
 
-@export var _pitch_damped_spring: DampedSpringParameters
-@export var _roll_damped_spring: DampedSpringParameters
-@export var _y_damped_spring: DampedSpringParameters
-
 @export var _linear_tolerance: float = 0.002
 @export var _angular_tolerance: float = 0.1
 
-@export var _local_signal_bus: LocalSignalBus
+var _local_signal_bus: LocalSignalBus
 
 # Force update by setting previous positions to a non-zero value
-var _previous_pitch: float = -1
-var _previous_roll: float = -1
-var _previous_y: float = -1
+var _previous_pitch: float = -1:
+	set(value):
+		_previous_pitch = value
+		_local_signal_bus.on_wobble.emit(_previous_roll, _previous_pitch, _previous_y)
+var _previous_roll: float = -1:
+	set(value):
+		_previous_roll = value
+		_local_signal_bus.on_wobble.emit(_previous_roll, _previous_pitch, _previous_y)
+var _previous_y: float = -1:
+	set(value):
+		_previous_y = value
+		_local_signal_bus.on_wobble.emit(_previous_roll, _previous_pitch, _previous_y)
 
 var _linear_accel: Vector2
 var _suspension_arms: Array[SuspensionArm] = []
+var _pitch_damped_spring: DampedSpringParameters = DampedSpringParameters.new()
+var _roll_damped_spring: DampedSpringParameters = DampedSpringParameters.new()
+var _y_damped_spring: DampedSpringParameters = DampedSpringParameters.new()
 
 @onready var pitch_node := get_node("Pitch") as Node3D
 @onready var root_node := get_parent_node_3d()
+
+func _enter_tree() -> void:
+	_local_signal_bus = get_parent().get_node("LocalSignalBus") as LocalSignalBus
+	_pitch_damped_spring.stiffness = 3
+	_pitch_damped_spring.damping = 9
+	_roll_damped_spring.stiffness = 3
+	_roll_damped_spring.damping = 6
+	_y_damped_spring.stiffness = 6
+	_y_damped_spring.damping = 12
+
 
 func _ready() -> void:
 	_local_signal_bus.linear_accel_changed.connect(_on_linear_accel_changed)
@@ -94,12 +112,12 @@ func _on_linear_accel_changed(accel: Vector2) -> void:
 
 
 func _on_barrel_end_of_travel(speed: float, turret_angle: float) -> void:
-	_pitch_damped_spring.velocity += -speed * sin(turret_angle) * 0.2
-	_roll_damped_spring.velocity += -speed * cos(turret_angle) * 0.2
+	_pitch_damped_spring.velocity += speed * cos(turret_angle) * 0.2
+	_roll_damped_spring.velocity += -speed * sin(turret_angle) * 0.2
 
 
 ## Recoil effect from shoot signal
 func _on_cannon_fired(power: float, turret_angle: float, barrel_angle: float) -> void:
-	_pitch_damped_spring.velocity += 1.5 * power * sin(turret_angle) * cos(barrel_angle)
-	_roll_damped_spring.velocity += 1.5 * power * cos(turret_angle) * cos(barrel_angle)
+	_pitch_damped_spring.velocity += -1.5 * power * cos(turret_angle) * cos(barrel_angle)
+	_roll_damped_spring.velocity += 1.5 * power * sin(turret_angle) * cos(barrel_angle)
 	_y_damped_spring.velocity += 1.5 * power * sin(barrel_angle) * 0.05

@@ -1,7 +1,7 @@
 extends MultiMeshInstance3D
 
 @export var _tolerance: float = 0.002
-@export var _local_signal_bus: LocalSignalBus
+var _local_signal_bus: LocalSignalBus
 
 var _offset: float = 0
 var _previous_offset: float = -1
@@ -12,10 +12,23 @@ var _derivative_bias: float = 0.4
 
 @onready var _path: CaterpillarTrackCurve = get_child(0) as CaterpillarTrackCurve
 
+
+func _enter_tree() -> void:
+	_local_signal_bus = get_parent().get_node("LocalSignalBus") as LocalSignalBus
+	var mesh = preload("res://blender/tread.obj")
+	multimesh = MultiMesh.new()
+	multimesh.transform_format = MultiMesh.TRANSFORM_3D
+	multimesh.mesh = mesh
+	#multimesh.mesh.resource_path = "res://blender/tread.obj"
+
+
 func _ready() -> void:
 	_local_signal_bus.caterpillar_tracks_updated.connect(_on_track_updated)
-	_local_signal_bus.linear_speed_changed.connect(_on_linear_speed_changed)
-	_local_signal_bus.angular_speed_changed.connect(_on_angular_speed_changed)
+	_local_signal_bus.on_drive_speed_changed.connect(func(linear_speed: float, angular_speed: float):
+		_linear_speed = linear_speed
+		_angular_speed = angular_speed
+	)
+	#_local_signal_bus.angular_speed_changed.connect(_on_angular_speed_changed)
 	multimesh.instance_count = floori(_path.curve.get_baked_length() / _instance_spacing)
 
 
@@ -75,9 +88,9 @@ func _on_track_updated() -> void:
 	_update_segment_positions()
 
 
-func _on_linear_speed_changed(speed: float) -> void:
-	_linear_speed = speed
-
-
-func _on_angular_speed_changed(speed: float) -> void:
-	_angular_speed = speed
+#func _on_linear_speed_changed(speed: float) -> void:
+	#_linear_speed = speed
+#
+#
+#func _on_angular_speed_changed(speed: float) -> void:
+	#_angular_speed = speed

@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://dfdhbo48kwlay"]
 
-[ext_resource type="Script" path="res://sounds/engine_audio.gd" id="1_pt751"]
-[ext_resource type="AudioStream" uid="uid://macwjs8ldhcr" path="res://sounds/tank_engine_0.mp3" id="2_847va"]
-[ext_resource type="AudioStream" uid="uid://0wwxkyb0asks" path="res://sounds/tank_engine_1.mp3" id="4_dbwoj"]
+[ext_resource type="Script" path="res://tank/audio/engine_audio.gd" id="1_pt751"]
+[ext_resource type="AudioStream" uid="uid://macwjs8ldhcr" path="res://tank/audio/tank_engine_0.mp3" id="2_847va"]
+[ext_resource type="AudioStream" uid="uid://0wwxkyb0asks" path="res://tank/audio/tank_engine_1.mp3" id="4_dbwoj"]
 
 [node name="EngineAudio" type="Node3D"]
 script = ExtResource("1_pt751")

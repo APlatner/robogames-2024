@@ -1,8 +1,8 @@
 [gd_scene load_steps=12 format=3 uid="uid://dfk0ky7ku01lx"]
 
-[ext_resource type="Script" path="res://tank/bullet.gd" id="1_aujl3"]
+[ext_resource type="Script" path="res://tank/cannon/bullet.gd" id="1_aujl3"]
 [ext_resource type="PackedScene" uid="uid://cdpvjbg3pk67s" path="res://blender/bullet.blend" id="1_sejlh"]
-[ext_resource type="AudioStream" uid="uid://cpefyddace2qa" path="res://sounds/fall_whistle.mp3" id="3_haxmm"]
+[ext_resource type="AudioStream" uid="uid://cpefyddace2qa" path="res://tank/audio/fall_whistle.mp3" id="3_haxmm"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8ypw4"]
 radius = 0.15

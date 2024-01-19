@@ -15,7 +15,7 @@ func _ready() -> void:
 	_explosion_particle_node.amount_ratio = 0
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if not _shooting:
 		_explosion_particle_node.amount_ratio = 0
 

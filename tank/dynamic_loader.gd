@@ -9,11 +9,11 @@ func _enter_tree() -> void:
 
 func dynamic_script_load() -> void:
 	var root_path := "Roll/Pitch/Mesh/Chassis/"
-	var roller_script := load("res://tank/roller.gd")
-	var suspension_script := load("res://tank/suspension_arm.gd")
-	var shock_script := load("res://tank/shock.gd")
-	var cannon_script := load("res://tank/cannon.gd")
-	var cannon_report_scene := load("res://tank/cannon_report.tscn") as PackedScene
+	var roller_script := load("res://tank/physics_objects/roller.gd")
+	var suspension_script := load("res://tank/physics_objects/suspension_arm.gd")
+	var shock_script := load("res://tank/physics_objects/shock.gd")
+	var cannon_script := load("res://tank/cannon/cannon.gd")
+	var cannon_report_scene := load("res://tank/cannon/cannon_report.tscn") as PackedScene
 	var engine_smoke_scene := load("res://tank/engine_smoke.tscn") as PackedScene
 	var node: Node3D
 
