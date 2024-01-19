@@ -112,12 +112,12 @@ func _on_linear_accel_changed(accel: Vector2) -> void:
 
 
 func _on_barrel_end_of_travel(speed: float, turret_angle: float) -> void:
-	_pitch_damped_spring.velocity += -speed * sin(turret_angle) * 0.2
-	_roll_damped_spring.velocity += -speed * cos(turret_angle) * 0.2
+	_pitch_damped_spring.velocity += speed * cos(turret_angle) * 0.2
+	_roll_damped_spring.velocity += -speed * sin(turret_angle) * 0.2
 
 
 ## Recoil effect from shoot signal
 func _on_cannon_fired(power: float, turret_angle: float, barrel_angle: float) -> void:
-	_pitch_damped_spring.velocity += 1.5 * power * sin(turret_angle) * cos(barrel_angle)
-	_roll_damped_spring.velocity += 1.5 * power * cos(turret_angle) * cos(barrel_angle)
+	_pitch_damped_spring.velocity += -1.5 * power * cos(turret_angle) * cos(barrel_angle)
+	_roll_damped_spring.velocity += 1.5 * power * sin(turret_angle) * cos(barrel_angle)
 	_y_damped_spring.velocity += 1.5 * power * sin(barrel_angle) * 0.05

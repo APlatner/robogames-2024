@@ -28,7 +28,7 @@ var _can_shoot := false
 
 var _time_since_last_shot: float = 0
 
-var _bullet_instance: PackedScene = preload('res://tank/bullet.tscn')
+var _bullet_instance: PackedScene = preload('res://tank/cannon/bullet.tscn')
 var _parent_velocity: Vector3
 var _local_signal_bus: LocalSignalBus
 

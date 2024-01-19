@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://btdyjdt4fwx33"]
 
-[ext_resource type="AudioStream" uid="uid://cg7pc4y1rms88" path="res://sounds/cannon_shot.mp3" id="1_tdkqo"]
-[ext_resource type="Script" path="res://tank/cannon_report.gd" id="2_rd440"]
+[ext_resource type="AudioStream" uid="uid://cg7pc4y1rms88" path="res://tank/audio/cannon_shot.mp3" id="1_tdkqo"]
+[ext_resource type="Script" path="res://tank/cannon/cannon_report.gd" id="2_rd440"]
 
 [sub_resource type="Gradient" id="Gradient_wxl21"]
 offsets = PackedFloat32Array(0, 0.136364, 0.381818, 0.9)

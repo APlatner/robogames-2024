@@ -63,8 +63,6 @@ var _previous_velocity: Vector3
 	"Roll/Pitch/Mesh/Chassis/TurretDriveKey/Turret/ScannerBody"
 ) as Node3D
 
-@onready var controller: Controller = get_child(0) as Controller
-
 func _enter_tree() -> void:
 	if _agent_script:
 		(get_node("Coordinator") as Coordinator).script_path = _agent_script

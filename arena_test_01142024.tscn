@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://685rb5xnuhac"]
 
-[ext_resource type="PackedScene" uid="uid://ddjlon8vko2dp" path="res://tank/tank_v3.tscn" id="1_11sjd"]
+[ext_resource type="PackedScene" uid="uid://ddjlon8vko2dp" path="res://tank/tank.tscn" id="1_11sjd"]
 [ext_resource type="Texture2D" uid="uid://cwstmdfl66516" path="res://AllSkyFree_Sky_EpicBlueSunset_Equirect.png" id="2_qp6jb"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_6vm2d"]
@@ -38,7 +38,7 @@ size = Vector3(64, 1, 64)
 transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, -2, 17.5461, 5)
 
 [node name="Tank" parent="." instance=ExtResource("1_11sjd")]
-_agent_script = "res://agent/sample_agent.gd"
+_agent_script = "res://agents/sample_agent.gd"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_cdoau")

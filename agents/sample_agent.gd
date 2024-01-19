@@ -28,6 +28,8 @@ func run(delta: float) -> void:
 	drive(Input.get_axis("backward", "forward"), Input.get_axis("right", "left"))
 	#aim(Input.get_axis("pan_right", "pan_left"), Input.get_axis("tilt_up", "tilt_down"))
 	#scan(Input.get_axis("scan_right", "scan_left"))
+	if Input.is_action_pressed("shoot"):
+		shoot(1)
 	if scan_state == NOT_FOUND or scan_state == LOST_NEG:
 		scan(1)
 	elif scan_state == LOST_POS:
@@ -40,7 +42,7 @@ func run(delta: float) -> void:
 		var proportional := get_turret_angle_to_target()
 
 		error_sum += proportional
-		aim(50*proportional - 2*_turret_pan_speed+error_sum, 0)
+		aim(50*proportional - 2*_turret_pan_speed+error_sum, Input.get_axis("tilt_up", "tilt_down"))
 		smooth_target = 0.9 * smooth_target + target * 0.1
 		error_sum /= 1.01
 		signal_bus.targeted.emit(smooth_target)
