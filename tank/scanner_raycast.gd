@@ -9,8 +9,8 @@ var _scanner_angle: float
 func _enter_tree() -> void:
 	_local_signal_bus = get_parent().get_node("LocalSignalBus") as LocalSignalBus
 	target_position = Vector3.BACK * _scan_distance
-	_local_signal_bus.turret_rotated.connect(_on_turret_rotated)
-	_local_signal_bus.scanner_rotated.connect(_on_scanner_rotated)
+	_local_signal_bus.on_turret_angle_changed.connect(_on_turret_rotated)
+	_local_signal_bus.on_scanner_angle_changed.connect(_on_scanner_rotated)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -18,13 +18,13 @@ func _physics_process(_delta: float) -> void:
 	if is_colliding():
 		var obj = get_collider()
 		if obj is Tank:
-			_local_signal_bus.enemy_scanned.emit(get_parent_node_3d().to_local(get_collision_point()))
+			_local_signal_bus.on_tank_scanned.emit(get_parent_node_3d().to_local(get_collision_point()), str(obj.get_instance_id()).md5_text())
 		else:
-			_local_signal_bus.obstacle_scanned.emit(get_parent_node_3d().to_local(get_collision_point()))
+			_local_signal_bus.on_obstacle_scanned.emit(get_parent_node_3d().to_local(get_collision_point()))
 
 
-func _on_turret_rotated(turret_rotation: float) -> void:
-	_turret_angle = turret_rotation
+func _on_turret_rotated(pan_angle: float, _tilt_angle: float) -> void:
+	_turret_angle = pan_angle
 	rotation.y = _turret_angle + _scanner_angle
 
 

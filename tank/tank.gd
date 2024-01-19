@@ -13,7 +13,8 @@ const SCAN_ACCEL: float = 150
 const LINEAR_ACCEL: float = 6
 const ANGULAR_ACCEL: float = 6
 
-var _local_signal_bus: LocalSignalBus
+@export_file("*.gd") var _agent_script
+@export var _local_signal_bus: LocalSignalBus
 
 var _target_linear_speed: float
 var _target_angular_speed: float
@@ -24,25 +25,25 @@ var _target_scan_speed: float
 var _linear_speed: float:
 	set(value):
 		_linear_speed = value
-		_local_signal_bus.linear_speed_changed.emit(_linear_speed)
+		_local_signal_bus.on_drive_speed_changed.emit(_linear_speed, _angular_speed)
 
 var _angular_speed: float:
 	set(value):
 		_angular_speed = value
-		_local_signal_bus.angular_speed_changed.emit(_angular_speed)
+		_local_signal_bus.on_drive_speed_changed.emit(_linear_speed, _angular_speed)
 
 var _pan_speed: float:
 	set(value):
 		_pan_speed = value
-		_local_signal_bus.turret_speed_changed.emit(_pan_speed, _tilt_speed)
+		_local_signal_bus.on_turret_speed_changed.emit(_pan_speed, _tilt_speed)
 var _tilt_speed: float:
 	set(value):
 		_tilt_speed = value
-		_local_signal_bus.turret_speed_changed.emit(_pan_speed, _tilt_speed)
+		_local_signal_bus.on_turret_speed_changed.emit(_pan_speed, _tilt_speed)
 var _scan_speed: float:
 	set(value):
 		_scan_speed = value
-		_local_signal_bus.scanner_speed_changed.emit(value)
+		_local_signal_bus.on_scanner_speed_changed.emit(value)
 
 var _current_accel: Vector2:
 	set(value):
@@ -65,17 +66,15 @@ var _previous_velocity: Vector3
 @onready var controller: Controller = get_child(0) as Controller
 
 func _enter_tree() -> void:
-	_local_signal_bus = get_node("LocalSignalBus") as LocalSignalBus
+	if _agent_script:
+		(get_node("Coordinator") as Coordinator).script_path = _agent_script
+	_local_signal_bus.on_drive.connect(_on_drive_called)
+	_local_signal_bus.on_aim.connect(_on_aim_called)
+	_local_signal_bus.on_scan.connect(_on_scan_called)
 
-## TODO: figure out why turret initial rotation is -PI/2
-func _ready() -> void:
-	_local_signal_bus.drive_called.connect(_on_drive_called)
-	_local_signal_bus.aim_called.connect(_on_aim_called)
-	_local_signal_bus.scan_called.connect(_on_scan_called)
 
 func _physics_process(delta: float) -> void:
 	_update_velocities(delta)
-
 	# Apply velocities
 	velocity = _linear_speed * global_basis.z
 	if velocity != _previous_velocity:
@@ -83,8 +82,8 @@ func _physics_process(delta: float) -> void:
 	_previous_velocity = velocity
 	rotate_y(_angular_speed * delta)
 	_turret_node.rotate_y(_pan_speed * delta)
-	if _pan_speed != 0:
-		_local_signal_bus.turret_rotated.emit(_turret_node.rotation.y)
+	if _pan_speed != 0 or _tilt_speed != 0:
+		_local_signal_bus.on_turret_angle_changed.emit(_turret_node.rotation.y, _barrel_node.rotation.x)
 	_barrel_node.rotate_x(_tilt_speed * delta)
 
 	# Limit barrel rotation
@@ -97,16 +96,14 @@ func _physics_process(delta: float) -> void:
 		_tilt_speed = 0
 		_barrel_node.rotation_degrees.x = -100
 
-	_local_signal_bus.turret_rotation_changed.emit(_turret_node.rotation.y, _barrel_node.rotation.x)
-
 	_scanner_node.rotate_y(_scan_speed * delta)
 	if _scan_speed != 0:
-		_local_signal_bus.scanner_rotated.emit(_scanner_node.rotation.y)
+		_local_signal_bus.on_scanner_angle_changed.emit(_scanner_node.rotation.y)
 
 	_calc_accel()
 	_previous_linear_speed = _linear_speed
 	move_and_slide()
-	_local_signal_bus.tank_rotation_changed.emit(rotation.y)
+
 
 func _update_velocities(delta: float) -> void:
 	_linear_speed = _handle_any_velocity(

@@ -35,9 +35,8 @@ func run(delta: float) -> void:
 
 	if scan_state != NOT_FOUND:
 		target = (target_bound_neg + target_bound_pos) / 2
-		print(delta * _angular_speed)
+		#print(delta * _angular_speed)
 		target = target.rotated(Vector3.UP, -_angular_speed/4)
-		#print(_angular_speed)
 		var proportional := get_turret_angle_to_target()
 
 		error_sum += proportional
@@ -67,3 +66,5 @@ func get_turret_angle_to_target() -> float:
 	#print("angle_to: ", angle, ", turret_angle: ", _turret_pan_angle, ", diff: ", wrapf(angle - _turret_pan_angle, -PI, PI))
 	return wrapf(angle - _turret_pan_angle, -PI, PI)
 
+func _on_tank_scanned(scan_position, id):
+	pass

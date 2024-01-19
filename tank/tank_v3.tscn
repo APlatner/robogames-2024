@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://tank/tank.gd" id="1_rjh6g"]
 [ext_resource type="Script" path="res://tank/local_signal_bus.gd" id="2_4g0gy"]
-[ext_resource type="Script" path="res://agent/special_controller.gd" id="2_6at4i"]
+[ext_resource type="Script" path="res://agent/coordinator.gd" id="2_6at4i"]
 [ext_resource type="Script" path="res://tank/dynamic_loader.gd" id="2_xtp88"]
 [ext_resource type="Script" path="res://tank/caterpillar_track_curve.gd" id="4_4cygh"]
 [ext_resource type="Script" path="res://tank/caterpillar_track_mesh.gd" id="4_x2a3q"]
@@ -18,16 +18,16 @@ albedo_color = Color(1, 0, 0, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_1g14f"]
 size = Vector3(2.1, 1.4, 2.5)
 
-[node name="Tank" type="CharacterBody3D"]
+[node name="Tank" type="CharacterBody3D" node_paths=PackedStringArray("_local_signal_bus")]
 axis_lock_linear_y = true
 script = ExtResource("1_rjh6g")
+_local_signal_bus = NodePath("LocalSignalBus")
 
-[node name="Controller" type="Node3D" parent="." node_paths=PackedStringArray("_local_signal_bus")]
+[node name="Coordinator" type="Node3D" parent="." node_paths=PackedStringArray("_local_signal_bus")]
 script = ExtResource("2_6at4i")
 _local_signal_bus = NodePath("../LocalSignalBus")
-script_path = "res://agent/sample_agent.gd"
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="Controller"]
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Coordinator"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 material_override = SubResource("StandardMaterial3D_83dib")
 

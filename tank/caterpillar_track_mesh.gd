@@ -24,8 +24,11 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	_local_signal_bus.caterpillar_tracks_updated.connect(_on_track_updated)
-	_local_signal_bus.linear_speed_changed.connect(_on_linear_speed_changed)
-	_local_signal_bus.angular_speed_changed.connect(_on_angular_speed_changed)
+	_local_signal_bus.on_drive_speed_changed.connect(func(linear_speed: float, angular_speed: float):
+		_linear_speed = linear_speed
+		_angular_speed = angular_speed
+	)
+	#_local_signal_bus.angular_speed_changed.connect(_on_angular_speed_changed)
 	multimesh.instance_count = floori(_path.curve.get_baked_length() / _instance_spacing)
 
 
@@ -85,9 +88,9 @@ func _on_track_updated() -> void:
 	_update_segment_positions()
 
 
-func _on_linear_speed_changed(speed: float) -> void:
-	_linear_speed = speed
-
-
-func _on_angular_speed_changed(speed: float) -> void:
-	_angular_speed = speed
+#func _on_linear_speed_changed(speed: float) -> void:
+	#_linear_speed = speed
+#
+#
+#func _on_angular_speed_changed(speed: float) -> void:
+	#_angular_speed = speed

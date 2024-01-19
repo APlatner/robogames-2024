@@ -4,7 +4,7 @@ signal on_drive(linear_speed: float, angular_speed: float)
 signal on_aim(pan_speed: float, tilt_speed: float)
 signal on_scan(pan_speed: float)
 signal on_shoot(power: float)
-signal on_tank_scanned(scan_position: Vector3, is_friendly: bool)
+signal on_tank_scanned(scan_position: Vector3, id: String)
 signal on_obstacle_scanned(scan_position: Vector3)
 
 signal on_wobble(roll: float, pitch: float, y: float)

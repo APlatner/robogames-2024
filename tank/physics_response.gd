@@ -7,30 +7,39 @@ extends Node3D
 var _local_signal_bus: LocalSignalBus
 
 # Force update by setting previous positions to a non-zero value
-var _previous_pitch: float = -1
-var _previous_roll: float = -1
-var _previous_y: float = -1
+var _previous_pitch: float = -1:
+	set(value):
+		_previous_pitch = value
+		_local_signal_bus.on_wobble.emit(_previous_roll, _previous_pitch, _previous_y)
+var _previous_roll: float = -1:
+	set(value):
+		_previous_roll = value
+		_local_signal_bus.on_wobble.emit(_previous_roll, _previous_pitch, _previous_y)
+var _previous_y: float = -1:
+	set(value):
+		_previous_y = value
+		_local_signal_bus.on_wobble.emit(_previous_roll, _previous_pitch, _previous_y)
 
 var _linear_accel: Vector2
 var _suspension_arms: Array[SuspensionArm] = []
-
-@onready var pitch_node := get_node("Pitch") as Node3D
-@onready var root_node := get_parent_node_3d()
 var _pitch_damped_spring: DampedSpringParameters = DampedSpringParameters.new()
 var _roll_damped_spring: DampedSpringParameters = DampedSpringParameters.new()
 var _y_damped_spring: DampedSpringParameters = DampedSpringParameters.new()
 
+@onready var pitch_node := get_node("Pitch") as Node3D
+@onready var root_node := get_parent_node_3d()
+
 func _enter_tree() -> void:
 	_local_signal_bus = get_parent().get_node("LocalSignalBus") as LocalSignalBus
-
-
-func _ready() -> void:
 	_pitch_damped_spring.stiffness = 3
 	_pitch_damped_spring.damping = 9
 	_roll_damped_spring.stiffness = 3
 	_roll_damped_spring.damping = 6
 	_y_damped_spring.stiffness = 6
 	_y_damped_spring.damping = 12
+
+
+func _ready() -> void:
 	_local_signal_bus.linear_accel_changed.connect(_on_linear_accel_changed)
 	_local_signal_bus.barrel_end_of_travel.connect(_on_barrel_end_of_travel)
 	_local_signal_bus.cannon_fired.connect(_on_cannon_fired)

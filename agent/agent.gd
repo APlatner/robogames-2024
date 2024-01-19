@@ -20,11 +20,11 @@ var _body_y: float
 
 var _reloaded: bool
 var _overheated: bool
-var _can_shoot: bool
 var _cannon_heat: float
 
 var signal_bus: AgentSignalBus
 
+## Executed by the coordinator when script is loaded. Modify for a fully-customized, non-functional tank.
 func _onload() -> void:
 	signal_bus = AgentSignalBus.new()
 	signal_bus.on_tank_scanned.connect(_on_tank_scanned)
@@ -54,17 +54,14 @@ func _onload() -> void:
 		_body_y = y
 	)
 
+	signal_bus.on_cannon_heat_changed.connect(func(cannon_heat: float):
+		_cannon_heat = cannon_heat
+	)
 	signal_bus.on_reloaded_changed.connect(func(reloaded: bool):
 		_reloaded = reloaded
 	)
 	signal_bus.on_overheated_changed.connect(func(overheated: bool):
 		_overheated = overheated
-	)
-	signal_bus.on_can_shoot_changed.connect(func(can_shoot: bool):
-		_can_shoot = can_shoot
-	)
-	signal_bus.on_cannon_heat_changed.connect(func(cannon_heat: float):
-		_cannon_heat = cannon_heat
 	)
 
 
@@ -73,9 +70,9 @@ func start() -> void:
 	pass
 
 
-@warning_ignore("unused_parameter")
-func run(delta: float) -> void:
+func run(_delta: float) -> void:
 	pass
+
 
 ## commands the tank to move forward/backward and turn left/right
 ## linear_speed is a float between -1 and 1
@@ -98,7 +95,7 @@ func shoot(power: float) -> void:
 	signal_bus.on_shoot.emit(power)
 
 
-func _on_tank_scanned(_scan_position: Vector3, _is_friendly: bool) -> void:
+func _on_tank_scanned(_scan_position: Vector3, _id: String) -> void:
 	pass
 
 
