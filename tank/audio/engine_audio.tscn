@@ -10,7 +10,9 @@ script = ExtResource("1_pt751")
 [node name="Idle" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("2_847va")
 attenuation_model = 1
+bus = &"EngineNoise"
 
 [node name="FullSpeed" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("4_dbwoj")
 attenuation_model = 1
+bus = &"EngineNoise"

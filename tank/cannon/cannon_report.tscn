@@ -45,6 +45,7 @@ rings = 8
 [node name="CannonReport" type="AudioStreamPlayer3D"]
 stream = ExtResource("1_tdkqo")
 attenuation_model = 1
+bus = &"Explosions"
 script = ExtResource("2_rd440")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
