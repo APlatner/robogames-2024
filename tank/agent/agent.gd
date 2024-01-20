@@ -29,6 +29,7 @@ func _onload() -> void:
 	signal_bus = AgentSignalBus.new()
 	signal_bus.on_tank_scanned.connect(_on_tank_scanned)
 	signal_bus.on_obstacle_scanned.connect(_on_obstacle_scanned)
+	signal_bus.on_nothing_scanned.connect(_on_nothing_scanned)
 	signal_bus.on_drive_speed_changed.connect(func(linear_speed: float, angular_speed: float):
 			_linear_speed = linear_speed
 			_angular_speed = angular_speed
@@ -100,4 +101,8 @@ func _on_tank_scanned(_scan_position: Vector3, _id: String) -> void:
 
 
 func _on_obstacle_scanned(_scan_position: Vector3):
+	pass
+
+
+func _on_nothing_scanned():
 	pass

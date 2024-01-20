@@ -31,9 +31,9 @@ func run(delta: float) -> void:
 	if Input.is_action_pressed("shoot"):
 		shoot(1)
 	if scan_state == NOT_FOUND or scan_state == LOST_NEG:
-		scan(1)
+		scan(0.5)
 	elif scan_state == LOST_POS:
-		scan(-1)
+		scan(-0.5)
 
 	if scan_state != NOT_FOUND:
 		target = (target_bound_neg + target_bound_pos) / 2

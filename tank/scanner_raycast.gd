@@ -21,6 +21,8 @@ func _physics_process(_delta: float) -> void:
 			_local_signal_bus.on_tank_scanned.emit(get_parent_node_3d().to_local(get_collision_point()), str(obj.get_instance_id()).md5_text())
 		else:
 			_local_signal_bus.on_obstacle_scanned.emit(get_parent_node_3d().to_local(get_collision_point()))
+	else:
+		_local_signal_bus.on_nothing_scanned.emit()
 
 
 func _on_turret_rotated(pan_angle: float, _tilt_angle: float) -> void:

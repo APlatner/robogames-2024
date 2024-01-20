@@ -62,6 +62,9 @@ func _controller_to_agent_signals() -> void:
 	_local_signal_bus.on_obstacle_scanned.connect(func(scan_position: Vector3):
 		_agent.signal_bus.on_obstacle_scanned.emit(scan_position)
 	)
+	_local_signal_bus.on_nothing_scanned.connect(func():
+		_agent.signal_bus.on_nothing_scanned.emit()
+	)
 
 
 func _agent_to_controller_signals() -> void:
@@ -80,5 +83,5 @@ func _agent_to_controller_signals() -> void:
 
 	## TODO: Remove temporary signal
 	_agent.signal_bus.targeted.connect(func(target: Vector3):
-		get_child(0).position = Vector3(target.x,0,target.z)
+		get_child(0).position = target
 	)

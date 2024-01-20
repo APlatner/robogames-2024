@@ -28,3 +28,4 @@ signal on_reloaded_changed(reloaded: bool)
 signal on_overheated_changed(overheated: bool)
 signal on_tank_scanned(scan_position: Vector3, id: String)
 signal on_obstacle_scanned(scan_position: Vector3)
+signal on_nothing_scanned
