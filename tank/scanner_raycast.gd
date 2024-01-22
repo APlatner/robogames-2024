@@ -18,7 +18,8 @@ func _physics_process(_delta: float) -> void:
 	if is_colliding():
 		var obj = get_collider()
 		if obj is Tank:
-			_local_signal_bus.on_tank_scanned.emit(get_parent_node_3d().to_local(get_collision_point()), str(obj.get_instance_id()).md5_text())
+			var _localized_position := get_parent_node_3d().to_local((obj as Tank).global_position) as Vector3
+			_local_signal_bus.on_tank_scanned.emit(_localized_position, str(obj.get_instance_id()).md5_text())
 		else:
 			_local_signal_bus.on_obstacle_scanned.emit(get_parent_node_3d().to_local(get_collision_point()))
 	else:

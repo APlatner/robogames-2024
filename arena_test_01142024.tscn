@@ -35,10 +35,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 size = Vector3(64, 1, 64)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, -2, 17.5461, 5)
+transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 7.57104e-08, 0.866025, 0.5, 4.37114e-08, 0.5, -0.866025, -2, 9.5461, -11)
 
 [node name="Tank" parent="." instance=ExtResource("1_11sjd")]
-_agent_script = "res://agents/sample_agent.gd"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_cdoau")
@@ -104,8 +103,8 @@ transform = Transform3D(64, 0, 0, 0, 3, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("BoxMesh_cqgd8")
 
 [node name="Tank2" parent="." instance=ExtResource("1_11sjd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.50871, 0, 14.4174)
-_agent_script = "res://agents/scandroid_v1.gd"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.417)
+_agent_script = "res://agents/scandroid_v2.gd"
 
 [node name="Tank3" parent="." instance=ExtResource("1_11sjd")]
 transform = Transform3D(0.999848, 0, 0.0174175, 0, 1, 0, -0.0174175, 0, 0.999848, 14.4929, 0, 11.4148)

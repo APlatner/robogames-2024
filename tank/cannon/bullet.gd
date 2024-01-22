@@ -29,7 +29,13 @@ func _physics_process(delta: float) -> void:
 	_directional_velocity.y += _gravity * delta
 	velocity = _directional_velocity + parent_velocity
 	basis = Basis.looking_at(_directional_velocity, Vector3.UP, true)
-	move_and_slide()
+	var collision := move_and_collide(velocity * delta) as KinematicCollision3D
+	if collision:
+		var collider := collision.get_collider()
+		if collider is Tank:
+			collision.get_position()
+			(collider as Tank).oompf(collision.get_position(), collision.get_normal(), velocity, 1)
+		_explode()
 
 
 func _process(delta: float) -> void:
@@ -45,3 +51,7 @@ func _process(delta: float) -> void:
 	_lifetime += delta
 	if _lifetime >= MAX_LIFETIME:
 		queue_free()
+
+
+func _explode():
+	queue_free()

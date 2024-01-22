@@ -13,7 +13,7 @@ var _scan_speed_scale: float = 1.2
 
 var _time_since_last_scan: float = 0
 
-var _buffer_size: int = 4
+var _buffer_size: int = 1
 var _position_buffer: Array[Vector3]
 var _cw_buffer: Array[Vector3]
 var _ccw_buffer: Array[Vector3]
@@ -77,7 +77,7 @@ func _update_buffers():
 		var ccw_avg: Vector3 = trunc_ccw_buffer.reduce(sum_vec_array)/len(trunc_ccw_buffer)
 		_averaged_scan_position = (cw_avg + ccw_avg)/2
 		var diff := _averaged_scan_position - _previous_scan_position
-		_velocity_adjusted_position = _averaged_scan_position + diff * _buffer_size * 2
+		_velocity_adjusted_position = _averaged_scan_position + diff * _buffer_size
 
 		_previous_scan_position = _averaged_scan_position
 	_time_since_last_scan = 0

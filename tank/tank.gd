@@ -196,3 +196,9 @@ func _on_aim_called(pan_input: float, tilt_input: float = 0) -> void:
 func _on_scan_called(scan_input: float) -> void:
 	scan_input = clampf(scan_input, -1, 1)
 	_target_scan_speed = MAX_SCAN_SPEED * scan_input
+
+
+func oompf(hit_position: Vector3, hit_normal: Vector3, hit_velocity: Vector3, power: float):
+	#print(to_local(hit_position))
+	_local_signal_bus.cannon_fired.emit(1, -atan2(hit_position.x, hit_position.z), 0)
+	print(hit_normal)
