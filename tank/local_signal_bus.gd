@@ -8,6 +8,7 @@ signal linear_accel_changed(accel: float)
 signal angular_accel_changed(accel: float)
 signal barrel_end_of_travel(barrel_speed: float, turret_angle: float)
 signal cannon_fired(power: float, turret_angle: float, barrel_angle: float)
+signal on_impacted(power: float, rotation_vector: Vector3)
 
 ## Passthrough Signals
 # From Agent

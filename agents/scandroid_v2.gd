@@ -10,6 +10,7 @@ func run(delta: float):
 	else:
 		_lock_target(_tank_position, delta)
 
+	aim(Input.get_axis("pan_right", "pan_left"), Input.get_axis("tilt_up", "tilt_down"))
 
 	drive(Input.get_axis("backward", "forward") ,Input.get_axis("right", "left"))
 	if (Input.is_action_just_pressed("shoot")):
@@ -23,7 +24,7 @@ func run(delta: float):
 		- _previous_tank_position.rotated(Vector3.UP, -_angular_speed * delta)
 		)
 	signal_bus.targeted.emit(_tank_position + diff / delta + Vector3.UP * 1.5)
-	_aim_at_target(_tank_position + diff / delta + Vector3.UP * 1.5, delta)
+	#_aim_at_target(_tank_position + diff / delta + Vector3.UP * 1.5, delta)
 	_previous_tank_position = _tank_position
 
 

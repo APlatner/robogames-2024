@@ -69,6 +69,9 @@ func _enter_tree() -> void:
 	_local_signal_bus.on_drive.connect(_on_drive_called)
 	_local_signal_bus.on_aim.connect(_on_aim_called)
 	_local_signal_bus.on_scan.connect(_on_scan_called)
+	_local_signal_bus.on_impacted.connect(func(power: float, cross: Vector3):
+		_angular_speed = cross.y * power
+	)
 
 
 func _physics_process(delta: float) -> void:
@@ -200,5 +203,7 @@ func _on_scan_called(scan_input: float) -> void:
 
 func oompf(hit_position: Vector3, hit_normal: Vector3, hit_velocity: Vector3, power: float):
 	#print(to_local(hit_position))
-	_local_signal_bus.cannon_fired.emit(1, -atan2(hit_position.x, hit_position.z), 0)
-	print(hit_normal)
+	var cross_product := hit_velocity.cross(hit_position)
+	_local_signal_bus.cannon_fired.emit(power, -atan2(cross_product.z, cross_product.x), 0)
+	_angular_speed = -cross_product.y * power * 0.2
+
