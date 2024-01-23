@@ -1,9 +1,7 @@
 class_name Agent
 
-@warning_ignore("unused_private_class_variable")
-var _author: String
-@warning_ignore("unused_private_class_variable")
-var _tank_name: String
+var author: String = "Unknown Author"
+var agent_name: String = "Unnamed Agent"
 
 var _linear_speed: float
 var _angular_speed: float

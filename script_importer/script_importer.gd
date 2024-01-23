@@ -15,7 +15,7 @@ func _import():
 			var contents: Array[String] = []
 			while not file.eof_reached():
 				contents.append(file.get_line())
-			_validate(contents)
+			#_validate(contents)
 			var contestant = Contestant.new()
 			var script := load(_dir_name + "/" + file_name) as Script
 			contestant.compile_error = script.reload()

@@ -19,9 +19,9 @@ var previous_scan_state := NOT_FOUND
 
 
 func start() -> void:
-	_author = "Jonathan Platner"
-	_tank_name = "Tether"
-	print("Introducing '", _tank_name, "' by ", _author)
+	author = "Jonathan Platner"
+	agent_name = "Tether"
+	#print("Introducing '", tank_name, "' by ", author)
 
 
 func run(delta: float) -> void:

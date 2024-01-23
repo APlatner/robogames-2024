@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b1c7xk8g2y4m0"]
 
-[ext_resource type="Theme" uid="uid://b16urei1xqmh3" path="res://script_importer/import_theme.tres" id="1_gcplt"]
+[ext_resource type="Theme" uid="uid://cypy5nr4v5qn8" path="res://script_importer/import_theme.tres" id="1_gcplt"]
 [ext_resource type="Script" path="res://script_importer/script_line_item.gd" id="2_omoax"]
 
 [node name="ScriptLineItem" type="MarginContainer"]
@@ -27,28 +27,34 @@ theme = ExtResource("1_gcplt")
 
 [node name="NumberMargin" type="MarginContainer" parent="HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 4
 theme = ExtResource("1_gcplt")
 
 [node name="ScriptNumber" type="Label" parent="HBoxContainer/NumberMargin"]
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 4
 theme = ExtResource("1_gcplt")
+theme_type_variation = &"HeaderSmall"
 text = "01"
 
-[node name="NameMargin" type="MarginContainer" parent="HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="ScriptName" type="Label" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("1_gcplt")
-theme_override_constants/margin_left = 0
+theme_type_variation = &"HeaderSmall"
+text = "sample_script_name"
 
-[node name="ScriptName" type="Label" parent="HBoxContainer/NameMargin"]
+[node name="Author" type="Label" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("1_gcplt")
 text = "sample_script_name"
 
 [node name="ErrorMargin" type="MarginContainer" parent="HBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 10
 theme = ExtResource("1_gcplt")

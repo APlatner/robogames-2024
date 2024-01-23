@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://script_importer/script_importer.gd" id="1_17t4y"]
 [ext_resource type="Theme" uid="uid://cypy5nr4v5qn8" path="res://script_importer/import_theme.tres" id="1_bpry1"]
-[ext_resource type="PackedScene" path="res://script_importer/script_line_item.tscn" id="2_tfokr"]
+[ext_resource type="PackedScene" uid="uid://b1c7xk8g2y4m0" path="res://script_importer/script_line_item.tscn" id="2_tfokr"]
 [ext_resource type="Script" path="res://script_importer/script_displayer.gd" id="2_vsrqv"]
 [ext_resource type="Script" path="res://script_importer/folder_selector.gd" id="5_aya7s"]
 

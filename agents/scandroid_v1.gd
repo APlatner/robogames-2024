@@ -23,8 +23,8 @@ var _velocity_adjusted_position: Vector3
 var _filtered_position: Vector3
 
 func start():
-	_author = "Jonathan Platner"
-	_tank_name = "Scandroid"
+	author = "Jonathan Platner"
+	agent_name = "Scandroid"
 	_ccw_buffer.resize(_buffer_size)
 	_ccw_buffer.fill(Vector3.ZERO)
 	_cw_buffer.resize(_buffer_size)
