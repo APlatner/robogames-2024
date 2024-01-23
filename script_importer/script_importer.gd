@@ -1,6 +1,7 @@
 extends Node
 
 signal scripts_processed(scripts: Array[Contestant])
+signal on_start(contestants: Array[Contestant])
 
 var _file_names: Array[String]
 var _dir_name: String
@@ -19,6 +20,7 @@ func _import():
 			var contestant = Contestant.new()
 			var script := load(_dir_name + "/" + file_name) as Script
 			contestant.compile_error = script.reload()
+			contestant.script_path = _dir_name + "/" + file_name
 			if contestant.compile_error == 0:
 				contestant.compiled_script = script
 				contestant.compile()
@@ -72,3 +74,8 @@ func _on_dir_selected(dir: String):
 		_import()
 	else:
 		print("An error occurred when trying to access the path.")
+
+
+func _on_start_pressed() -> void:
+	on_start.emit(_contestants)
+	queue_free()

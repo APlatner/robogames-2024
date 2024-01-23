@@ -32,9 +32,9 @@ func _process(_delta: float) -> void:
 	var left: float = absf(-_angular_speed + _linear_speed)
 	var right: float = absf(_angular_speed + _linear_speed)
 	var factor: float = (left + right) / 5 - 1
-	_engine_idle.pitch_scale = 1 + (factor + 1) / 4
+	_engine_idle.pitch_scale = clampf(1 + (factor + 1) / 4, 0.3, 2)
 	_engine_full_speed.volume_db = linear_to_db(sqrt(0.5 * (1 + factor)))
-	_engine_full_speed.pitch_scale = 1 + (factor + 1) / 16
+	_engine_full_speed.pitch_scale = clampf(1 + (factor + 1) / 16, 0.3, 2)
 
 
 #func _on_linear_speed_changed(speed: float) -> void:

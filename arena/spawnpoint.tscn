@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://dblrwum2m7e3f"]
+
+[ext_resource type="Script" path="res://arena/spawnpoint.gd" id="1_11ln0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nghng"]
+transparency = 1
+albedo_color = Color(0, 0.698039, 1, 0.705882)
+
+[node name="Spawnpoint" type="Node3D" groups=["spawnpoints"]]
+script = ExtResource("1_11ln0")
+
+[node name="Mesh" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+material_override = SubResource("StandardMaterial3D_nghng")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Mesh"]
+height = 0.2
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Mesh"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0.4)
+size = Vector3(0.3, 0.2, 0.3)

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Robogames"
-run/main_scene="res://arena_test_01142024.tscn"
+run/main_scene="res://arena/arena_test_01142024.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 

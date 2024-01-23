@@ -6,25 +6,13 @@
 [ext_resource type="Script" path="res://script_importer/script_displayer.gd" id="2_vsrqv"]
 [ext_resource type="Script" path="res://script_importer/folder_selector.gd" id="5_aya7s"]
 
-[node name="Control" type="Control"]
+[node name="ScriptImporter" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="FileDialog" type="FileDialog" parent="."]
-title = "Open a Directory"
-initial_position = 2
-size = Vector2i(800, 500)
-content_scale_mode = 1
-content_scale_aspect = 1
-theme = ExtResource("1_bpry1")
-ok_button_text = "Select Current Folder"
-file_mode = 2
-access = 2
-show_hidden_files = true
 script = ExtResource("1_17t4y")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
@@ -57,6 +45,25 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="ButtonContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -108.0
+offset_bottom = -45.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Button" type="Button" parent="ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_bpry1")
+theme_type_variation = &"MainMenuButton"
+text = "Start!"
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 10
@@ -81,7 +88,7 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Load"
 
-[connection signal="dir_selected" from="FileDialog" to="FileDialog" method="_on_dir_selected"]
-[connection signal="scripts_processed" from="FileDialog" to="ScrollContainer" method="_on_scripts_processed"]
-[connection signal="folder_selected" from="MarginContainer/HBoxContainer" to="FileDialog" method="_on_dir_selected"]
+[connection signal="scripts_processed" from="." to="ScrollContainer" method="_on_scripts_processed"]
+[connection signal="pressed" from="ButtonContainer/Button" to="." method="_on_start_pressed"]
+[connection signal="folder_selected" from="MarginContainer/HBoxContainer" to="." method="_on_dir_selected"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Button" to="MarginContainer/HBoxContainer" method="_on_button_pressed"]

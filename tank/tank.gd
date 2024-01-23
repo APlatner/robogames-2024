@@ -203,5 +203,5 @@ func _on_scan_called(scan_input: float) -> void:
 func oompf(hit_position: Vector3, hit_normal: Vector3, hit_velocity: Vector3, power: float):
 	var cross_product := hit_velocity.cross(hit_position)
 	_local_signal_bus.cannon_fired.emit(power, -atan2(cross_product.z, cross_product.x), 0)
-	_angular_speed = -cross_product.y * power * 0.2
+	_angular_speed = -sign(cross_product.y)*sqrt(absf(cross_product.y)) * power * 0.2
 

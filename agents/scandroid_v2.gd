@@ -14,7 +14,7 @@ func run(delta: float):
 
 	drive(Input.get_axis("backward", "forward") ,Input.get_axis("right", "left"))
 	if (Input.is_action_just_pressed("shoot")):
-		shoot(1)
+		shoot(0.3)
 	#aim(1, 0)
 	#aim(0.2, 0)
 
