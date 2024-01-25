@@ -13,8 +13,12 @@ const SCAN_ACCEL: float = 150
 const LINEAR_ACCEL: float = 6
 const ANGULAR_ACCEL: float = 6
 
+const MAX_HEALTH: float = 10
+
 @export_file("*.gd") var _agent_script
 @export var _local_signal_bus: LocalSignalBus
+
+var _health := MAX_HEALTH
 
 var _target_linear_speed: float
 var _target_angular_speed: float
@@ -203,5 +207,12 @@ func _on_scan_called(scan_input: float) -> void:
 func oompf(hit_position: Vector3, hit_normal: Vector3, hit_velocity: Vector3, power: float):
 	var cross_product := hit_velocity.cross(hit_position)
 	_local_signal_bus.cannon_fired.emit(power, -atan2(cross_product.z, cross_product.x), 0)
-	_angular_speed = -sign(cross_product.y)*sqrt(absf(cross_product.y)) * power * 0.2
+	_angular_speed = -signf(cross_product.y)*sqrt(absf(cross_product.y)) * power * 0.2
+	_health -= power
+	if _health <= 0:
+		die()
+
+
+func die():
+	queue_free()
 
